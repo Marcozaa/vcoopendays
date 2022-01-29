@@ -17,10 +17,10 @@ import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
 export default function Friends() {
   const header = ['nome', 'ultimo accesso', 'azioni'];
   const data = [
-    { name: 'Daggy', created: '7 giorni fa' },
-    { name: 'Anubra', created: '23 ore fa' },
-    { name: 'Josef', created: 'Qualche ora fa' },
-    { name: 'Sage', created: 'Qualche secondo fa' },
+    { nome: 'Daggy', online: '7 giorni fa' },
+    { nome: 'Anubra', online: '23 ore fa' },
+    { nome: 'Josef', online: 'Qualche ora fa' },
+    { nome: 'Sage', online: 'Qualche secondo fa' },
   ];
   return (
     <Flex
@@ -135,7 +135,7 @@ export default function Friends() {
                     fontFamily: 'heading',
                   }}
                 >
-                  Actions
+                  Azioni
                 </Td>
                 <Td>
                   <ButtonGroup variant="solid" size="sm" spacing={3}>

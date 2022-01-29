@@ -20,7 +20,7 @@ import './firstPage.css'
 import { Reviews } from '../components/Reviews';
 import KuttyHero from '../components/CallToAction';
 export default function FirstPage() {
-  return <ChakraProvider theme={theme}>
+  return <div>
      
       <div className="hero">
       <FirstPageContent /> 
@@ -42,5 +42,5 @@ export default function FirstPage() {
       
      
         
-    </ChakraProvider>;
+    </div>;
 }

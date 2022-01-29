@@ -25,13 +25,13 @@ import { BsFillCameraVideoFill, BsPerson, BsPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { MdSchool } from "react-icons/md";
 import { FaSchool } from "react-icons/fa";
-
+import './navbar.css'
 export default function Navbar() {
   const bg = useColorModeValue("white.900", "gray.800");
   const mobileNav = useDisclosure();
 
   return (
-    <React.Fragment>
+    <React.Fragment className="navContainer">
       <chakra.header
         bg={bg}
         w="full"
@@ -129,9 +129,7 @@ export default function Navbar() {
             display={mobileNav.isOpen ? "none" : "flex"}
             alignItems="center"
           >
-            <Button leftIcon={<BsPlus />}>
-              Nuova iscrizione
-            </Button>
+         
 
             <ColorModeSwitcher justifySelf="flex-end" />
 

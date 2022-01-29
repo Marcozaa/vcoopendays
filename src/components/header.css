@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Domine:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&display=swap');
+.content {
+  display: flex;
+}
+.content > .left {
+  width: 50%;
+  font-family: 'Domine', serif;
+  font-size: 3.5vw;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.content > .left > p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.8vw;
+  font-family: 200;
+}
+.content > .left > .button {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 1rem 1rem 0rem 1rem;
+}
+.content > .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content > .right > img {
+  width: 40rem;
+}

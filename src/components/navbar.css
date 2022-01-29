@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&display=swap');
+.navbar {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;
+  display: flex;
+  padding: 2rem;
+  font-size: 1.5rem;
+  justify-content: space-between;
+}
+
+.navbar > .left {
+  display: flex;
+  align-items: center;
+}
+.navbar > .right {
+  font-size: 1rem;
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.navbar > .right2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar > .right > h3 {
+  cursor: pointer;
+  transition: 1s ease;
+}
+.navbar > .right > h3:hover {
+  letter-spacing: 2px;
+}

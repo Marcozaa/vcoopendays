@@ -1,71 +1,110 @@
-import React from 'react';
-import { FaStar } from 'react-icons/fa';
-import { Box, Image, Badge } from '@chakra-ui/react';
-import './scuola.css'
-export default function ScuolaCard({scuola}) {
-  const property = {
-    imageUrl: 'https://bit.ly/2Z4KKcF',
-    imageAlt: 'Rear view of modern home with pool',
-    beds: 3,
-    baths: 2,
-    title: scuola,
-    formattedPrice: '0',
-    reviewCount: 34,
-    rating: 4,
-  }
+import React from "react";
+import {
+  chakra,
+  Box,
+  Image,
+  Flex,
+  Icon,
+  useColorModeValue,
+} from "@chakra-ui/react";
+
+import { MdHeadset, MdEmail, MdLocationOn } from "react-icons/md";
+import { BsFillBriefcaseFill } from "react-icons/bs";
+import { FaSchool } from "react-icons/fa";
+
+const ScuolaCard = ({scuola}) => {
+
 
   return (
-    <Box maxW='sm' borderWidth='1px' margin={'1rem'} borderRadius='lg' overflow='hidden'>
-      <Image src={property.imageUrl} alt={property.imageAlt} />
+    <Flex
+      bg={useColorModeValue("#F9FAFB", "gray.600")}
+      p={50}
+      w="full"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
+        w="sm"
+        mx="auto"
+        bg={useColorModeValue("white", "gray.800")}
+        shadow="lg"
+        rounded="lg"
+        overflow="hidden"
+      >
+        <Image
+          w="full"
+          h={56}
+          fit="cover"
+          objectPosition="center"
+          src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+          alt="avatar"
+        />
 
-      <Box p='6'>
-        <Box display='flex' alignItems='baseline'>
-          <Badge borderRadius='full' px='2' colorScheme='teal'>
-            New
-          </Badge>
-          <Box
-            color='gray.500'
-            fontWeight='semibold'
-            letterSpacing='wide'
-            fontSize='xs'
-            textTransform='uppercase'
-            ml='2'
+        <Flex alignItems="center" px={6} py={3} bg="gray.900">
+
+          <chakra.h1 mx={3} color="white" fontWeight="bold" fontSize="lg">
+            {scuola}
+          </chakra.h1>
+        </Flex>
+
+        <Box py={4} px={6}>
+          <chakra.h1
+            fontSize="xl"
+            fontWeight="bold"
+            color={useColorModeValue("gray.800", "white")}
           >
-            {property.beds} beds &bull; {property.baths} baths
-          </Box>
-        </Box>
+            Patterson johnson
+          </chakra.h1>
 
-        <Box
-          mt='1'
-          fontWeight='semibold'
-          as='h4'
-          lineHeight='tight'
-          isTruncated
-        >
-          {property.title}
-        </Box>
+          <chakra.p py={2} color={useColorModeValue("gray.700", "gray.400")}>
+            Full Stack maker & UI / UX Designer , love hip hop music Author of
+            Building UI.
+          </chakra.p>
 
-        <Box>
-          {property.formattedPrice}
-          <Box as='span' color='gray.600' fontSize='sm'>
-            / wk
-          </Box>
-        </Box>
+          <Flex
+            alignItems="center"
+            mt={4}
+            color={useColorModeValue("gray.700", "gray.200")}
+          >
+            <Icon
+              as={BsFillBriefcaseFill}
+              as={BsFillBriefcaseFill}
+              h={6}
+              w={6}
+              mr={2}
+            />
 
-        <Box display='flex' mt='2' alignItems='center'>
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <FaStar
-                key={i}
-                color={i < property.rating ? 'teal.500' : 'gray.300'}
-              />
-            ))}
-          <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-            {property.reviewCount} reviews
-          </Box>
+            <chakra.h1 px={2} fontSize="sm">
+              Choc UI
+            </chakra.h1>
+          </Flex>
+
+          <Flex
+            alignItems="center"
+            mt={4}
+            color={useColorModeValue("gray.700", "gray.200")}
+          >
+            <Icon as={MdLocationOn} h={6} w={6} mr={2} />
+
+            <chakra.h1 px={2} fontSize="sm">
+              California
+            </chakra.h1>
+          </Flex>
+          <Flex
+            alignItems="center"
+            mt={4}
+            color={useColorModeValue("gray.700", "gray.200")}
+          >
+            <Icon as={MdEmail} h={6} w={6} mr={2} />
+
+            <chakra.h1 px={2} fontSize="sm">
+              patterson@example.com
+            </chakra.h1>
+          </Flex>
         </Box>
       </Box>
-    </Box>
-  )
-}
+    </Flex>
+  );
+};
+
+export default ScuolaCard;

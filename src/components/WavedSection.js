@@ -16,7 +16,7 @@ export default function WavedSection() {
     <h3>Lorem ipsum dolor sit amet</h3>
     <p className='learnmore'>learn more</p>
 </div>
-<div className="right">
+<div className="rightC">
     <p> consectetur adipiscing elit. Morbi placerat, ligula non aliquam vehicula, mauris ipsum laoreet elit, congue posuere neque ipsum at justo.</p>
 
 </div>

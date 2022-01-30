@@ -3,7 +3,11 @@ import * as React from 'react'
 import { Quotee } from './Quotee.tsx'
 import { QuoteIcon } from './QuoteIcon.tsx'
 
-export const Reviews = () => (
+export function Reviews  () {
+  function changeQuote(){
+    console.log("hu")
+  }
+  return (
   <Box as="section" bg={useColorModeValue('white', 'gray.800')}>
     <Box maxW="3xl" mx="auto" px={{ base: '6', md: '8' }} pt="12" pb="16">
       <Flex direction="column" align="center" textAlign="center">
@@ -24,9 +28,10 @@ export const Reviews = () => (
       </Flex>
       <HStack justify="center" spacing="4" mt="8" color={useColorModeValue('gray.300', 'gray.600')}>
         <Circle w="3" h="3" bg="blue.500"  />
-        <Circle w="2" h="2" bg="currentColor" />
+        <Circle w="2" h="2" bg="currentColor" style={{cursor:'pointer'}} onClick={changeQuote} />
         <Circle w="2" h="2" bg="currentColor" />
       </HStack>
     </Box>
   </Box>
-)
+  )
+  }

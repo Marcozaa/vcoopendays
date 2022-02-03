@@ -5,6 +5,7 @@ import './header.css'
 import { motion } from 'framer-motion';
 import image1 from './image1.png'
 import { Link } from 'react-router-dom';
+import { BsPersonFill } from 'react-icons/bs';
 
 
 export default function FirstPageContent() {
@@ -20,6 +21,11 @@ export default function FirstPageContent() {
 <Button colorScheme='twitter' leftIcon={<FaTwitter />}>
   <Link to="registrati">
     Registrati
+    </Link>
+  </Button>
+  <Button colorScheme='teal' leftIcon={<BsPersonFill />}>
+  <Link to="login">
+    Login
     </Link>
   </Button>
 

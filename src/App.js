@@ -22,6 +22,7 @@ import Registrati from './pages/Registrati';
 import Persone from './pages/Persone';
 import axios from 'axios';
 import https from 'axios'
+import Login from './pages/Login';
 function App() {
 
 
@@ -58,6 +59,7 @@ axios.get('https://something.com/foo', { httpsAgent: agent });
       <Route path="invoices" element={<ContainerCarousel />} />
       <Route path="registrati" element={<Registrati />} />
       <Route path="persone" element={<Persone />} />
+      <Route path="login" element={<Login />} />
     </Routes>
     </ChakraProvider>
   );

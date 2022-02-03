@@ -21,13 +21,27 @@ import {
 import Registrati from './pages/Registrati';
 import Persone from './pages/Persone';
 import axios from 'axios';
+import https from 'axios'
 function App() {
 
 
+/* Ignorare certificato ssl
 
-  // Prova connessione db
+const instance = axios.create({
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  })
+});
+instance.get('https://something.com/foo');
+
+// At request level
+const agent = new https.Agent({  
+  rejectUnauthorized: false
+});
+axios.get('https://something.com/foo', { httpsAgent: agent });
         // get request
-        axios.get('http://localhost:4300/vcoopendays/backend/connection.php').then(res => 
+        */
+        axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/connection.php').then(res => 
         {
         
         console.log(res.data);

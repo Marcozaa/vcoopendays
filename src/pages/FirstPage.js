@@ -20,7 +20,7 @@ import './firstPage.css'
 import { Reviews } from '../components/Reviews';
 import KuttyHero from '../components/CallToAction';
 export default function FirstPage() {
-  return <div>
+  return <div className='page'>
      
       <div className="hero">
       <FirstPageContent /> 

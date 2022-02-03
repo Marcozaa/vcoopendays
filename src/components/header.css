@@ -8,7 +8,7 @@
   width: 40%;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 3.5vw;
+  font-size: 3vw;
   padding: 4vw 4vw 0vw 4vw;
   display: flex;
   align-items: center;
@@ -17,7 +17,7 @@
 }
 .content > .left > p {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.8vw;
+  font-size: 1.4vw;
   font-family: 200;
   font-weight: 300;
 }
@@ -48,6 +48,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
   }
   .content > .left {
     font-size: 5vw;

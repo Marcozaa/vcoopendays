@@ -20,7 +20,20 @@ import {
 } from "react-router-dom";import FirstPage from './pages/FirstPage';
 import Registrati from './pages/Registrati';
 import Persone from './pages/Persone';
+import axios from 'axios';
 function App() {
+
+
+
+  // Prova connessione db
+        // get request
+        axios.get('http://localhost:4300/vcoopendays/backend/connection.php').then(res => 
+        {
+        
+        console.log(res.data);
+           }); 
+          
+        
   return (
     <ChakraProvider theme={theme}>
       <Navbar />

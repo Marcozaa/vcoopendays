@@ -12,8 +12,10 @@ import {
   Stack,
   Icon,
 } from "@chakra-ui/react";
-
+import { useToast } from '@chakra-ui/react'
 const KuttyHero = () => {
+    const toast = useToast()
+
   const Feature = (props) => (
     <Flex alignItems="center" color={useColorModeValue(null, "white")}>
       <Icon
@@ -86,6 +88,15 @@ const KuttyHero = () => {
             type="submit"
           
             cursor="pointer"
+            onClick={() =>
+        toast({
+          title: 'Email inviata.',
+          description: "Ti abbiamo inviato una mail all'indirizzo inserito.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+      }
           >
             Inizia
           </Button>

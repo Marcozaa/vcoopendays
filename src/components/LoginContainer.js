@@ -23,7 +23,11 @@ const LoginContainer = () => {
         axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/loginTest.php?emailInserita='
         +emailInserita+"&passwordInserita="+passwordInserita).then(res => 
         {
-        console.log(res)
+        if(res.data== true){
+          window.location.href = 'profilo'
+        }else{
+          window.location.href = '404'
+        }
            }); 
     }
   return (

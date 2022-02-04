@@ -17,8 +17,8 @@ import axios from 'axios';
 
 const KuttyHero = () => {
     const toast = useToast()
-    function invioMail(){
-      axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/invioNewsLetter.php?mailLogin=marcozanchin2@gmail.com').then(res => 
+    function invioMail(mail){
+      axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/invioNewsLetter.php?mailLogin='+mail).then(res => 
         {
         
         console.log(res.data);
@@ -86,6 +86,7 @@ const KuttyHero = () => {
               type="email"
               placeholder="Enter your email..."
               required="true"
+              id="email"
             />
           </GridItem>
           <Button
@@ -97,7 +98,7 @@ const KuttyHero = () => {
             type="submit"
           
             cursor="pointer"
-            onClick={invioMail}
+            onClick={()=>invioMail(document.getElementById("email").value)}
           >
             Invia
           </Button>

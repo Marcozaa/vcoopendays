@@ -26,22 +26,6 @@ import Login from './pages/Login';
 function App() {
 
 
-/* Ignorare certificato ssl
-
-const instance = axios.create({
-  httpsAgent: new https.Agent({  
-    rejectUnauthorized: false
-  })
-});
-instance.get('https://something.com/foo');
-
-// At request level
-const agent = new https.Agent({  
-  rejectUnauthorized: false
-});
-axios.get('https://something.com/foo', { httpsAgent: agent });
-        // get request
-        */
         axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/connection.php').then(res => 
         {
         

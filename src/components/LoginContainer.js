@@ -17,6 +17,7 @@ import axios from 'axios';
 import Navbar from "./Navbar";
 const LoginContainer = () => {
    const [loginEseguito, setLoginEseguito]= useState(null)
+   const [loginErrato, setLoginErrato]= useState(false)
     function login(){
       var passwordInserita = document.getElementById("password").value
             var emailInserita = document.getElementById("email").value
@@ -24,12 +25,16 @@ const LoginContainer = () => {
         +emailInserita+"&passwordInserita="+passwordInserita).then(res => 
         {
         if(res.data== true){
+          setLoginErrato(false);
           window.location.href = 'profilo'
         }else{
-          window.location.href = '404'
+          setLoginErrato(true);
+          window.location.reload()
+
         }
            }); 
     }
+    
   return (
     <Box px={8} py={24} mx="auto">
       <SimpleGrid
@@ -99,6 +104,11 @@ const LoginContainer = () => {
               </Flex>
           
             </SimpleGrid>
+            { loginErrato && (
+              <p>Login Errato</p>
+            )
+            }
+            
             <Flex px={6} py={4}>
               <Button
                 py={2}

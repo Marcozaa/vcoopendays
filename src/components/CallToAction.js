@@ -13,8 +13,17 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { useToast } from '@chakra-ui/react'
+import axios from 'axios';
+
 const KuttyHero = () => {
     const toast = useToast()
+    function invioMail(){
+      axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/invioNewsLetter.php?mailLogin=marcozanchin2@gmail.com').then(res => 
+        {
+        
+        console.log(res.data);
+           }); 
+    }
 
   const Feature = (props) => (
     <Flex alignItems="center" color={useColorModeValue(null, "white")}>
@@ -88,17 +97,9 @@ const KuttyHero = () => {
             type="submit"
           
             cursor="pointer"
-            onClick={() =>
-        toast({
-          title: 'Email inviata.',
-          description: "Ti abbiamo inviato una mail all'indirizzo inserito.",
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-      }
+            onClick={invioMail}
           >
-            Inizia
+            Invia
           </Button>
         </SimpleGrid>
         <Stack

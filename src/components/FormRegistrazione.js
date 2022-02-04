@@ -37,9 +37,9 @@ export default function FormRegistrazione() {
           spacing={{ md: 6 }}
         >
             <motion.div
-    animate={{ opacity: [0,1] }}
-    transition={{ duration: 0.7 }}
-  >
+            animate={{ opacity: [0,1] }}
+            transition={{ duration: 0.7 }}
+          >
           <GridItem colSpan={{ md: 1 }}>
             <Box px={[4, 0]}>
               <Heading fontSize="lg" fontWeight="md" lineHeight="6">

@@ -53,7 +53,7 @@ axios.get('https://something.com/foo', { httpsAgent: agent });
     <ChakraProvider theme={theme}>
       <Navbar />
       {/* Gestione di tutte le routes nell'applicazione */}
-       <Routes>
+      <Routes>
       <Route path="/" element={<FirstPage />} />
       <Route path="scuole" element={<ContainerCarousel />} />
       <Route path="invoices" element={<ContainerCarousel />} />

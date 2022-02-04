@@ -9,6 +9,10 @@ $database   = "Popa_Zanchin_GestioneEventi";
 $username   = "exAdminer";
 $password     = "CBC349bb";
 $port = 3306;
+
+$nome = $_POST['valore'];
+echo("hudshsu");
+echo("Il nome e' " + $nome);
 // Create connection
 $conn = new mysqli($host, $username, $password, $database, $port);
 // Check connection

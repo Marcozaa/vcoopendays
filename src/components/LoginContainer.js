@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   chakra,
   Box,
@@ -14,13 +14,28 @@ import {
   Input,
 } from "@chakra-ui/react";
 import axios from 'axios';
+import Navbar from "./Navbar";
 const LoginContainer = () => {
+   const [loginEseguito, setLoginEseguito]= useState(null)
     function login(){
-        
-  axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/checkLogin.php').then(res => 
+        axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/checkLogin.php').then(res => 
         {
-        
-        console.log(res.data);
+            var passwordInserita = document.getElementById("password").value
+            var emailInserita = document.getElementById("email").value
+            console.log(passwordInserita)
+
+        // controllo password con risultato query
+        for(var i = 0; i<res.data.length; i++){
+            if(res.data[i].Password == passwordInserita 
+                && res.data[i].Email == emailInserita){
+                    console.log("Inserimento corretto")
+                    setLoginEseguito(true)
+            }else{
+                console.log("Inserimento non corretto")
+                console.log("email " + res.data[i].Email +  "  " + emailInserita)
+                console.log("pass " + res.data[i].Password + "  " + passwordInserita)
+            }
+            }
            }); 
     }
   return (
@@ -77,6 +92,7 @@ const LoginContainer = () => {
                   type="email"
                   placeholder="Email Address"
                   required="true"
+                  id="email"
                 />
               </Flex>
               <Flex>
@@ -86,6 +102,7 @@ const LoginContainer = () => {
                   type="password"
                   placeholder="Password"
                   required="true"
+                  id="password"
                 />
               </Flex>
           
@@ -110,6 +127,7 @@ const LoginContainer = () => {
         </GridItem>
       </SimpleGrid>
     </Box>
+    
   );
 };
 

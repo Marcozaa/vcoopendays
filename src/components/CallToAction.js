@@ -98,14 +98,7 @@ const KuttyHero = () => {
             type="submit"
           
             cursor="pointer"
-            onClick={()=>invioMail(document.getElementById("email").value),
-           ()=>toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
+            onClick={()=>invioMail(document.getElementById("email").value)
           }
           >
             Invia

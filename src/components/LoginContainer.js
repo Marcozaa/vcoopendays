@@ -18,24 +18,12 @@ import Navbar from "./Navbar";
 const LoginContainer = () => {
    const [loginEseguito, setLoginEseguito]= useState(null)
     function login(){
-        axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/checkLogin.php').then(res => 
-        {
-            var passwordInserita = document.getElementById("password").value
+      var passwordInserita = document.getElementById("password").value
             var emailInserita = document.getElementById("email").value
-            console.log(passwordInserita)
-
-        // controllo password con risultato query
-        for(var i = 0; i<res.data.length; i++){
-            if(res.data[i].Password == passwordInserita 
-                && res.data[i].Email == emailInserita){
-                    console.log("Inserimento corretto")
-                    setLoginEseguito(true)
-            }else{
-                console.log("Inserimento non corretto")
-                console.log("email " + res.data[i].Email +  "  " + emailInserita)
-                console.log("pass " + res.data[i].Password + "  " + passwordInserita)
-            }
-            }
+        axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/loginTest.php?emailInserita='
+        +emailInserita+"&passwordInserita="+passwordInserita).then(res => 
+        {
+        console.log(res)
            }); 
     }
   return (

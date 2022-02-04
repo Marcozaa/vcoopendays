@@ -12,6 +12,11 @@ import {
   SimpleGrid,
   VisuallyHidden,
   Input,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
 } from "@chakra-ui/react";
 import axios from 'axios';
 import Navbar from "./Navbar";
@@ -29,13 +34,23 @@ const LoginContainer = () => {
           window.location.href = 'profilo'
         }else{
           setLoginErrato(true);
-          window.location.reload()
+          document.getElementById("password").value = ""
 
         }
            }); 
     }
     
   return (
+    <div>
+       { loginErrato && (
+   <Alert status='error'>
+  <AlertIcon />
+  <AlertTitle mr={2}>hai inserito credenziali errate!</AlertTitle>
+  <AlertDescription>Riprova il login.</AlertDescription>
+  <CloseButton position='absolute' right='8px' top='8px' />
+</Alert>
+  )
+   }
     <Box px={8} py={24} mx="auto">
       <SimpleGrid
         alignItems="center"
@@ -104,10 +119,7 @@ const LoginContainer = () => {
               </Flex>
           
             </SimpleGrid>
-            { loginErrato && (
-              <p>Login Errato</p>
-            )
-            }
+
             
             <Flex px={6} py={4}>
               <Button
@@ -129,7 +141,7 @@ const LoginContainer = () => {
         </GridItem>
       </SimpleGrid>
     </Box>
-    
+    </div>
   );
 };
 

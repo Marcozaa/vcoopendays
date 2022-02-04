@@ -9,6 +9,7 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import FirstPageContent from './components/FirstPageContent';
 import WavedSection from './components/WavedSection';
@@ -23,15 +24,10 @@ import Persone from './pages/Persone';
 import axios from 'axios';
 import https from 'axios'
 import Login from './pages/Login';
+import Profilo from './pages/Profilo';
 function App() {
 
-
-        axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/connection.php').then(res => 
-        {
-        
-        console.log(res.data);
-           }); 
-          
+        const [datiUtente, setDatiUtente] = useState(null);
         
   return (
     <ChakraProvider theme={theme}>
@@ -43,7 +39,8 @@ function App() {
       <Route path="invoices" element={<ContainerCarousel />} />
       <Route path="registrati" element={<Registrati />} />
       <Route path="persone" element={<Persone />} />
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login setDatiUtente={setDatiUtente} />} />
+      <Route path="profilo" element={<Profilo datiUtente={datiUtente}/>} />
     </Routes>
     </ChakraProvider>
   );

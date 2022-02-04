@@ -20,17 +20,18 @@ import {
 } from "@chakra-ui/react";
 import axios from 'axios';
 import Navbar from "./Navbar";
-const LoginContainer = () => {
+const LoginContainer = ({setDatiUtente}) => {
    const [loginEseguito, setLoginEseguito]= useState(null)
    const [loginErrato, setLoginErrato]= useState(false)
     function login(){
       var passwordInserita = document.getElementById("password").value
-            var emailInserita = document.getElementById("email").value
+      var emailInserita = document.getElementById("email").value
         axios.get('https://87.250.73.22/html/Zanchin/vcoopendays/loginTest.php?emailInserita='
         +emailInserita+"&passwordInserita="+passwordInserita).then(res => 
         {
         if(res.data== true){
           setLoginErrato(false);
+          setDatiUtente(emailInserita)
           window.location.href = 'profilo'
         }else{
           setLoginErrato(true);

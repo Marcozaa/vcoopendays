@@ -1,9 +1,9 @@
 import Footer from "../components/Footer";
 import LoginContainer from "../components/LoginContainer";
 
-const Login = () => {
+const Login = ({setDatiUtente}) => {
     return ( <div>
-        <LoginContainer />
+        <LoginContainer setDatiUtente={setDatiUtente}/>
         <Footer />
     </div> );
 }

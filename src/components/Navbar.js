@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 
 import {
   chakra,
@@ -13,27 +13,36 @@ import {
   IconButton,
   CloseButton,
   Avatar,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import {
   AiOutlineMenu,
   AiFillHome,
   AiOutlineInbox,
   AiFillBell,
-} from "react-icons/ai";
-import { BsFillCameraVideoFill, BsPerson, BsPlus } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import { MdSchool } from "react-icons/md";
-import { FaSchool } from "react-icons/fa";
-import './navbar.css'
+} from 'react-icons/ai';
+import {
+  BsFillCameraVideoFill,
+  BsPerson,
+  BsPersonFill,
+  BsPlus,
+} from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { MdSchool } from 'react-icons/md';
+import { FaSchool, FaTwitter } from 'react-icons/fa';
+import './navbar.css';
 export default function Navbar() {
-  const bg = useColorModeValue("white.900", "gray.800");
+  const bg = useColorModeValue('white.900', 'gray.800');
   const mobileNav = useDisclosure();
 
-
-  function checkLogin(){
-    console.log(document.cookie.indexOf('username='))
-  }
+  const [loggato, setLoggato] = useState(false);
+  useEffect(() => {
+    if (document.cookie.indexOf('username=') == 0) {
+      setLoggato(true);
+    } else {
+      setLoggato(false);
+    }
+  }, []);
 
   return (
     <React.Fragment className="navContainer">
@@ -46,12 +55,12 @@ export default function Navbar() {
       >
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <HStack display="flex" spacing={3} alignItems="center">
-            <Box display={{ base: "inline-flex", md: "none" }}>
+            <Box display={{ base: 'inline-flex', md: 'none' }}>
               <IconButton
-                display={{ base: "flex", md: "none" }}
+                display={{ base: 'flex', md: 'none' }}
                 aria-label="Open menu"
                 fontSize="20px"
-                color={useColorModeValue("gray.800", "black.600")}
+                color={useColorModeValue('gray.800', 'black.600')}
                 variant="ghost"
                 icon={<AiOutlineMenu />}
                 onClick={mobileNav.onOpen}
@@ -61,7 +70,7 @@ export default function Navbar() {
                 top={0}
                 left={0}
                 right={0}
-                display={mobileNav.isOpen ? "flex" : "none"}
+                display={mobileNav.isOpen ? 'flex' : 'none'}
                 flexDirection="column"
                 p={2}
                 pb={4}
@@ -79,19 +88,10 @@ export default function Navbar() {
                 <Button w="full" variant="ghost" leftIcon={<FaSchool />}>
                   <Link to="/scuole">Scuole </Link>
                 </Button>
-                <Button
-                  w="full"
-                  
-                  color={'gray.900'}
-                  leftIcon={<BsPerson />}
-                >
+                <Button w="full" color={'gray.900'} leftIcon={<BsPerson />}>
                   <Link to="/persone">Studenti </Link>
                 </Button>
-                <Button
-                  w="full"
-                  variant="ghost"
-                  leftIcon={<MdSchool />}
-                >
+                <Button w="full" variant="ghost" leftIcon={<MdSchool />}>
                   <Link to="/impara">Impara </Link>
                 </Button>
               </VStack>
@@ -102,66 +102,73 @@ export default function Navbar() {
               display="flex"
               alignItems="center"
             >
-         
-              <div className="logo"> <Link to='/'>
-          :vcodays
-          </Link></div>
+              <div className="logo">
+                {' '}
+                <Link to="/">:vcodays</Link>
+              </div>
             </chakra.a>
 
-            <HStack spacing={3} display={{ base: "none", md: "inline-flex" }}>
+            <HStack spacing={3} display={{ base: 'none', md: 'inline-flex' }}>
               <Button variant="ghost" leftIcon={<FaSchool />} size="sm">
                 <Link to="/scuole">Scuole </Link>
               </Button>
-              <Button
-                
-                
-                leftIcon={<BsPerson />}
-                size="sm"
-              >
+              <Button leftIcon={<BsPerson />} size="sm">
                 <Link to="/persone">Studenti </Link>
               </Button>
-              <Button
-                variant="ghost"
-                leftIcon={<MdSchool />}
-                size="sm"
-              >
+              <Button variant="ghost" leftIcon={<MdSchool />} size="sm">
                 <Link to="/impara">Impara </Link>
               </Button>
             </HStack>
           </HStack>
           <HStack
             spacing={3}
-            display={mobileNav.isOpen ? "none" : "flex"}
+            display={mobileNav.isOpen ? 'none' : 'flex'}
             alignItems="center"
           >
-         
-
             <ColorModeSwitcher justifySelf="flex-end" />
 
             <chakra.a
-              p={3}
-              color={useColorModeValue("gray.800", "inherit")}
+              p={0}
+              color={useColorModeValue('gray.800', 'inherit')}
               rounded="sm"
-              _hover={{ color: useColorModeValue("black.800", "gray.600") }}
+              _hover={{ color: useColorModeValue('black.800', 'gray.600') }}
             >
-              <AiFillBell />
-              <VisuallyHidden>Notifications</VisuallyHidden>
             </chakra.a>
 
-            <Link to="profilo">
-            <Avatar
-              size="sm"
-              name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
-            />
-            </Link>
+            {loggato ? (
+              <Link to="profilo">
+                <Avatar
+                  size="sm"
+                  name="Dan Abrahmov"
+                  src="https://bit.ly/dan-abramov"
+                />
+              </Link>
+            ) : (
+              <Flex>
+                <Link to="registrati">
+                  <Button
+                    marginRight={'0.8vw'}
+                    colorScheme="twitter"
+                    leftIcon={<FaTwitter />}
+                  >
+                    Registrati
+                  </Button>
+                </Link>
+                <Link to="login">
+                  <Button colorScheme="teal" leftIcon={<BsPersonFill />}>
+                    Login
+                  </Button>
+                </Link>
+              </Flex>
+            )}
           </HStack>
         </Flex>
       </chakra.header>
     </React.Fragment>
   );
 }
-{/*}
+{
+  /*}
         <Link to='/'>
           :vcodays
           </Link>
@@ -181,4 +188,5 @@ export default function Navbar() {
 
 )
 
-*/}
+*/
+}

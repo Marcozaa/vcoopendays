@@ -40,8 +40,8 @@ const LoginContainer = ({ setDatiUtente }) => {
         if (res.data == true) {
           setLoginErrato(false);
           setDatiUtente(emailInserita);
-          document.cookie = "username=John Doe";
-          //window.location.href = 'profilo';
+          document.cookie = "username="+emailInserita;
+          window.location.href = 'profilo';
         } else {
           setLoginErrato(true);
           document.getElementById('password').value = '';

@@ -1,9 +1,11 @@
 .scuole {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 .carousel {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  overflow-x: scroll;
+  flex-wrap: wrap;
 }

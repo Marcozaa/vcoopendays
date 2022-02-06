@@ -1,16 +1,40 @@
 import React from 'react';
+import axios from 'axios';
+import { Avatar, Flex, Text } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
 import ScuolaCard from './ScuolaCard';
-import './scuolecarousel.css'
+import './scuolecarousel.css';
 
 export default function ContainerCarousel() {
-    const scuole = ["IC INNOCENZO IX","SMS INNOCENZO IX","IC FOGAZZARO","SMS FOGAZZARO","SMS DI BEE","SMS DI CANNERO RIVIERA","IC CARMINE","SMS CARMINE","SMS DI CASALE CORTE CERRO","IC FRATELLI CASETTI","SMS CASETTI","SMS DI CRODO","IPSAA FOBELLI","CONVITTO FOBELLI","Scuola media Antonio Rosmini","IS MARCONI-GALLETTI","SMS DI DOMODOSSOLA","Liceo della Comunicazione Antonio Rosmini","LS SPEZIA","IPSAR Mellerio Rosmini","IPSIA GALLETTI","IPSIA GALLETTI - CORSO SERALE","ITCG EINAUDI","ITCG EINAUDI - CORSO SERALE","ITI  G. MARCONI","IC GALILEO GALILEI","SMS GALILEO GALILEI","SMS DI MERGOZZO","SMS DI OGGEBBIO","Scuola media Angela Merici","C.T.P. DI VERBANO-CUSIO-OSSOLA","IS GOBETTI","IS DALLA CHIESA-SPINELLI","SMS F. M. BELTRAMI","LICEO SCIENTIFICO GOBETTI","IPSIA DALLA CHIESA","IPSIA DALLA CHIESA - CORSO SERALE","LICEO ARTISTICO GOBETTI","ITCPACLE A. SPINELLI","IC SAN FRANCESCO","SMS SAN FRANCESCO","IC DI PIEDIMULERA","SMS DI PIEVE VERGONTE","IC A. TESTORE","SMS TESTORE","IC C. REBORA","SMS C. REBORA","IPSSAR  MAGGIA","SMS DI VALSTRONA","SMS G. BORGNA","SMS DI VARZO","IS FERRINI-FRANZOSINI","SMS S. QUASIMODO","SMS RANZONI","LS B. CAVALIERI","IPSCT FRANZOSINI","ITCG FERRINI","ITI L. COBIANCHI","IC BAGNOLINI","SMS BAGNOLINI","IC DALLA CHIESA","SMS DI VOGOGNA"]
-  return <div className='carousel'>
-      
+  const [nomeScuole, setNomeScuole] = useState(null);
+  var c = 0;
+  let items = []
+  useEffect(() => {
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioni.php'
+      )
+      .then(res => {
+        res.data.map(scuola => 
+          items.push({
+            scuola: scuola
+          })
+        )
+        setNomeScuole({ items: items})
+
+        console.log(nomeScuole.items[0].scuola.Nome_Scuola)
+      });
+  }, []);
+
+  return (
+    <div className="carousel">
       <div className="scuole">
-{scuole.map((scuola) =>
-      <ScuolaCard scuola={scuola}/>
-      )}
+        {nomeScuole && (
+        nomeScuole.items.map(scuola => (
+          <ScuolaCard nome={scuola.scuola.Nome_Scuola} codice={scuola.scuola.Codice_Meccanografico}  />
+        ))
+        )}
       </div>
-      
-  </div>;
+    </div>
+  );
 }

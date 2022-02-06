@@ -18,18 +18,6 @@ export default function FirstPageContent() {
           <p>Con il termine lorem ipsum si indica un testo segnaposto utilizzato da grafici,
              designer, programmatori e tipografi a modo riempitivo per bozzetti e prove</p>
           <div className="button">
-<Button colorScheme='twitter' leftIcon={<FaTwitter />}>
-  <Link to="registrati">
-    Registrati
-    </Link>
-  </Button>
-  <Button colorScheme='teal' leftIcon={<BsPersonFill />}>
-  <Link to="login">
-    Login
-  </Link>
-  </Button>
-
-          
       </div>
      
       </motion.div>

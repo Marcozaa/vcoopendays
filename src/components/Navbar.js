@@ -30,6 +30,11 @@ export default function Navbar() {
   const bg = useColorModeValue("white.900", "gray.800");
   const mobileNav = useDisclosure();
 
+
+  function checkLogin(){
+    console.log(document.cookie.indexOf('username='))
+  }
+
   return (
     <React.Fragment className="navContainer">
       <chakra.header
@@ -143,11 +148,13 @@ export default function Navbar() {
               <VisuallyHidden>Notifications</VisuallyHidden>
             </chakra.a>
 
+            <Link to="profilo">
             <Avatar
               size="sm"
               name="Dan Abrahmov"
               src="https://bit.ly/dan-abramov"
             />
+            </Link>
           </HStack>
         </Flex>
       </chakra.header>

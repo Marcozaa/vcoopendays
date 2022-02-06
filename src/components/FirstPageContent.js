@@ -26,7 +26,7 @@ export default function FirstPageContent() {
   <Button colorScheme='teal' leftIcon={<BsPersonFill />}>
   <Link to="login">
     Login
-    </Link>
+  </Link>
   </Button>
 
           

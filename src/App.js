@@ -27,7 +27,8 @@ import Login from './pages/Login';
 import Profilo from './pages/Profilo';
 function App() {
 
-        const [datiUtente, setDatiUtente] = useState(null);
+        const [mailUtente, setDatiUtente] = useState(null);
+        
         
   return (
     <ChakraProvider theme={theme}>
@@ -40,7 +41,7 @@ function App() {
       <Route path="registrati" element={<Registrati />} />
       <Route path="persone" element={<Persone />} />
       <Route path="login" element={<Login setDatiUtente={setDatiUtente} />} />
-      <Route path="profilo" element={<Profilo datiUtente={datiUtente}/>} />
+      <Route path="profilo" element={<Profilo datiUtente={mailUtente}/>} />
     </Routes>
     </ChakraProvider>
   );

@@ -6,6 +6,10 @@
   align-items: center;
 }
 .carousel {
+  margin: auto;
   display: flex;
+  width: 80%;
+  justify-content: center;
   flex-wrap: wrap;
+
 }

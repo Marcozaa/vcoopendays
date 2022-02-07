@@ -15,12 +15,12 @@ export default function ScuolaCard({nome,codice}) {
   return (
     <Center py={12}>
       <Box
-        margin={'0.7vw'}
+        margin={'0.9vw'}
         role={'group'}
         p={6}
         maxW={'330px'}
         w={'full'}
-        bg={useColorModeValue('white', 'gray.750')}
+        bg={useColorModeValue('white', 'gray.700')}
         boxShadow={'2xl'}
         rounded={'lg'}
         pos={'relative'}

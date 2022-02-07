@@ -85,15 +85,21 @@ export default function Navbar() {
                   justifySelf="self-start"
                   onClick={mobileNav.onClose}
                 />
-                <Button w="full" variant="ghost" leftIcon={<FaSchool />}>
-                  <Link to="/scuole">Scuole </Link>
-                </Button>
-                <Button w="full" color={'gray.900'} leftIcon={<BsPerson />}>
-                  <Link to="/persone">Studenti </Link>
-                </Button>
-                <Button w="full" variant="ghost" leftIcon={<MdSchool />}>
-                  <Link to="/impara">Impara </Link>
-                </Button>
+                <Link to="/scuole">
+                  <Button w="full" variant="ghost" leftIcon={<FaSchool />}>
+                    Scuole
+                  </Button>
+                </Link>
+                <Link to="/persone">
+                  <Button w="full" color={'gray.900'} leftIcon={<BsPerson />}>
+                    Studenti
+                  </Button>
+                </Link>
+                <Link to="/impara">
+                  <Button w="full" variant="ghost" leftIcon={<MdSchool />}>
+                    Impara
+                  </Button>
+                </Link>
               </VStack>
             </Box>
             <chakra.a

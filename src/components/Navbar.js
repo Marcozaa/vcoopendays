@@ -13,6 +13,10 @@ import {
   IconButton,
   CloseButton,
   Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import {
@@ -20,6 +24,7 @@ import {
   AiFillHome,
   AiOutlineInbox,
   AiFillBell,
+  AiOutlineProfile,
 } from 'react-icons/ai';
 import {
   BsFillCameraVideoFill,
@@ -28,8 +33,8 @@ import {
   BsPlus,
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { MdSchool } from 'react-icons/md';
-import { FaSchool, FaTwitter } from 'react-icons/fa';
+import { MdAddCircle, MdEditLocation, MdExitToApp, MdRepeat, MdSchool } from 'react-icons/md';
+import { FaExternalLinkAlt, FaSchool, FaTwitter } from 'react-icons/fa';
 import './navbar.css';
 export default function Navbar() {
   const bg = useColorModeValue('white.900', 'gray.800');
@@ -43,6 +48,11 @@ export default function Navbar() {
       setLoggato(false);
     }
   }, []);
+
+  function logout(){ // rimuovo il cookie profilo e ricarico la homepage
+    document.cookie = "username"+'=; Max-Age=-99999999;';  
+    window.location.href = '/';
+  }
 
   return (
     <React.Fragment className="navContainer">
@@ -142,13 +152,25 @@ export default function Navbar() {
             </chakra.a>
 
             {loggato ? (
-              <Link to="profilo">
-                <Avatar
-                  size="sm"
-                  name="Dan Abrahmov"
-                  src="https://bit.ly/dan-abramov"
-                />
-              </Link>
+              
+              <Menu>
+                <MenuButton>
+                  <Avatar name='Sasuke Uchiha' src='https://bit.ly/broken-link' />
+                </MenuButton>
+                <MenuList>
+                  <Link to="profilo">
+                  <MenuItem 
+                  icon={<BsPerson />} command='⌘T'>
+                    Profilo
+                  </MenuItem>
+                  </Link>
+                  <MenuItem  
+                  onClick={logout}
+                  icon={<MdExitToApp />} command='⌘N'>
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             ) : (
               <Flex>
                 <Link to="registrati">

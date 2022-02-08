@@ -1,10 +1,17 @@
 import './profilo.css';
 import axios from 'axios';
-import { Avatar, Flex, Text } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { Avatar, Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { useState, useEffect, useRef } from 'react';
 import { FaMale, FaSchool } from 'react-icons/fa';
 import ProfileSections from '../components/ProfileSections';
-
+import { Form } from '../components/ChangeNameOverlay';
+import { Popover, PopoverTrigger } from '@chakra-ui/react';
+import { IconButton } from '@chakra-ui/react';
+import { FaEdit } from 'react-icons/fa';
+import { PopoverContent } from '@chakra-ui/react';
+import  FocusLock from "react-focus-lock"
+import { PopoverArrow } from '@chakra-ui/react';
+import { PopoverCloseButton } from '@chakra-ui/react';
 const Profilo = ({ datiUtente }) => {
   const [immagineProfilo, setImmagineProfilo] = useState(null);
   const [nomeUtente, setNomeUtente] = useState(null);
@@ -56,19 +63,27 @@ const Profilo = ({ datiUtente }) => {
   }
 
   let user = getCookie('username');
+
+  const { onOpen, onClose, isOpen } = useDisclosure()
+  const firstFieldRef = useRef(null)
   return (
     <div >
         {loggato ? (
-      <div>
+      <div className='profilo' style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
         <div className="top">
           <div className="left">
             {immagineProfilo && (
               <Avatar
-                width={'8vw'}
+                width={'10vw'}
                 minWidth={'5rem'}
                 minHeight={'5rem'}
-                height={'8vw'}
+                maxWidth={'150px'}
+                maxHeight={'150px'}
+                height={'10vw'}
+                position={'absolute'}
+                top={'10vh'}
                 name={user}
+                border={'10px solid #242424'}
                 src={immagineProfilo}
               />
             )}
@@ -78,28 +93,49 @@ const Profilo = ({ datiUtente }) => {
             
           </div>
         </div>
-        <div className="infos">
+        <div className="infos" >{/*usecolormode*/}
             <div className="infos-top">
             {nomeUtente && (
+              <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
               <Text
               className='nome'
               fontSize="lg">
                 {nomeUtente} {cognomeUtente}
               </Text>
+              <Popover
+              isOpen={isOpen}
+              initialFocusRef={firstFieldRef}
+              onOpen={onOpen}
+              onClose={onClose}
+              placement='right'
+              closeOnBlur={false}
+            >
+              <PopoverTrigger>
+                <IconButton size='sm' icon={<FaEdit />} />
+              </PopoverTrigger>
+              <PopoverContent p={5}>
+                <FocusLock returnFocus persistentFocus={false}>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <Form firstFieldRef={firstFieldRef} onCancel={onClose} />
+                </FocusLock>
+              </PopoverContent>
+            </Popover>
+              </Box>
             )}
             </div>
             {classeUtente && (
-              <div className="scuola">
+              <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
                 <FaSchool />
-                <Text fontSize="lg">{classeUtente}</Text>
-              </div>
+                <Text fontSize="lg">&nbsp;{classeUtente}</Text>
+              </Box>
             )}
             {sessoUtente && (
                 dataNascitaUtente && (
-              <div className="scuola">
+              <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
                 <FaMale />
-                <Text fontSize="lg">{dataNascitaUtente}</Text>
-              </div>
+                <Text fontSize="lg">&nbsp;{dataNascitaUtente}</Text>
+              </Box>
                 )
             )}
         </div>

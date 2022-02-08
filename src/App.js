@@ -25,6 +25,7 @@ import axios from 'axios';
 import https from 'axios'
 import Login from './pages/Login';
 import Profilo from './pages/Profilo';
+import Scuole from './pages/Scuole';
 function App() {
 
         const [mailUtente, setDatiUtente] = useState(null);
@@ -36,7 +37,7 @@ function App() {
       {/* Gestione di tutte le routes nell'applicazione */}
       <Routes>
       <Route path="/" element={<FirstPage />} />
-      <Route path="scuole" element={<ContainerCarousel />} />
+      <Route path="scuole" element={<Scuole />} />
       <Route path="invoices" element={<ContainerCarousel />} />
       <Route path="registrati" element={<Registrati />} />
       <Route path="persone" element={<Persone />} />

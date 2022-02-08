@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Text, Box, Flex, useColorModeValue, Image } from "@chakra-ui/react";
 
-const CarouselScuole = () => {
+const Component = () => {
   const slides = [
     {
       img:
-        "https://www.architetti.com/wp-content/uploads/2017/03/polimi-1.jpg",
+        "https://images.pexels.com/photos/2599537/pexels-photo-2599537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     },
     {
       img:
-        "https://storage.laprovinciadicomo.it/media/photologue/2015/7/25/photos/i-voti-alle-universita-linsubria-non-brilla_04c4b698-3233-11e5-a556-8415afd36a8c_900_512.jpg",
+        "https://images.pexels.com/photos/2714581/pexels-photo-2714581.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     },
     {
       img:
-        "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c2Nob29sfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1000&q=60",
+        "https://images.pexels.com/photos/2878019/pexels-photo-2878019.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
     },
     {
       img:
-        "https://lastatalenews.unimi.it/sites/default/files/styles/paragraph_image/public/image/paragraph/Ateneo_Cortile-CaGranda_interno_1.jpg?h=8621808d&itok=E-Ubr0tY",
+        "https://images.pexels.com/photos/1142950/pexels-photo-1142950.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     },
     {
       img:
-        "hhttps://www.unimib.it/sites/default/files/storia2.png",
+        "https://images.pexels.com/photos/3124111/pexels-photo-3124111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     },
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -79,4 +79,4 @@ const CarouselScuole = () => {
     </Flex>
   );
 };
-export default CarouselScuole;
+export default Component;

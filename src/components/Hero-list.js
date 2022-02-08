@@ -10,8 +10,14 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import CarouselScuole from "./CarouselScuole";
+import { motion } from "framer-motion";
+
 const HeroList = () => {
   return (
+    <motion.div
+    animate={{ opacity: [0,1] }}
+    transition={{ duration: 0.6 }}
+    >
     <Box px={8} py={24} mx="auto">
       <Box
         w={{ base: "full", md: 11 / 12, xl: 9 / 12 }}
@@ -103,9 +109,10 @@ const HeroList = () => {
         mt={20}
         textAlign="center"
       >
-      <CarouselScuole />
+     {/* <CarouselScuole /> */}
       </Box>
     </Box>
+    </motion.div>
   );
 };
 

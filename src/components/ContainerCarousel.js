@@ -15,6 +15,7 @@ export default function ContainerCarousel() {
         'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioni.php'
       )
       .then(res => {
+        console.log(res.data)
         res.data.map(scuola => 
           items.push({
             scuola: scuola

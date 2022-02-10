@@ -12,12 +12,13 @@ export default function ContainerCarousel() {
   useEffect(() => {
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioni.php'
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getScuole.php'
       )
       .then(res => {
         console.log(res.data)
         res.data.map(scuola => 
           items.push({
+            
             scuola: scuola
           })
         )
@@ -32,7 +33,7 @@ export default function ContainerCarousel() {
       <div className="scuole">
         {nomeScuole && (
         nomeScuole.items.map(scuola => (
-          <ScuolaCard nome={scuola.scuola.Nome_Scuola} codice={scuola.scuola.Codice_Meccanografico}  />
+          <ScuolaCard immagine={scuola.scuola.Logo} nome={scuola.scuola.Nome_Scuola} codice={scuola.scuola.Codice_Meccanografico}  />
         ))
         )}
       </div>

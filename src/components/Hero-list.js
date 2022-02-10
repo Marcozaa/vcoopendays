@@ -50,9 +50,8 @@ const HeroList = () => {
           fontSize={{ base: "lg", md: "xl" }}
           color={useColorModeValue("gray.600",'gray.300')}
         >
-          Hellonext is a feature voting software where you can allow your users
-          to vote on features, publish roadmap, and complete your customer
-          feedback loop.
+          Da questa pagina potrai iscriverti a workshop e 
+          visualizzare tutte le scuole partecipanti al nostro evento.
         </chakra.p>
         <Stack
         direction={{base:"column",sm:"row"}}

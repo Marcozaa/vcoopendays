@@ -34,7 +34,7 @@ import {
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { MdAddCircle, MdEditLocation, MdExitToApp, MdRepeat, MdSchool } from 'react-icons/md';
-import { FaExternalLinkAlt, FaSchool, FaTwitter } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaImages, FaSchool, FaTwitter } from 'react-icons/fa';
 import './navbar.css';
 export default function Navbar() {
   const bg = useColorModeValue('white.900', 'gray.800');
@@ -110,6 +110,11 @@ export default function Navbar() {
                     Impara
                   </Button>
                 </Link>
+                <Link to="/galleria">
+                  <Button w="full" variant={'solid'}  leftIcon={<FaImages />}>
+                    Galleria
+                  </Button>
+                </Link>
               </VStack>
             </Box>
             <chakra.a
@@ -138,6 +143,11 @@ export default function Navbar() {
               <Link to="/impara">
               <Button variant="ghost" leftIcon={<MdSchool />} size="sm">
                 Impara
+              </Button>
+              </Link>
+              <Link to="/galleria">
+              <Button variant="ghost" leftIcon={<FaImages />} size="sm">
+                Galleria
               </Button>
               </Link>
             </HStack>

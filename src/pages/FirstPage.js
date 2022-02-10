@@ -23,28 +23,22 @@ import KuttyHero from '../components/CallToAction';
 import OrganizzatoreHero from '../components/OrganizzatoreHero';
 export default function FirstPage() {
   return <div className='page'>
-     
-      <div className="hero">
-      <FirstPageContent /> 
-      </div>
-     
-      
-  <div className="middle">
-     <Divider />
+
+    <div className="hero">
+      <FirstPageContent />
+    </div>
+
+
+    <div className="middle">
+      <Divider />
       <Features />
-      
-  </div>
 
- <Reviews />
+    </div>
+    <KuttyHero />
 
-      {/*<ContainerCarousel />*/}
-      <KuttyHero />
-     
-      <OrganizzatoreHero />
+    <Footer />
 
-<Footer />
-      
-     
-        
-    </div>;
+
+
+  </div>;
 }

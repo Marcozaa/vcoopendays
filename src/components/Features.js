@@ -6,22 +6,16 @@ import { Feature } from './Feature.tsx'
 export const Features = () => (
   <Box as="section" maxW="5xl" mx="auto" py="12" px={{ base: '6', md: '8' }}>
     <SimpleGrid columns={{ base: 1, md: 2 }} spacingX="10" spacingY={{ base: '8', md: '14' }}>
-      <Feature title="Sicura da default" icon={<FcPrivacy />}>
-        At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus.
+      <Feature title="Presentazione del salone" icon={<FcPrivacy />}>
+        La mostra è dedicata agli studenti di scuole superiori e medie che vogliono orientarsi sulla scelta della scuola superiore oppure per la futura azienda.
       </Feature>
-      <Feature title="Sempre aggiornato" icon={<FcTimeline />}>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-        invidunt ut labore.
+      <Feature title="Quando" icon={<FcTimeline />}>
+        10-11 giugno per gli studenti delle medie. 6-7 luglio per le scuole superiori.
       </Feature>
-      <Feature title="Statistiche incredibili" icon={<FcDoughnutChart />}>
-        At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus.
+      <Feature title="Luogo" icon={<FcDoughnutChart />}>
+        Presso il teatro maggiore di Verbania in via Via S. Bernardino, 49, 28922 Verbania VB.
       </Feature>
-      <Feature title="Supporto per vari dispositivi" icon={<FcMultipleDevices />}>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-        invidunt ut labore.
-      </Feature>
+
     </SimpleGrid>
   </Box>
 )

@@ -65,9 +65,7 @@ const KuttyHero = () => {
           color="gray.500"
           lineHeight="base"
         >
-          We’re on a mission to bring transparency to education. We charge as
-          little as possible, and we always show you upfront. No hidden fees. No
-          bad exchange rates. No surprises.
+          Inserendo qui la tua mail riceverai notizie riguardo vcoopendays.
         </chakra.p>
         <SimpleGrid
           as="form"
@@ -84,7 +82,7 @@ const KuttyHero = () => {
               mt={0}
               size="lg"
               type="email"
-              placeholder="Enter your email..."
+              placeholder="Inserisci la tua mail..."
               required="true"
               id="email"
             />

@@ -14,9 +14,8 @@ export default function FirstPageContent() {
     animate={{ x: [-400,0] }}
     transition={{ duration: 0.7 }}
   >
-          Lorem ipsium lorem ipsium.
-          <p>Con il termine lorem ipsum si indica un testo segnaposto utilizzato da grafici,
-             designer, programmatori e tipografi a modo riempitivo per bozzetti e prove</p>
+          VCO open days.
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
           <div className="button">
       </div>
      

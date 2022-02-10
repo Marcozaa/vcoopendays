@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 export function Reviews  () {
   const quotes = [ 
-    "I love your system. I don't always clop, but when I do, it's because of vcodays. It's really wonderful.", "Armond F.",
+    "Frase 1 recensione 1.", "Nome C.",
     "It really saves me time and effort. vcodays is exactly what our business has been lacking. I didn't even need training.", "Hendrik G.",
     "Nice work on your vcodays. Vcodays is the real deal! I STRONGLY recommend vcodays to EVERYONE.", "Niki F."
 ]
@@ -44,7 +44,7 @@ export function Reviews  () {
         <Quotee
           name={name}
           jobTitle="Studente"
-          imageSrc="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTN8fGxhZHklMjBoZWFkc2hvdCUyMHNtaWxpbmd8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+          imageSrc="https://images.unsplash.com/photo-1644411990121-97f041208faf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60"
           mt="8"
         />
       </Flex>

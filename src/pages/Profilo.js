@@ -74,14 +74,14 @@ const Profilo = ({ datiUtente }) => {
           <div className="left">
             {immagineProfilo && (
               <Avatar
-                width={'10vw'}
+                width={'9vw'}
                 minWidth={'5rem'}
                 minHeight={'5rem'}
                 maxWidth={'150px'}
                 maxHeight={'150px'}
-                height={'10vw'}
+                height={'9vw'}
                 position={'absolute'}
-                top={'10vh'}
+                top={'11vh'}
                 name={user}
                 border={'10px solid #242424'}
                 src={immagineProfilo}
@@ -100,7 +100,7 @@ const Profilo = ({ datiUtente }) => {
               <Text
               className='nome'
               fontSize="lg">
-                {nomeUtente} {cognomeUtente}
+                {nomeUtente} {cognomeUtente}&nbsp;
               </Text>
               <Popover
               isOpen={isOpen}

@@ -19,6 +19,7 @@ import { Features } from '../components/Features';
 import './firstPage.css'
 import { Reviews } from '../components/Reviews';
 import KuttyHero from '../components/CallToAction';
+import OrganizzatoreHero from '../components/OrganizzatoreHero';
 export default function FirstPage() {
   return <div className='page'>
      
@@ -36,7 +37,7 @@ export default function FirstPage() {
       {/*<ContainerCarousel />*/}
       <KuttyHero />
      
-      
+      <OrganizzatoreHero />
 
 <Footer />
       

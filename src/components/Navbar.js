@@ -96,17 +96,17 @@ export default function Navbar() {
                   onClick={mobileNav.onClose}
                 />
                 <Link to="/scuole">
-                  <Button w="full" variant="ghost" leftIcon={<FaSchool />}>
+                  <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
                     Scuole
                   </Button>
                 </Link>
                 <Link to="/persone">
-                  <Button w="full" color={'gray.900'} leftIcon={<BsPerson />}>
+                  <Button w="full" variant={'solid'} color={'gray.900'} leftIcon={<BsPerson />}>
                     Studenti
                   </Button>
                 </Link>
                 <Link to="/impara">
-                  <Button w="full" variant="ghost" leftIcon={<MdSchool />}>
+                  <Button w="full" variant={'solid'}  leftIcon={<MdSchool />}>
                     Impara
                   </Button>
                 </Link>
@@ -125,15 +125,21 @@ export default function Navbar() {
             </chakra.a>
 
             <HStack spacing={3} display={{ base: 'none', md: 'inline-flex' }}>
+              <Link to="/scuole">
               <Button variant="ghost" leftIcon={<FaSchool />} size="sm">
-                <Link to="/scuole">Scuole </Link>
+                Scuole
               </Button>
-              <Button leftIcon={<BsPerson />} size="sm">
-                <Link to="/persone">Studenti </Link>
+              </Link>
+              <Link to="/persone">
+              <Button  variant="ghost" leftIcon={<BsPerson />} size="sm">
+                Studenti
               </Button>
+              </Link>
+              <Link to="/impara">
               <Button variant="ghost" leftIcon={<MdSchool />} size="sm">
-                <Link to="/impara">Impara </Link>
+                Impara
               </Button>
+              </Link>
             </HStack>
           </HStack>
           <HStack

@@ -204,7 +204,8 @@ export default function FormRegistrazione() {
                           rounded="md"
                         />
 
-                      </FormControl><FormControl as={GridItem} id="email" mt={1}>
+                      </FormControl>
+                      <FormControl as={GridItem}  mt={1}>
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"
@@ -212,6 +213,11 @@ export default function FormRegistrazione() {
                         >
                           Sesso
                         </FormLabel>
+                        <Select size={'sm'} >
+                          <option value='uomo'>Uomo</option>
+                          <option value='donna'>Donna</option>
+                          <option value='altro'>Altro</option>
+                        </Select>
                       </FormControl>
                     </SimpleGrid>
                   </div>

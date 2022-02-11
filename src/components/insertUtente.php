@@ -29,10 +29,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO `Visitatore`(`Codice_Meccanografico_Fruitrice`, `Nome`, `Cognome`, `Email`, `Password`, `Classe`, `Sesso`, `Data_Nascita`, `immagine_profilo`, `Confermato`) VALUES (" . $codiceMeccanografico . "," . $nome . "," . $cognome . "," . $email . "," . $password . "," . $classe . "," . $sesso . ","  . $dataNascita . "," . $immagineProfilo . "," . 0 .");
+$sql = "INSERT INTO `Visitatore`(`Codice_Meccanografico_Fruitrice`, `Nome`, `Cognome`, `Email`, `Password`, `Classe`, `Sesso`, `Data_Nascita`, `immagine_profilo`, `Confermato`) VALUES (" . $codiceMeccanografico . "," . $nome . "," . $cognome . "," . $email . "," . $password . "," . $classe . "," . $sesso . ","  . $dataNascita . "," . $immagineProfilo . "," . 0 .")";
 
 if ($conn->query($sql) === TRUE) {
-    echo "record created successfully";
+    echo "New created successfully";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

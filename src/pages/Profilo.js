@@ -1,6 +1,6 @@
 import './profilo.css';
 import axios from 'axios';
-import { Avatar, Box, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Avatar, Box, CloseButton, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { useState, useEffect, useRef } from 'react';
 import { FaMale, FaSchool } from 'react-icons/fa';
 import ProfileSections from '../components/ProfileSections';
@@ -19,6 +19,7 @@ const Profilo = ({ datiUtente }) => {
   const [classeUtente, setClasseUtente] = useState(null);
   const [sessoUtente, setSessoUtente] = useState(null);
   const [dataNascitaUtente, setDataNascitaUtente] = useState(null);
+  const [confermato, setConfermato] = useState(null);
 
   const [loggato, setLoggato] = useState(null);
 
@@ -32,7 +33,7 @@ const Profilo = ({ datiUtente }) => {
 
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente.php?emailInserita=' +
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
           getCookie('username')
       )
       .then(res => {
@@ -43,6 +44,7 @@ const Profilo = ({ datiUtente }) => {
         setClasseUtente(res.data[0].Classe);
         setSessoUtente(res.data[0].Sesso);
         setDataNascitaUtente(res.data[0].Data_Nascita);
+        setConfermato(res.data[0].Confermato);
       });
   }, []);
 
@@ -68,8 +70,17 @@ const Profilo = ({ datiUtente }) => {
   const firstFieldRef = useRef(null)
   return (
     <div >
+
+      {confermato == 1 ?(<></>) : 
+      (<Alert status='error' position={'absolute'}>
+        <AlertIcon />
+        <AlertTitle mr={2}>Non sei ancora autenticato!</AlertTitle>
+        <AlertDescription>La tua esperienza potrebbe essere limitata.</AlertDescription>
+        <CloseButton position='absolute' right='8px' top='8px' />
+      </Alert>)}
         {loggato ? (
-      <div className='profilo' style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+          
+    <div className='profilo' style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
         <div className="top">
           <div className="left">
             {immagineProfilo && (

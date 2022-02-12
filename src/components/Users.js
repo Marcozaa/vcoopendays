@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Flex,
   useColorModeValue,
@@ -13,65 +13,59 @@ import {
 } from '@chakra-ui/react';
 import {
   chakra,
- 
-
   Button,
   useBreakpointValue,
   Stack,
   SimpleGrid,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import { AiFillEdit } from 'react-icons/ai';
 import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
 import axios from 'axios';
 import { FaLock, FaLockOpen, FaUnlock, FaUserLock } from 'react-icons/fa';
 export default function Users() {
-
-    // http req api utenti database
-    const [utenti, setUtenti] = useState(null);
+  // http req api utenti database
+  const [utenti, setUtenti] = useState(null);
   var c = 0;
-  let items = []
+  let items = [];
   const header = ['nome', 'ultimo accesso', 'azioni'];
-  const data = [
-    { nome: 'Daggy', online: '7 giorni fa' },
-    { nome: 'Anubra', online: '23 ore fa' },
-    { nome: 'Josef', online: 'Qualche ora fa' },
-    { nome: 'Sage', online: 'Qualche secondo fa' },
-  ];
+  const data = [];
   useEffect(() => {
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatori.php'
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatoriNonConfermati.php'
       )
       .then(res => {
-        console.log(res.data)
-        res.data.map(utente => 
+        res.data.map(utente =>
           items.push({
-            
-            utente: utente
+            utente: utente,
           })
-        )
-        setUtenti({ items: items})
-
-        console.log(utenti)
-
-
-      console.log(data[0].nome)
-        
-       
+        );
+        setUtenti({ items: items });
       });
   }, []);
 
-
-  function bannaUtente(id){
-    // banna utente where id = id
-    console.log(id)
+  function verificaUtente(id){
+    // conferma utente where id = id
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/rimuoviUtente.php?idutente='+id
+        'https://87.250.73.22/html/Zanchin/vcoopendays/updateStatoUtente.php?idutente=' +
+          id
       )
       .then(res => {
-        console.log(res.data)
-      })
+        window.location.reload(false);
+      });
+  }
+
+  function bannaUtente(id) {
+    // banna utente where id = id
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/rimuoviUtente.php?idutente=' +
+          id
+      )
+      .then(res => {
+        window.location.reload(false);
+      });
   }
   return (
     <Flex
@@ -82,40 +76,35 @@ export default function Users() {
       justifyContent="center"
     >
       <Stack
-        direction={{ base: "column" }}
+        direction={{ base: 'column' }}
         w="full"
-        bg={{ md: useColorModeValue("white", "gray.800") }}
+        bg={{ md: useColorModeValue('white', 'gray.800') }}
         shadow="lg"
       >
-         <SimpleGrid
-                  spacingY={3}
-                  columns={{ base: 1, md: 3 }}
-                  w={{ base: 120, md: "full" }}
-                  textTransform="uppercase"
-                  bg="gray.100"
-                  color="gray.500"
-                  py={{ base: 1, md: 4 }}
-                  px={{ base: 2, md: 10 }}
-                  fontSize="md"
-                  fontWeight="hairline"
-                  display="table-header-group"
-                >
-                  <span>Name</span>
-                  <span>Email</span>
-                  <chakra.span textAlign={{ md: "right" }}>Actions</chakra.span>
-                </SimpleGrid>
-        {utenti && (
-            utenti.items.map(utente => (
-        
-          
+        <SimpleGrid
+          spacingY={3}
+          columns={{ base: 1, md: 3 }}
+          w={{ base: 120, md: 'full' }}
+          textTransform="uppercase"
+          bg="gray.100"
+          color="gray.500"
+          py={{ base: 1, md: 4 }}
+          px={{ base: 2, md: 10 }}
+          fontSize="md"
+          fontWeight="hairline"
+          display="table-header-group"
+        >
+          <span>Name</span>
+          <span>Email</span>
+          <chakra.span textAlign={{ md: 'right' }}>Actions</chakra.span>
+        </SimpleGrid>
+        {utenti &&
+          utenti.items.map(utente => (
             <Flex
-              direction={{ base: "row", md: "column" }}
+              direction={{ base: 'row', md: 'column' }}
               bg="white"
-              key={"pid"}
+              key={'pid'}
             >
-              
-               
-              
               <SimpleGrid
                 spacingY={3}
                 columns={{ base: 1, md: 3 }}
@@ -133,31 +122,60 @@ export default function Users() {
                 >
                   {utente.utente.Email}
                 </chakra.span>
-                <Flex justify={{ md: "end" }} alignItems={'center'} justifyContent={'space-around'}>
-                  <Button onClick={()=>bannaUtente(utente.utente.ID_Visitatore)} variant="solid" colorScheme="red" size="sm">
+                <Flex
+                  justify={{ md: 'end' }}
+                  alignItems={'center'}
+                  justifyContent={'space-around'}
+                >
+                  <Button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          'Sei sicuro di voler cancellare utente: ' +
+                            utente.utente.Nome +
+                            ' con id: ' +
+                            utente.utente.ID_Visitatore +
+                            '?'
+                        )
+                      )
+                        bannaUtente(utente.utente.ID_Visitatore);
+                    }}
+                    variant="solid"
+                    colorScheme="red"
+                    size="sm"
+                  >
                     Ban
                   </Button>
-                
-                  {utente.utente.Confermato == 1 ? 
-                  <Flex justifyContent={'center'}  alignItems={'center'}> 
-                    <FaLock cursor={'pointer'} /> 
-                    <p>&nbsp;Rimuovi verifica</p> 
-                    </Flex>: 
-                  <Flex justifyContent={'center'}  alignItems={'center'}>
-                    <FaUnlock  
-                    cursor={'pointer'}/>
-                    <p>&nbsp;Aggiungi verifica</p> 
-                  </Flex>
-                  }
-               
+
+                  {utente.utente.Confermato == 1 ? (
+                    <Flex justifyContent={'center'} alignItems={'center'}>
+                      <FaLock cursor={'pointer'} />
+                      <p>&nbsp;Rimuovi verifica</p>
+                    </Flex>
+                  ) : (
+                    <Flex justifyContent={'center'} alignItems={'center'}>
+                      <FaUnlock cursor={'pointer'} />
+                      <Button onClick={() => {
+                      if (
+                        window.confirm(
+                          'Sei sicuro di voler confermare utente: ' +
+                            utente.utente.Nome +
+                            ' con id: ' +
+                            utente.utente.ID_Visitatore +
+                            '?'
+                        )
+                      )
+                        verificaUtente(utente.utente.ID_Visitatore);
+                    }}>
+                        <p>Aggiungi verifica</p>
+                      </Button>
+                    </Flex>
+                  )}
                 </Flex>
               </SimpleGrid>
             </Flex>
-          
-            )))}
+          ))}
       </Stack>
     </Flex>
-)}
-    
-
-  
+  );
+}

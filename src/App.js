@@ -26,6 +26,8 @@ import https from 'axios'
 import Login from './pages/Login';
 import Profilo from './pages/Profilo';
 import Scuole from './pages/Scuole';
+import Users from './components/Users';
+import Galleria from './pages/Galleria';
 function App() {
 
         const [mailUtente, setDatiUtente] = useState(null);
@@ -43,6 +45,8 @@ function App() {
       <Route path="persone" element={<Persone />} />
       <Route path="login" element={<Login setDatiUtente={setDatiUtente} />} />
       <Route path="profilo" element={<Profilo datiUtente={mailUtente}/>} />
+      <Route path="adminPanel" element={<Users />} />
+      <Route path="galleria" element={<Galleria />} />
     </Routes>
     </ChakraProvider>
   );

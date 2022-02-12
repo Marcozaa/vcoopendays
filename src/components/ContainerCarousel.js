@@ -32,7 +32,7 @@ export default function ContainerCarousel() {
     <div className="carousel">
       <div className="scuole">
         {nomeScuole && (
-          nomeScuole.items.slice(0, 6).map(scuola => (
+          nomeScuole.items.slice(0, 3).map(scuola => (
           <ScuolaCard immagine={scuola.scuola.Logo} nome={scuola.scuola.Nome_Scuola} codice={scuola.scuola.Codice_Meccanografico}  />
         ))
         )}

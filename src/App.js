@@ -6,7 +6,7 @@ import {
   Link,
   VStack,
   Code,
-  Grid,
+  Grid, 
   theme,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -28,6 +28,7 @@ import Profilo from './pages/Profilo';
 import Scuole from './pages/Scuole';
 import Users from './components/Users';
 import Galleria from './pages/Galleria';
+import AdminPage from './pages/AdminPage';
 function App() {
 
         const [mailUtente, setDatiUtente] = useState(null);
@@ -45,7 +46,7 @@ function App() {
       <Route path="persone" element={<Persone />} />
       <Route path="login" element={<Login setDatiUtente={setDatiUtente} />} />
       <Route path="profilo" element={<Profilo datiUtente={mailUtente}/>} />
-      <Route path="adminPanel" element={<Users />} />
+      <Route path="adminPanel" element={<AdminPage />} />
       <Route path="galleria" element={<Galleria />} />
     </Routes>
     </ChakraProvider>

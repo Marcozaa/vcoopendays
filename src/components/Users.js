@@ -11,6 +11,7 @@ import {
   Td,
   Tbody,
 } from '@chakra-ui/react';
+import AdminSection from '../components/AdminSection';
 import {
   chakra,
   Button,
@@ -44,12 +45,12 @@ export default function Users() {
       });
   }, []);
 
-  function verificaUtente(id){
+  function verificaUtente(id) {
     // conferma utente where id = id
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/updateStatoUtente.php?idutente=' +
-          id
+        id
       )
       .then(res => {
         window.location.reload(false);
@@ -61,7 +62,7 @@ export default function Users() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/rimuoviUtente.php?idutente=' +
-          id
+        id
       )
       .then(res => {
         window.location.reload(false);
@@ -81,6 +82,7 @@ export default function Users() {
         bg={{ md: useColorModeValue('white', 'gray.800') }}
         shadow="lg"
       >
+      <AdminSection />
         <SimpleGrid
           spacingY={3}
           columns={{ base: 1, md: 3 }}
@@ -132,10 +134,10 @@ export default function Users() {
                       if (
                         window.confirm(
                           'Sei sicuro di voler cancellare utente: ' +
-                            utente.utente.Nome +
-                            ' con id: ' +
-                            utente.utente.ID_Visitatore +
-                            '?'
+                          utente.utente.Nome +
+                          ' con id: ' +
+                          utente.utente.ID_Visitatore +
+                          '?'
                         )
                       )
                         bannaUtente(utente.utente.ID_Visitatore);
@@ -156,17 +158,17 @@ export default function Users() {
                     <Flex justifyContent={'center'} alignItems={'center'}>
                       <FaUnlock cursor={'pointer'} />
                       <Button onClick={() => {
-                      if (
-                        window.confirm(
-                          'Sei sicuro di voler confermare utente: ' +
+                        if (
+                          window.confirm(
+                            'Sei sicuro di voler confermare utente: ' +
                             utente.utente.Nome +
                             ' con id: ' +
                             utente.utente.ID_Visitatore +
                             '?'
+                          )
                         )
-                      )
-                        verificaUtente(utente.utente.ID_Visitatore);
-                    }}>
+                          verificaUtente(utente.utente.ID_Visitatore);
+                      }}>
                         <p>Aggiungi verifica</p>
                       </Button>
                     </Flex>

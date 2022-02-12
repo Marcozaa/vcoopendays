@@ -41,16 +41,27 @@ export default function Navbar() {
   const mobileNav = useDisclosure();
 
   const [loggato, setLoggato] = useState(false);
+  const [admin, setAdmin] = useState(false);
+
   useEffect(() => {
+
     if (document.cookie.indexOf('username=') == 0) {
       setLoggato(true);
+      if (document.cookie.indexOf('admin=') == 25) {
+        console.log("setto");
+        setAdmin(true);
+      } else {
+        console.log("non setto");
+        setAdmin(false);
+      }
     } else {
       setLoggato(false);
     }
   }, []);
 
-  function logout(){ // rimuovo il cookie profilo e ricarico la homepage
-    document.cookie = "username"+'=; Max-Age=-99999999;';  
+  function logout() { // rimuovo il cookie profilo e ricarico la homepage
+    document.cookie = "username" + '=; Max-Age=-99999999;';
+    document.cookie = "admin" + '=; Max-Age=-99999999;';
     window.location.href = '/';
   }
 
@@ -106,12 +117,12 @@ export default function Navbar() {
                   </Button>
                 </Link>
                 <Link to="/impara">
-                  <Button w="full" variant={'solid'}  leftIcon={<MdSchool />}>
+                  <Button w="full" variant={'solid'} leftIcon={<MdSchool />}>
                     Impara
                   </Button>
                 </Link>
                 <Link to="/galleria">
-                  <Button w="full" variant={'solid'}  leftIcon={<FaImages />}>
+                  <Button w="full" variant={'solid'} leftIcon={<FaImages />}>
                     Galleria
                   </Button>
                 </Link>
@@ -131,24 +142,24 @@ export default function Navbar() {
 
             <HStack spacing={3} display={{ base: 'none', md: 'inline-flex' }}>
               <Link to="/scuole">
-              <Button variant="ghost" leftIcon={<FaSchool />} size="sm">
-                Scuole
-              </Button>
+                <Button variant="ghost" leftIcon={<FaSchool />} size="sm">
+                  Scuole
+                </Button>
               </Link>
               <Link to="/persone">
-              <Button  variant="ghost" leftIcon={<BsPerson />} size="sm">
-                Studenti
-              </Button>
+                <Button variant="ghost" leftIcon={<BsPerson />} size="sm">
+                  Studenti
+                </Button>
               </Link>
               <Link to="/impara">
-              <Button variant="ghost" leftIcon={<MdSchool />} size="sm">
-                Impara
-              </Button>
+                <Button variant="ghost" leftIcon={<MdSchool />} size="sm">
+                  Impara
+                </Button>
               </Link>
               <Link to="/galleria">
-              <Button variant="ghost" leftIcon={<FaImages />} size="sm">
-                Galleria
-              </Button>
+                <Button variant="ghost" leftIcon={<FaImages />} size="sm">
+                  Galleria
+                </Button>
               </Link>
             </HStack>
           </HStack>
@@ -168,21 +179,29 @@ export default function Navbar() {
             </chakra.a>
 
             {loggato ? (
-              
+
               <Menu>
                 <MenuButton>
                   <Avatar name='Sasuke Uchiha' src='https://bit.ly/broken-link' />
                 </MenuButton>
                 <MenuList>
                   <Link to="profilo">
-                  <MenuItem 
-                  icon={<BsPerson />} command='⌘T'>
-                    Profilo
-                  </MenuItem>
+                    <MenuItem
+                      icon={<BsPerson />} command='⌘T'>
+                      Profilo
+                    </MenuItem>
                   </Link>
-                  <MenuItem  
-                  onClick={logout}
-                  icon={<MdExitToApp />} command='⌘N'>
+                  {admin ? (
+                    <Link to="adminPanel">
+                      <MenuItem
+                        icon={<BsPerson />} command='⌘T'>
+                        Pannello Admin
+                      </MenuItem>
+                    </Link>
+                  ):(null)}
+                  <MenuItem
+                    onClick={logout}
+                    icon={<MdExitToApp />} command='⌘N'>
                     Logout
                   </MenuItem>
                 </MenuList>

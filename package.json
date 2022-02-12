@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  
   "dependencies": {
     "@chakra-ui/react": "^1.7.4",
     "@emotion/react": "^11.7.1",
@@ -9,11 +10,13 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.8.3",
+    "d3": "^7.3.0",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
     "https": "^1.0.0",
     "https-agent": "^1.0.0",
     "react": "^17.0.2",
+    "react-d3-library": "^1.1.8",
     "react-dom": "^17.0.2",
     "react-icons": "^3.11.0",
     "react-router-dom": "^6.2.1",

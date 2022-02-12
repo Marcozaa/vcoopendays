@@ -1,0 +1,46 @@
+
+.console {
+  width: 100vw;
+  top: 20px;
+  text-align: center;
+  color: #333;
+  position: absolute;
+  z-index: 200;
+  background-color: #e3e3e3;
+  display: none;
+}
+.point{
+    width: 2rem;
+    background-color: red;
+    height: 100px;
+    position: fixed;
+    top: 30vw;
+    left: 40vw;
+}
+.sound-demo-floorplan-container {
+  margin-top: 100px;
+}
+
+.sound-demo-img-container {
+  width: 65vw;
+  height: auto;
+  margin: 20px auto;
+}
+
+#sound-demo-floorplan-img {
+  margin-top: 10px;
+  width: 65vw;
+  height: auto;
+}
+
+.demo-marker {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 2999;
+}
+
+.marker {
+  width: 40px;
+  height: 40px;
+}

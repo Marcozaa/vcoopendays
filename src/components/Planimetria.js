@@ -12,8 +12,6 @@ const Planimetria = () => {
 <div class="sound-demo-floorplan-container">
   <div class="sound-demo-floorplan-wrapper">
     
-  
-    
     <div class="sound-demo-img-container">
       <img id="sound-demo-floorplan-img" src="http://katehummer.com/resources/sound-demo-floorplan_portrait.svg" alt="Sound Demo Floorplan" />
     </div>

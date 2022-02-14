@@ -30,6 +30,7 @@ import Users from './components/Users';
 import Galleria from './pages/Galleria';
 import AdminPage from './pages/AdminPage';
 import PrenotaWorkshop from './pages/PrenotaWorkshop';
+import WorkShops from './pages/WorkShops';
 function App() {
 
         const [mailUtente, setDatiUtente] = useState(null);
@@ -50,6 +51,7 @@ function App() {
       <Route path="adminPanel" element={<AdminPage />} />
       <Route path="galleria" element={<Galleria />} />
       <Route path="prenotaWorkshop" element={<PrenotaWorkshop />} />
+      <Route path='/scuole/workshops' element={<WorkShops />} />
     </Routes>
     </ChakraProvider>
   );

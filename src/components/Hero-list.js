@@ -8,6 +8,7 @@ import {
   Image,
   Text,
   Icon,
+  Link,
 } from "@chakra-ui/react";
 import CarouselScuole from "./CarouselScuole";
 import { motion } from "framer-motion";
@@ -80,6 +81,7 @@ const HeroList = () => {
               />
             </Icon>
           </Button>
+          <Link to="/galleria">
           <Button
             as="a"
             colorScheme="gray"
@@ -100,6 +102,7 @@ const HeroList = () => {
               />
             </Icon>
           </Button>
+          </Link>
         </Stack>
       </Box>
       <Box

@@ -4,9 +4,7 @@ import HeroList from "../components/Hero-list";
 const Scuole = () => {
     return ( <div>
         <HeroList />
-        
-       <Folla />
-       {/* <ContainerCarousel /> **/}
+        <ContainerCarousel /> 
     </div> );
 }
  

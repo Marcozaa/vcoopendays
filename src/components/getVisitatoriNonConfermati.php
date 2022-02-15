@@ -18,7 +18,7 @@ $conn = new mysqli($host, $username, $password, $database, $port);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$trp = mysqli_query($conn, "SELECT * FROM `Visitatore`");
+$trp = mysqli_query($conn, "SELECT * FROM `Visitatore` WHERE `Confermato` = 0");
 $rows = array();
 $rows2 = array();
 

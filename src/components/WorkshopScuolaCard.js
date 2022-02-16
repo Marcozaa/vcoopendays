@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   chakra,
   Box,
@@ -10,17 +10,61 @@ import {
   HStack,
   Avatar,
   AvatarGroup,
+  Button,
 } from "@chakra-ui/react";
+import axios from "axios";
 
-const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,utentiIscritti}) => {
+const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora_inizio, Ora_Fine, codiceMeccanoGraficoScuola}) => {
+  const [idUtente, setIdUtente] = useState()
+  useEffect(() => {
+    axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatoreIDfromMail.php?email=' +
+          getCookie('username'))
+      .then(res => {
+        console.log( res.data[0].ID_Visitatore);
+        setIdUtente( res.data[0].ID_Visitatore );
+
+        
+      });
+  }, []);
+
+  function effettuaRegistrazione(){
+    // nomeWorkshop'];    codiceScuola = $_GET['codiceScuola'];   $idUtente = $_GET['idUtente'`
+  
+    axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=%27' +
+          nomeScuola +
+          '%27&codiceScuola=%27' +
+          codiceMeccanoGraficoScuola +
+          '%27&idUtente=%27' +
+          idUtente +
+          '%27'
+        )
+      .then(res => {
+        console.log( res.data);
+      
+      });
+
+  }
+
+
+   // Prende cookie da browser
+  function getCookie(cname) {
+    let name = cname + '=';
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
   return (
-    <Flex
-      bg={useColorModeValue("#F9FAFB", "gray.600")}
-      p={50}
-      w="full"
-      alignItems="center"
-      justifyContent="center"
-    >
+    
       <Box
         mx="auto"
         rounded="lg"
@@ -70,9 +114,10 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,utentiIscritti}) => {
             >
               {descrizione}
             </chakra.p>
+            <chakra.p>Posti disponibili: {PostiDisponibili}</chakra.p>
           </Box>
 
-          <Box mt={4}>
+          <Box mt={4} position={'relative'}>
             <Flex alignItems="center">
               <Flex alignItems="center">
                 <AvatarGroup size='md' max={2}>
@@ -96,13 +141,18 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,utentiIscritti}) => {
                 fontSize="sm"
                 color={useColorModeValue("gray.600", "gray.300")}
               >
-                21 SEP 2015 - 11:30
+                21 SEP 2015 - {Ora_inizio} - {Ora_Fine}
               </chakra.span>
+               <Button position={'absolute'} bottom={0} right={0} onClick={effettuaRegistrazione}>Registrati</Button>
             </Flex>
+            
           </Box>
+          
         </Box>
+         
       </Box>
-    </Flex>
+    
+ 
   );
 };
 

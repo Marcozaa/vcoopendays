@@ -20,9 +20,10 @@ const Profilo = ({ datiUtente }) => {
   const [sessoUtente, setSessoUtente] = useState(null);
   const [dataNascitaUtente, setDataNascitaUtente] = useState(null);
   const [confermato, setConfermato] = useState(null);
-
+  const [idUtente, setIdUtente] = useState(null);
   const [loggato, setLoggato] = useState(null);
-
+  var items = [];
+  const [iscrizioni, setIscrizioni] = useState(null);
   useEffect(() => {
     if (document.cookie.indexOf('username=') == 0) {
       setLoggato(true);
@@ -45,6 +46,42 @@ const Profilo = ({ datiUtente }) => {
         setSessoUtente(res.data[0].Sesso);
         setDataNascitaUtente(res.data[0].Data_Nascita);
         setConfermato(res.data[0].Confermato);
+        setIdUtente(res.data[0].ID_Visitatore);
+      });
+
+      axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
+          getCookie('username')
+      )
+      .then(res => {
+        console.log(res);
+        setImmagineProfilo(res.data[0].immagine_profilo);
+        setNomeUtente(res.data[0].Nome);
+        setCognomeUtente(res.data[0].Cognome);
+        setClasseUtente(res.data[0].Classe);
+        setSessoUtente(res.data[0].Sesso);
+        setDataNascitaUtente(res.data[0].Data_Nascita);
+        setConfermato(res.data[0].Confermato);
+        setIdUtente(res.data[0].ID_Visitatore);
+      });
+
+
+      axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/GetIscrizioniWorkshop.php?idUtente=' +
+          idUtente
+      )
+      .then(res => {
+        console.log(res);
+        
+        res.data.map(iscrizione =>
+          
+          items.push({
+            iscrizione: iscrizione,
+          })
+        );
+        setIscrizioni({ items: items });
       });
   }, []);
 
@@ -68,6 +105,7 @@ const Profilo = ({ datiUtente }) => {
 
   const { onOpen, onClose, isOpen } = useDisclosure()
   const firstFieldRef = useRef(null)
+  console.log(iscrizioni)
   return (
     <div >
 
@@ -150,7 +188,9 @@ const Profilo = ({ datiUtente }) => {
                 )
             )}
         </div>
-        <ProfileSections />
+        {iscrizioni && (
+        <ProfileSections iscrizioni={iscrizioni} />
+        )}
       </div>
       ):
       <h1 >Non sei loggato!</h1>

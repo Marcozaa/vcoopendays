@@ -81,7 +81,7 @@ const HeroList = () => {
               />
             </Icon>
           </Button>
-          <Link to="/galleria">
+          <Link to="scuole/workshops">
           <Button
             as="a"
             colorScheme="gray"

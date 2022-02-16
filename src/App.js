@@ -32,6 +32,7 @@ import AdminPage from './pages/AdminPage';
 import PrenotaWorkshop from './pages/PrenotaWorkshop';
 import WorkShops from './pages/WorkShops';
 import InserimentoEventi from './pages/InserimentoEventi';
+import RegistrazioneStand from './pages/RegistrazionePadiglione';
 function App() {
 
         const [mailUtente, setDatiUtente] = useState(null);
@@ -54,6 +55,7 @@ function App() {
       <Route path="prenotaWorkshop" element={<PrenotaWorkshop />} />
       <Route path='/scuole/workshops' element={<WorkShops />} />
       <Route path='/scuole/inserimentoEventi' element={<InserimentoEventi />} />
+      <Route path='/scuole/registrazioneStand' element={<RegistrazioneStand />} />
     </Routes>
     </ChakraProvider>
   );

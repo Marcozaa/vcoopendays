@@ -33,10 +33,10 @@ import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 
 export default function FormInserimentoEventi() {
-  function getBase64(file) { }
+  function getBase64(file) {}
 
   function checkDati() {
-      /*
+    /*
     var nomeInserito = document.getElementById('first_name').value;
     var cognomeInserito = document.getElementById('last_name').value;
     var passwordInserita = document.getElementById('password').value;
@@ -80,11 +80,10 @@ export default function FormInserimentoEventi() {
         }
       }
       */
-    }
+  }
 
-
-    function inserimentoDati(nome, cognome, password, email, data, sesso, file) {
-     /* axios
+  function inserimentoDati(nome, cognome, password, email, data, sesso, file) {
+    /* axios
         .post(
           'https://87.250.73.22/html/Zanchin/vcoopendays/insertUtente.php?nome=%27+' +
           nome +
@@ -105,17 +104,17 @@ export default function FormInserimentoEventi() {
         .then(res => {
           console.log(res);
         });*/
-    };
-    /**
-     * Gestione vincoli input
-     */
-    const [input, setInput] = useState('')
+  }
+  /**
+   * Gestione vincoli input
+   */
+  const [input, setInput] = useState('');
 
-  const handleInputChange = (e) => setInput(e.target.value)
+  const handleInputChange = e => setInput(e.target.value);
 
-  const isError = input === ''
+  const isError = input === '';
 
-   const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
+  const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
   let items = [];
   useEffect(() => {
     axios
@@ -130,7 +129,7 @@ export default function FormInserimentoEventi() {
           })
         );
         setIdPadiglioniDisponibili({ items: items });
-        console.log(IdPadiglioniDisponibili.items)
+        console.log(IdPadiglioniDisponibili.items);
       });
   }, []);
 
@@ -156,9 +155,10 @@ export default function FormInserimentoEventi() {
                   fontSize="sm"
                   color={useColorModeValue('gray.600', 'gray.400')}
                 >
-                  Inserimento workshop per le scuole. Verrai notificato con l'accettazione della proposta o il rifiuto entro 5 ore dall'invio.
+                  Inserimento workshop per le scuole. Verrai notificato con
+                  l'accettazione della proposta o il rifiuto entro 5 ore
+                  dall'invio.
                 </Text>
-                
               </Box>
             </GridItem>
           </motion.div>
@@ -210,7 +210,7 @@ export default function FormInserimentoEventi() {
                         color={useColorModeValue('gray.700', 'gray.50')}
                         marginTop="1vw"
                       >
-                       Materie
+                        Materie
                       </FormLabel>
                       <Input
                         placeholder="Matematica"
@@ -235,9 +235,9 @@ export default function FormInserimentoEventi() {
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
                       >
-                        Nome organizzatore
+                        Codice Meccanografico
                       </FormLabel>
-                <AutoCompleta />
+                      <AutoCompleta />
                       <FormLabel
                         htmlFor="number"
                         fontSize="sm"
@@ -247,71 +247,79 @@ export default function FormInserimentoEventi() {
                       >
                         Seleziona il padiglione
                       </FormLabel>
-                      <Select >
-                          {IdPadiglioniDisponibili &&
-                            IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option value='option1'>{padiglione.workShop.ID_Padiglione}</option>
-                            ))}
-                    </Select>
+                      <Select>
+                        {IdPadiglioniDisponibili &&
+                          IdPadiglioniDisponibili.items.map(padiglione => (
+                            <option value="option1">
+                              {padiglione.workShop.ID_Padiglione}
+                            </option>
+                          ))}
+                      </Select>
                     </FormControl>
                   </SimpleGrid>
 
-<div>
-                     <FormControl id="text" mt={1} value={input}
-        onChange={handleInputChange}>
-                    <FormLabel
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue("gray.700", "gray.50")}
+                  <div>
+                    <FormControl
+                      id="text"
+                      mt={1}
+                      value={input}
+                      onChange={handleInputChange}
                     >
-                      Orario
-                    </FormLabel>
-                    <Select  >
-                          {IdPadiglioniDisponibili &&
-                            IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option value='option1'>{padiglione.workShop.ID_Padiglione}</option>
-                            ))}
-                    </Select>
-                    <FormHelperText>
-                      Breve descrizione del workshop. 
-                    </FormHelperText>
-                  </FormControl>
+                      <FormLabel
+                        fontSize="sm"
+                        fontWeight="md"
+                        color={useColorModeValue('gray.700', 'gray.50')}
+                      >
+                        Orario
+                      </FormLabel>
+                      <Select>
+                        {IdPadiglioniDisponibili &&
+                          IdPadiglioniDisponibili.items.map(padiglione => (
+                            <option value="option1">
+                              {padiglione.workShop.ID_Padiglione}
+                            </option>
+                          ))}
+                      </Select>
+                      <FormHelperText>
+                        Breve descrizione del workshop.
+                      </FormHelperText>
+                    </FormControl>
                   </div>
                   <div>
-                     <FormControl id="email" mt={1} value={input}
-        onChange={handleInputChange}>
-                    <FormLabel
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue("gray.700", "gray.50")}
-                    >
-                      About
-                    </FormLabel>
-                    <Textarea
-                      
+                    <FormControl
+                      id="email"
                       mt={1}
-                      rows={3}
-                      shadow="sm"
-                      focusBorderColor="brand.400"
-                      fontSize={{ sm: "sm" }}
-                    />
-                    {!isError ? (
-        <FormHelperText>
-          Non inserire dati sensibili.
-        </FormHelperText>
-      ) : (
-        <FormErrorMessage>Una descrizione è richiesta.</FormErrorMessage>
-      )}
-                    <FormHelperText>
-                      Breve descrizione del workshop. 
-                    </FormHelperText>
-                  </FormControl>
+                      value={input}
+                      onChange={handleInputChange}
+                    >
+                      <FormLabel
+                        fontSize="sm"
+                        fontWeight="md"
+                        color={useColorModeValue('gray.700', 'gray.50')}
+                      >
+                        About
+                      </FormLabel>
+                      <Textarea
+                        mt={1}
+                        rows={3}
+                        shadow="sm"
+                        focusBorderColor="brand.400"
+                        fontSize={{ sm: 'sm' }}
+                      />
+                      {!isError ? (
+                        <FormHelperText>
+                          Non inserire dati sensibili.
+                        </FormHelperText>
+                      ) : (
+                        <FormErrorMessage>
+                          Una descrizione è richiesta.
+                        </FormErrorMessage>
+                      )}
+                      <FormHelperText>
+                        Breve descrizione del workshop.
+                      </FormHelperText>
+                    </FormControl>
                   </div>
-
-
-                  
-
-                
 
                   <FormControl>
                     <FormLabel
@@ -414,4 +422,3 @@ export default function FormInserimentoEventi() {
     </Box>
   );
 }
-

@@ -1,19 +1,13 @@
+import AutoCompletaTagWorkshop from './AutoCompletaTagWorkshop';
 import './wrapper.css'
 
-const Wrapper = () => {
+const Wrapper = ({tagsWrk, setTagsWrk}) => {
     return ( <div class="wrapper">
   <div class="search-menu">
-   <div class="search-bar">
-    <input type="text" class="search-box" autofocus />
-    <div class="search item">Product Designer
-     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-      <path d="M18 6L6 18M6 6l12 12" /></svg>
-    </div>
-    <div class="search item">UI Designer
-     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-      <path d="M18 6L6 18M6 6l12 12" /></svg>
-    </div>
-   </div>
+  
+    <AutoCompletaTagWorkshop setTagsWrk={setTagsWrk} tagsWrk={tagsWrk} />
+    
+   
    <div class="search-location">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />

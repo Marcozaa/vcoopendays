@@ -256,6 +256,27 @@ export default function FormInserimentoEventi() {
                     </FormControl>
                   </SimpleGrid>
 
+<div>
+                     <FormControl id="text" mt={1} value={input}
+        onChange={handleInputChange}>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue("gray.700", "gray.50")}
+                    >
+                      Orario
+                    </FormLabel>
+                    <Select  >
+                          {IdPadiglioniDisponibili &&
+                            IdPadiglioniDisponibili.items.map(padiglione => (
+                            <option value='option1'>{padiglione.workShop.ID_Padiglione}</option>
+                            ))}
+                    </Select>
+                    <FormHelperText>
+                      Breve descrizione del workshop. 
+                    </FormHelperText>
+                  </FormControl>
+                  </div>
                   <div>
                      <FormControl id="email" mt={1} value={input}
         onChange={handleInputChange}>
@@ -286,6 +307,9 @@ export default function FormInserimentoEventi() {
                     </FormHelperText>
                   </FormControl>
                   </div>
+
+
+                  
 
                 
 

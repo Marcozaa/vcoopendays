@@ -23,7 +23,7 @@ export default function AutoCompletaTagWorkshop({tagsWrk, setTagsWrk}) {
   return (
     
       <AutoComplete >
-        <AutoCompleteInput variant="filled" placeholder="Search..." autoFocus />
+        <AutoCompleteInput variant="filled" placeholder="Tag" autoFocus />
         <AutoCompleteList>
           {people.map((person, oid) => (
             <AutoCompleteItem

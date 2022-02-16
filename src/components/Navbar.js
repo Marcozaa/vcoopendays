@@ -33,7 +33,7 @@ import {
   BsPlus,
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { MdAddCircle, MdEditLocation, MdExitToApp, MdRepeat, MdSchool } from 'react-icons/md';
+import { MdAddCircle, MdEditLocation, MdExitToApp, MdRepeat, MdSchool, MdWork } from 'react-icons/md';
 import { FaExternalLinkAlt, FaImages, FaSchool, FaTwitter } from 'react-icons/fa';
 import './navbar.css';
 export default function Navbar() {
@@ -126,6 +126,7 @@ export default function Navbar() {
                     Galleria
                   </Button>
                 </Link>
+                
               </VStack>
             </Box>
             <chakra.a
@@ -161,6 +162,11 @@ export default function Navbar() {
                   Galleria
                 </Button>
               </Link>
+              <Link to="/scuole/workshops">
+                  <Button w="full" variant={'ghost'} leftIcon={<MdWork />}>
+                    Workshops
+                  </Button>
+                </Link>
             </HStack>
           </HStack>
           <HStack

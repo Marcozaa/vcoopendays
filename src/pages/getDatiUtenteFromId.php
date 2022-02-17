@@ -12,20 +12,20 @@ $password     = "CBC349bb";
 $port = 3306;
 // Create connection
 $conn = new mysqli($host, $username, $password, $database, $port);
-$email = $_GET['email'];
+$id = $_GET["id"];
+
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$trp = mysqli_query($conn, "SELECT `ID_Visitatore` FROM `Visitatore` WHERE `Email` =  '" . $email . "'");
+$trp = mysqli_query($conn, "SELECT `Codice_Meccanografico_Fruitrice`,`Nome`,`Cognome`,`Email`,`Classe`,
+                            `Sesso`,`Data_Nascita`,`immagine_profilo` FROM `Visitatore` WHERE `ID_Visitatore` = '". $id ."'");
 $rows = array();
-$rows2 = array();
-
 while ($r = mysqli_fetch_assoc($trp)) {
     $rows[] = $r;
 }
 
+print json_encode($rows); //convert php data to json data
 
-
-print json_encode($rows);
+//print json_encode($rows);

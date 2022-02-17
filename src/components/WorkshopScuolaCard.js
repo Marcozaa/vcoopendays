@@ -16,17 +16,55 @@ import axios from "axios";
 
 const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora_inizio, Ora_Fine, codiceMeccanoGraficoScuola}) => {
   const [idUtente, setIdUtente] = useState()
+  const [idUtenti, setidUtenti] = useState(null)
+  const [utentiPartecipanti, setUtentiPartecipanti] = useState(null)
+  var items = []
   useEffect(() => {
+    // Grab user id from email
     axios
       .get('https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatoreIDfromMail.php?email=' +
           getCookie('username'))
       .then(res => {
-        console.log( res.data[0].ID_Visitatore);
-        setIdUtente( res.data[0].ID_Visitatore );
 
-        
+        setIdUtente( res.data[0].ID_Visitatore );
       });
+
+      // Get id per ogni partecipante al workshop
+      axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/getIdPartecipantiWorkshop.php?nomeWorkshop=' +
+          nomeScuola)
+       .then(res => {
+        res.data.map(id =>
+          
+          items.push({
+            id: id,
+          })
+        );
+        setidUtenti({ items: items });
+
+       getUtenti()
+        
+      })
+
+      
   }, []);
+
+  function getUtenti(){
+    // console.log(idUtenti)
+        // Richiesta GET annidata - profili partecipanti workshop
+         for(var i = 0 ; i< idUtenti.items.length; i++){
+        axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtenteFromId.php?id=' +
+          idUtenti.items[i].id.ID_Visitatore)
+       .then(res => {
+         for(var i = 0; i<  res.data.length; i++)
+        console.log( res.data[i])
+        setUtentiPartecipanti(res.data[i]);
+        
+      })
+
+        }
+  }
 
   function effettuaRegistrazione(){
     // nomeWorkshop'];    codiceScuola = $_GET['codiceScuola'];   $idUtente = $_GET['idUtente'`
@@ -72,6 +110,8 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
         bg={useColorModeValue("white", "gray.800")}
         maxW="2xl"
       >
+      
+        
         <Image
           roundedTop="lg"
           w="full"
@@ -142,6 +182,7 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
                 color={useColorModeValue("gray.600", "gray.300")}
               >
                 21 SEP 2015 - {Ora_inizio} - {Ora_Fine}
+                
               </chakra.span>
                <Button position={'absolute'} bottom={0} right={0} onClick={effettuaRegistrazione}>Registrati</Button>
             </Flex>
@@ -149,7 +190,7 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
           </Box>
           
         </Box>
-         
+       
       </Box>
     
  

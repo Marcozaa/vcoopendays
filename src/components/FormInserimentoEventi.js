@@ -135,26 +135,26 @@ export default function FormInserimentoEventi() {
 
   function inserimentoWorkshop() {
     var idPadiglione = document.getElementById("selPadiglione").value;
-    var nomeWorkshop = document.getElementById("first_name").value;
+    var nomeWorkshop = document.getElementById("nome").value;
     var descrizione = document.getElementById("descrizione").value;
-    var posti = document.getElementById("posti_").value;
-    console.log("padiglione " . idPadiglione);
+    var posti = document.getElementById("postiDisponibili").value;
+    console.log("idPadiglione = " + idPadiglione + "\n" +"nomeWorkshop = " + nomeWorkshop + "\n" +"descrizione = " + descrizione + "\n" +"posti = " + posti );
 
     const datiPadiglione = idPadiglione.split(".");
 
     axios
       .post(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/insertUtente.php?nome=%27+' +
+        'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoWorkshop.php?nome=' +
         nomeWorkshop +
-        '%27&descrizione=%27' +
+        '&descrizione=' +
         descrizione +
-        '%27&padiglione=%27' +
+        '&id=' +
         datiPadiglione[0] +
-        '%27&codice=%27' +
+        '&codice=' +
         datiPadiglione[1] +
-        '%27&posti=%27' +
+        '&posti=' +
         posti +
-        '%27%'
+        ''
       )
       .then(res => {
         console.log(res);
@@ -221,8 +221,8 @@ export default function FormInserimentoEventi() {
                       <Input
                         required
                         type="text"
-                        name="posti_"
-                        id="first_name"
+                        name="nome"
+                        id="nome"
                         autoComplete="given-name"
                         mt={1}
                         focusBorderColor="brand.400"
@@ -232,7 +232,7 @@ export default function FormInserimentoEventi() {
                         rounded="md"
                       />
                       <FormLabel
-                        htmlFor="first_name"
+                        htmlFor="posti"
                         fontSize="sm"
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
@@ -243,7 +243,7 @@ export default function FormInserimentoEventi() {
                       <Input
                         required
                         type="text"
-                        name="first_name"
+                        name="postiDisponibili"
                         id="postiDisponibili"
                         autoComplete="given-name"
                         mt={1}

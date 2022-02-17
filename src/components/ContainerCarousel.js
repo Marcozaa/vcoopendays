@@ -30,7 +30,7 @@ import { useState, useEffect } from 'react';
 import ScuolaCard from './ScuolaCard';
 import './scuolecarousel.css';
 
-export default function ContainerCarousel() {
+export default function ContainerCarousel({listaScuole,setListaScuole}) {
   const [nomeScuole, setNomeScuole] = useState(null);
   var c = 0;
   let items = [];
@@ -47,6 +47,7 @@ export default function ContainerCarousel() {
           })
         );
         setNomeScuole({ items: items });
+        setListaScuole({items: items})
 
         
       });
@@ -55,8 +56,8 @@ export default function ContainerCarousel() {
   return (
     <div className="carousel">
       <div className="scuole">
-        {nomeScuole &&
-          nomeScuole.items.map(scuola => (
+        {listaScuole &&
+          listaScuole.items.map(scuola => (
             <ScuolaCard
               immagine={scuola.scuola.Logo}
               nome={scuola.scuola.Nome_Scuola}

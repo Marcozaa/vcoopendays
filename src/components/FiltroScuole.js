@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   chakra,
@@ -27,11 +27,53 @@ import {
 } from "react-icons/ai";
 import { BsCalendar, BsFillCameraVideoFill, BsTextarea } from "react-icons/bs";
 import { FaTextWidth } from "react-icons/fa";
-
-export default function FiltroScuole() {
+import axios from "axios";
+export default function FiltroScuole({listaScuole,setListaScuole}) {
+  const [input, setInput] = useState()
+  const [risultatiScuole, setRisultatiScuole] = useState()
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
 
+  var items = []
+  function onChangeInput(e){
+    console.log(e.target.value)
+    setInput(e.target.value)
+    axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/MatchWords.php?wordToSearch=' +input)
+      .then(res => {
+        console.log('Res.data=' + res.data);
+
+        res.data.map(scuola =>
+          
+          items.push({
+            scuola: scuola,
+          })
+        );
+        setListaScuole({ items: items });
+
+        
+      });
+  }
+
+  function onSearch(){
+    setInput("")
+    console.log("hi")
+    axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/MatchWords.php?wordToSearch=' +input)
+      .then(res => {
+        console.log('Res.data=' + res.data);
+
+        res.data.map(scuola =>
+          
+          items.push({
+            scuola: scuola,
+          })
+        );
+        setListaScuole({ items: items });
+
+        
+      });
+  }
   return (
     <React.Fragment>
       <chakra.header
@@ -100,7 +142,7 @@ export default function FiltroScuole() {
               alignItems="center"
             >
   
-              <VisuallyHidden>Choc</VisuallyHidden>
+ 
             </chakra.a>
 
             <HStack spacing={3} display={{ base: "none", md: "inline-flex" }}>
@@ -127,7 +169,7 @@ export default function FiltroScuole() {
                 pointerEvents="none"
                 children={<AiOutlineSearch />}
               />
-              <Input type="tel" placeholder="Cerca scuole..." />
+              <Input type="tel" placeholder="Cerca scuole..." onChange={onChangeInput} onKeyPress={onSearch} />
             </InputGroup>
 
             <chakra.a

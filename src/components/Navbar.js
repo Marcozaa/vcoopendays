@@ -111,22 +111,13 @@ export default function Navbar() {
                     Scuole
                   </Button>
                 </Link>
-                <Link to="/persone">
-                  <Button w="full" variant={'solid'} color={'gray.900'} leftIcon={<BsPerson />}>
-                    Studenti
+                <Link to="/scuole/registrazioneStand">
+                  <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
+                    Scuole
                   </Button>
                 </Link>
-                <Link to="/impara">
-                  <Button w="full" variant={'solid'} leftIcon={<MdSchool />}>
-                    Impara
-                  </Button>
-                </Link>
-                <Link to="/galleria">
-                  <Button w="full" variant={'solid'} leftIcon={<FaImages />}>
-                    Galleria
-                  </Button>
-                </Link>
-                
+
+
               </VStack>
             </Box>
             <chakra.a
@@ -147,26 +138,21 @@ export default function Navbar() {
                   Scuole
                 </Button>
               </Link>
-              <Link to="/persone">
-                <Button variant="ghost" leftIcon={<BsPerson />} size="sm">
-                  Studenti
-                </Button>
-              </Link>
-              <Link to="/impara">
-                <Button variant="ghost" leftIcon={<MdSchool />} size="sm">
-                  Impara
-                </Button>
-              </Link>
-              <Link to="/galleria">
-                <Button variant="ghost" leftIcon={<FaImages />} size="sm">
-                  Galleria
-                </Button>
-              </Link>
               <Link to="/scuole/workshops">
-                  <Button w="full" variant={'ghost'} leftIcon={<MdWork />}>
-                    Workshops
-                  </Button>
-                </Link>
+                <Button w="full" variant={'ghost'} leftIcon={<MdWork />}>
+                  Workshops
+                </Button>
+              </Link>
+              <Link to="/scuole/inserimentoEventi">
+                <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
+                  Inserimento Workshop
+                </Button>
+              </Link>
+              <Link to="/scuole/registrazioneStand">
+                <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
+                  Registrazione Padiglioni
+                </Button>
+              </Link>
             </HStack>
           </HStack>
           <HStack
@@ -204,7 +190,7 @@ export default function Navbar() {
                         Pannello Admin
                       </MenuItem>
                     </Link>
-                  ):(null)}
+                  ) : (null)}
                   <MenuItem
                     onClick={logout}
                     icon={<MdExitToApp />} command='⌘N'>

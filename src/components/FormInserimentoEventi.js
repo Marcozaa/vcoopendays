@@ -33,7 +33,7 @@ import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 
 export default function FormInserimentoEventi() {
-  function getBase64(file) {}
+  function getBase64(file) { }
 
   function checkDati() {
     /*
@@ -119,7 +119,7 @@ export default function FormInserimentoEventi() {
   useEffect(() => {
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniDisponibili.php'
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniPrenotati.php'
       )
       .then(res => {
         console.log(res.data);
@@ -132,6 +132,34 @@ export default function FormInserimentoEventi() {
         console.log(IdPadiglioniDisponibili.items);
       });
   }, []);
+
+  function inserimentoWorkshop() {
+    var idPadiglione = document.getElementById("selPadiglione").value;
+    var nomeWorkshop = document.getElementById("first_name").value;
+    var descrizione = document.getElementById("descrizione").value;
+    var posti = document.getElementById("posti_").value;
+    console.log("padiglione " . idPadiglione);
+
+    const datiPadiglione = idPadiglione.split(".");
+
+    axios
+      .post(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/insertUtente.php?nome=%27+' +
+        nomeWorkshop +
+        '%27&descrizione=%27' +
+        descrizione +
+        '%27&padiglione=%27' +
+        datiPadiglione[0] +
+        '%27&codice=%27' +
+        datiPadiglione[1] +
+        '%27&posti=%27' +
+        posti +
+        '%27%'
+      )
+      .then(res => {
+        console.log(res);
+      });
+  }
 
   return (
     <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
@@ -193,7 +221,7 @@ export default function FormInserimentoEventi() {
                       <Input
                         required
                         type="text"
-                        name="first_name"
+                        name="posti_"
                         id="first_name"
                         autoComplete="given-name"
                         mt={1}
@@ -204,21 +232,20 @@ export default function FormInserimentoEventi() {
                         rounded="md"
                       />
                       <FormLabel
-                        htmlFor="email"
+                        htmlFor="first_name"
                         fontSize="sm"
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
-                        marginTop="1vw"
                       >
-                        Materie
+                        Posti evento
                       </FormLabel>
+
                       <Input
-                        placeholder="Matematica"
                         required
-                        type="email"
-                        name="email"
-                        id="email"
-                        autoComplete="family-name"
+                        type="text"
+                        name="first_name"
+                        id="postiDisponibili"
+                        autoComplete="given-name"
                         mt={1}
                         focusBorderColor="brand.400"
                         shadow="sm"
@@ -230,15 +257,6 @@ export default function FormInserimentoEventi() {
 
                     <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
                       <FormLabel
-                        htmlFor="last_name"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                      >
-                        Codice Meccanografico
-                      </FormLabel>
-                      <AutoCompleta />
-                      <FormLabel
                         htmlFor="number"
                         fontSize="sm"
                         fontWeight="md"
@@ -247,11 +265,12 @@ export default function FormInserimentoEventi() {
                       >
                         Seleziona il padiglione
                       </FormLabel>
-                      <Select>
+                      <Select id="selPadiglione">
                         {IdPadiglioniDisponibili &&
                           IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option value="option1">
-                              {padiglione.workShop.ID_Padiglione}
+
+                            <option value={padiglione.workShop.ID_Padiglione.concat("." + padiglione.workShop.Codice_Meccanografico)}>
+                              {padiglione.workShop.ID_Padiglione} - {padiglione.workShop.Codice_Meccanografico}
                             </option>
                           ))}
                       </Select>
@@ -305,6 +324,7 @@ export default function FormInserimentoEventi() {
                         shadow="sm"
                         focusBorderColor="brand.400"
                         fontSize={{ sm: 'sm' }}
+                        id="descrizione"
                       />
                       {!isError ? (
                         <FormHelperText>
@@ -403,7 +423,7 @@ export default function FormInserimentoEventi() {
                 bg={useColorModeValue('gray.50', 'gray.900')}
                 textAlign="right"
               >
-                <Button onClick={checkDati} size="lg">
+                <Button onClick={inserimentoWorkshop} size="lg">
                   Continua
                 </Button>
               </Box>

@@ -19,6 +19,7 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
   const [idUtenti, setidUtenti] = useState(null)
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null)
   var items = []
+  var items2 = []
   useEffect(() => {
     // Grab user id from email
     axios
@@ -42,6 +43,8 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
         );
         setidUtenti({ items: items });
 
+        console.log("flag")   
+        console.log(utentiPartecipanti)  
        getUtenti()
         
       })
@@ -57,10 +60,13 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
       .get('https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtenteFromId.php?id=' +
           idUtenti.items[i].id.ID_Visitatore)
        .then(res => {
-         for(var i = 0; i<  res.data.length; i++)
-        console.log( res.data[i])
-        setUtentiPartecipanti(res.data[i]);
-        
+        console.log(res.data)
+          res.data.map(utente =>
+          items2.push({
+            utente: utente,
+          })
+        );
+        setUtentiPartecipanti({ items2: items2 });
       })
 
         }

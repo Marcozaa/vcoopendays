@@ -137,6 +137,7 @@ export default function FormInserimentoEventi() {
     var idPadiglione = document.getElementById("selPadiglione").value;
     var nomeWorkshop = document.getElementById("nome").value;
     var descrizione = document.getElementById("descrizione").value;
+    var linkImmagine = document.getElementById("linkImmagine").value
     var posti = document.getElementById("postiDisponibili").value;
     console.log("idPadiglione = " + idPadiglione + "\n" +"nomeWorkshop = " + nomeWorkshop + "\n" +"descrizione = " + descrizione + "\n" +"posti = " + posti );
 
@@ -154,6 +155,9 @@ export default function FormInserimentoEventi() {
         datiPadiglione[1] +
         '&posti=' +
         posti +
+        '&linkImmagine='+
+        linkImmagine
+        +
         ''
       )
       .then(res => {
@@ -415,6 +419,32 @@ export default function FormInserimentoEventi() {
                       </Stack>
                     </Flex>
                   </FormControl>
+                  <FormControl
+                      id="email"
+                      mt={1}
+                      value={input}
+                      onChange={handleInputChange}
+                    >
+                      <FormLabel
+                        fontSize="sm"
+                        
+                        fontWeight="md"
+                        color={useColorModeValue('gray.700', 'gray.50')}
+                      >
+                        Oppure inserisci un link per l'immagine
+                      </FormLabel>
+                      <Textarea
+                        mt={1}
+                        rows={3}
+                        shadow="sm"
+                        focusBorderColor="brand.400"
+                        fontSize={{ sm: 'sm' }}
+                        id="descrizione"
+                        id="linkImmagine"
+                      />
+                      
+                    </FormControl>
+                      
                 </Stack>
               </motion.div>
               <Box

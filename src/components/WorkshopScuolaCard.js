@@ -13,8 +13,19 @@ import {
   Button,
 } from "@chakra-ui/react";
 import axios from "axios";
-
-const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora_inizio, Ora_Fine, codiceMeccanoGraficoScuola}) => {
+import { Alert, AlertDescription, AlertIcon, AlertTitle,CloseButton,  Text, useDisclosure } from '@chakra-ui/react';
+import { useRef } from 'react';
+import { FaMale, FaSchool } from 'react-icons/fa';
+import ProfileSections from '../components/ProfileSections';
+import { Form } from '../components/ChangeNameOverlay';
+import { Popover, PopoverTrigger } from '@chakra-ui/react';
+import { IconButton } from '@chakra-ui/react';
+import { FaEdit } from 'react-icons/fa';
+import { PopoverContent } from '@chakra-ui/react';
+import  FocusLock from "react-focus-lock"
+import { PopoverArrow } from '@chakra-ui/react';
+import { PopoverCloseButton } from '@chakra-ui/react';
+const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora_inizio, Ora_Fine, codiceMeccanoGraficoScuola, immagine_cover}) => {
   const [idUtente, setIdUtente] = useState()
   const [idUtenti, setidUtenti] = useState(null)
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null)
@@ -43,9 +54,7 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
         );
         setidUtenti({ items: items });
 
-        console.log("flag")   
-        console.log(utentiPartecipanti)  
-       getUtenti()
+        
         
       })
 
@@ -107,6 +116,8 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
     }
     return '';
   }
+    const { onOpen, onClose, isOpen } = useDisclosure()
+  const firstFieldRef = useRef(null)
   return (
     
       <Box
@@ -114,16 +125,37 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
         rounded="lg"
         shadow="md"
         bg={useColorModeValue("white", "gray.800")}
+        position={'relative'}
         maxW="2xl"
       >
-      
+        <p position={'absolute'} top={0} right={0}>Condividi </p>
+      <Popover
+              isOpen={isOpen}
+              initialFocusRef={firstFieldRef}
+              onOpen={onOpen}
+              onClose={onClose}
+              placement='right'
+              closeOnBlur={false}
+            >
+              <PopoverTrigger>
+                <IconButton size='sm' icon={<FaEdit />} />
+              </PopoverTrigger>
+              <PopoverContent p={5}>
+                <FocusLock returnFocus persistentFocus={false}>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <Form firstFieldRef={firstFieldRef} onCancel={onClose} />
+                </FocusLock>
+              </PopoverContent>
+            </Popover>
         
         <Image
+        position={'relative'}
           roundedTop="lg"
           w="full"
           h={64}
           fit="cover"
-          src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+          src={immagine_cover}
           alt="Article"
         />
 
@@ -167,11 +199,13 @@ const WorkshopScuolaCard = ({nomeScuola, tags, descrizione,PostiDisponibili, Ora
             <Flex alignItems="center">
               <Flex alignItems="center">
                 <AvatarGroup size='md' max={2}>
-                  <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
-                  <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
-                  <Avatar name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />
-                  <Avatar name='Prosper Otemuyiwa' src='https://bit.ly/prosper-baba' />
-                  <Avatar name='Christian Nwamba' src='https://bit.ly/code-beast' />
+
+                  { (idUtenti && (
+                  idUtenti.items.map(utente => (
+                      <Avatar name='Ryan Florence' src={utente.id.immagine_profilo} />
+                  ))
+                ))
+                }
                 </AvatarGroup>
                 <Link
                   mx={2}

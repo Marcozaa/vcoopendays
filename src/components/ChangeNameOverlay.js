@@ -18,6 +18,7 @@ import { Box } from '@chakra-ui/react'
 import { IconButton } from '@chakra-ui/react'
 import { FaEdit } from 'react-icons/fa'
 import  FocusLock from "react-focus-lock"
+import axios from 'axios'
 // 1. Create a text input component
 const TextInput = React.forwardRef((props, ref) => {
   return (
@@ -28,23 +29,40 @@ const TextInput = React.forwardRef((props, ref) => {
   )
 })
 
-// 2. Create the form
+function inviaMail(){
+  var items = []
+   axios
+      .get('https://87.250.73.22/html/Zanchin/vcoopendays/inviaMail.php?nomeWorkshop=prova')
+      .then(res => {
+        console.log('Res.data=' + res.data);
+
+        res.data.map(workshop =>
+          
+          items.push({
+            workshop: workshop,
+          })
+        );
+       // setWorkshops({ items: items });
+
+        
+      });
+}
+
 export function Form ({ firstFieldRef, onCancel }) {
   return (
     <Stack spacing={4}>
       <TextInput
-        label='Nome'
+        label='Email'
         id='first-name'
         ref={firstFieldRef}
-        defaultValue='Schopenhauer'
+        placeholder='name@gmail.com'
       />
-      <TextInput label='Cognome' id='last-name' defaultValue='Smith' />
       <ButtonGroup d='flex' justifyContent='flex-end'>
         <Button variant='outline' onClick={onCancel}>
           Annulla
         </Button>
-        <Button  colorScheme='teal'>
-          Salva
+        <Button  colorScheme='teal' onClick={inviaMail}>
+          Invia
         </Button>
       </ButtonGroup>
     </Stack>

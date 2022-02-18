@@ -3,7 +3,7 @@ import axios from "axios";
 import Tags from "../components/Tags";
 import WorkshopScuolaCard from "../components/WorkshopScuolaCard";
 import Wrapper from "../components/Wrapper";
-
+import './workshops.css'
 const WorkShops = () => {
      const [workshops, setWorkshops] = useState(null);
   var c = 0;
@@ -31,7 +31,7 @@ const WorkShops = () => {
     return ( <div>
         <Wrapper setTagsWrk={setTagsWrk} tagsWrk={tagsWrk} />
         <Tags tagsWrk={tagsWrk} setTagsWrk={setTagsWrk} />
-
+        <div className="workshops">
         {workshops &&
           workshops.items.map(workshop => (
                     <WorkshopScuolaCard 
@@ -41,9 +41,10 @@ const WorkShops = () => {
                     tags={tags} descrizione = {workshop.workshop.Descrizione} 
                     PostiDisponibili={workshop.workshop.Posti}
                     codiceMeccanoGraficoScuola={workshop.workshop.Codice_Meccanografico}
+                    immagine_cover={workshop.workshop.immagine_cover}
                     />
           ))}
-        
+        </div>
     </div> );
 }
  

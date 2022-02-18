@@ -26,6 +26,21 @@ while ($r = mysqli_fetch_assoc($trp)) {
     $rows[] = $r;
 }
 
+$c = 1;
+$a = 0;
+foreach($rows as $str){
+    foreach($str as $dati){
+        if($c%2 == 0){
+            $sc = mysqli_query($conn, "SELECT `immagine_profilo` FROM `Visitatore` WHERE `ID_Visitatore` =" . $dati . "'");
+            while ($r = mysqli_fetch_assoc($sc)) {
+                $rows2[] = $r;
+            }
+        }
+        $c+=1;
+    }
+}
 
 
 print json_encode($rows);
+
+print json_encode($rows2);

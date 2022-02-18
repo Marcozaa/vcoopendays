@@ -152,7 +152,6 @@ export default function FormRegistrazionePadiglione() {
   function setPadiglione() {
     var codiceMeccano = document.getElementById('selCodice').value;
     var idPadiglione = document.getElementById('selPadiglione').value;
-    console.log("Dio: " + codiceMeccano + " Cane: " + idPadiglione);
     axios
       .post(
         'https://87.250.73.22/html/Zanchin/vcoopendays/setPadiglioneMeccano.php?codice=' +

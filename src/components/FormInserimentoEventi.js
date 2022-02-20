@@ -28,10 +28,10 @@ import {
 } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
+import Tags from './Tags';
 import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
-
+import AutoCompletaTagWorkshop from './AutoCompletaTagWorkshop';
 export default function FormInserimentoEventi() {
   function getBase64(file) { }
 
@@ -165,6 +165,7 @@ export default function FormInserimentoEventi() {
       });
   }
 
+  const [tagsWrk, setTagsWrk] = useState([])
   return (
     <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
       <Box>
@@ -278,8 +279,21 @@ export default function FormInserimentoEventi() {
                             </option>
                           ))}
                       </Select>
+
+
+                      <FormLabel
+                        htmlFor="number"
+                        fontSize="sm"
+                        fontWeight="md"
+                        color={useColorModeValue('gray.700', 'gray.50')}
+                        marginTop="1vw"
+                      >
+                        Seleziona tags
+                      </FormLabel>
+                      <AutoCompletaTagWorkshop tagsWrk={tagsWrk} setTagsWrk={setTagsWrk}   />
                     </FormControl>
                   </SimpleGrid>
+                  <Tags tagsWrk={tagsWrk} setTagsWrk={setTagsWrk} />
 
                   <div>
                     <FormControl

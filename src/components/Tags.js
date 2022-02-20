@@ -10,10 +10,10 @@ const Tags = ({tagsWrk, setTagsWrk}) => {
     return ( <div style={{width:'100%' , padding: '1rem', height: 'auto'}}>
         <HStack spacing={4}>
           
-      {tagsWrk.map(tag => (
+      {tagsWrk.map((tag,i) => (
     <Tag
       size={'lg'}
-      key={tag}
+      key={i}
       borderRadius='full'
       variant='solid'
       colorScheme='green'

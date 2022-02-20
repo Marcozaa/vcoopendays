@@ -35,7 +35,6 @@ export default function ProfileSections({iscrizioni}) {
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
 
-  console.log(iscrizioni)
   return (
     <Box >
       
@@ -46,7 +45,7 @@ export default function ProfileSections({iscrizioni}) {
         borderWidth={0}
         overflowX="auto"
       >
-        <Tabs defaultIndex={1} borderBottom={"transparent"} >
+        <Tabs defaultIndex={0} borderBottom={"transparent"} >
           <TabList>
             <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
               Workshop
@@ -66,7 +65,6 @@ export default function ProfileSections({iscrizioni}) {
 
       { iscrizioni && (
       iscrizioni.items.map(iscrizione=>(
-        
         <h1>{iscrizione.iscrizione.Nome_Workshop}</h1>
       ))
       )}

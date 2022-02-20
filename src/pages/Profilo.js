@@ -9,21 +9,23 @@ import { Popover, PopoverTrigger } from '@chakra-ui/react';
 import { IconButton } from '@chakra-ui/react';
 import { FaEdit } from 'react-icons/fa';
 import { PopoverContent } from '@chakra-ui/react';
-import  FocusLock from "react-focus-lock"
+import FocusLock from "react-focus-lock"
 import { PopoverArrow } from '@chakra-ui/react';
 import { PopoverCloseButton } from '@chakra-ui/react';
+
 const Profilo = ({ datiUtente }) => {
-  const [immagineProfilo, setImmagineProfilo] = useState(null);
-  const [nomeUtente, setNomeUtente] = useState(null);
-  const [cognomeUtente, setCognomeUtente] = useState(null);
-  const [classeUtente, setClasseUtente] = useState(null);
-  const [sessoUtente, setSessoUtente] = useState(null);
-  const [dataNascitaUtente, setDataNascitaUtente] = useState(null);
-  const [confermato, setConfermato] = useState(null);
-  const [idUtente, setIdUtente] = useState(null);
+  console.log("rientro");
+  const [immagineProfilo, setImmagineProfilo] = useState();
+  const [nomeUtente, setNomeUtente] = useState();
+  const [cognomeUtente, setCognomeUtente] = useState();
+  const [classeUtente, setClasseUtente] = useState();
+  const [sessoUtente, setSessoUtente] = useState();
+  const [dataNascitaUtente, setDataNascitaUtente] = useState();
+  const [confermato, setConfermato] = useState();
+  const [idUtente, setIdUtente] = useState();
   const [loggato, setLoggato] = useState(null);
-  var items = [];
   const [iscrizioni, setIscrizioni] = useState(null);
+
   useEffect(() => {
     if (document.cookie.indexOf('username=') == 0) {
       setLoggato(true);
@@ -31,14 +33,20 @@ const Profilo = ({ datiUtente }) => {
       setLoggato(false);
       window.location.href = 'login';
     }
+    setDati();
+  }, []);
 
+  var items = [];
+  
+
+  function setDati() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
-          getCookie('username')
+        getCookie('username')
       )
       .then(res => {
-        console.log(res);
+        console.log("terzo")
         setImmagineProfilo(res.data[0].immagine_profilo);
         setNomeUtente(res.data[0].Nome);
         setCognomeUtente(res.data[0].Cognome);
@@ -49,41 +57,25 @@ const Profilo = ({ datiUtente }) => {
         setIdUtente(res.data[0].ID_Visitatore);
       });
 
-      axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
-          getCookie('username')
-      )
-      .then(res => {
-        console.log(res);
-        setImmagineProfilo(res.data[0].immagine_profilo);
-        setNomeUtente(res.data[0].Nome);
-        setCognomeUtente(res.data[0].Cognome);
-        setClasseUtente(res.data[0].Classe);
-        setSessoUtente(res.data[0].Sesso);
-        setDataNascitaUtente(res.data[0].Data_Nascita);
-        setConfermato(res.data[0].Confermato);
-        setIdUtente(res.data[0].ID_Visitatore);
-      });
+    getIscrizioni();
+  }
 
-
-      axios
+  function getIscrizioni() {
+    console.log("IdUtente = " + idUtente)
+    axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/GetIscrizioniWorkshop.php?idUtente=' +
-          idUtente
+        idUtente
       )
       .then(res => {
-        console.log(res);
-        
         res.data.map(iscrizione =>
-          
           items.push({
             iscrizione: iscrizione,
           })
         );
         setIscrizioni({ items: items });
       });
-  }, []);
+  }
 
   // Prende cookie da browser
   function getCookie(cname) {
@@ -105,73 +97,72 @@ const Profilo = ({ datiUtente }) => {
 
   const { onOpen, onClose, isOpen } = useDisclosure()
   const firstFieldRef = useRef(null)
-  console.log(iscrizioni)
   return (
     <div >
 
-      {confermato == 1 ?(<></>) : 
-      (<Alert status='error' position={'absolute'}>
-        <AlertIcon />
-        <AlertTitle mr={2}>Non sei ancora autenticato!</AlertTitle>
-        <AlertDescription>La tua esperienza potrebbe essere limitata.</AlertDescription>
-        <CloseButton position='absolute' right='8px' top='8px' />
-      </Alert>)}
-        {loggato ? (
-          
-    <div className='profilo' style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-        <div className="top">
-          <div className="left">
-            {immagineProfilo && (
-              <Avatar
-                width={'9vw'}
-                minWidth={'5rem'}
-                minHeight={'5rem'}
-                maxWidth={'150px'}
-                maxHeight={'150px'}
-                height={'9vw'}
-                position={'absolute'}
-                top={'11vh'}
-                name={user}
-                border={'10px solid #242424'}
-                src={immagineProfilo}
-              />
-            )}
-          </div>
+      {confermato == 1 ? (<></>) :
+        (<Alert status='error' position={'absolute'}>
+          <AlertIcon />
+          <AlertTitle mr={2}>Non sei ancora autenticato!</AlertTitle>
+          <AlertDescription>La tua esperienza potrebbe essere limitata.</AlertDescription>
+          <CloseButton position='absolute' right='8px' top='8px' />
+        </Alert>)}
+      {loggato ? (
 
-          <div className="right">
-            
+        <div className='profilo' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          <div className="top">
+            <div className="left">
+              {immagineProfilo && (
+                <Avatar
+                  width={'9vw'}
+                  minWidth={'5rem'}
+                  minHeight={'5rem'}
+                  maxWidth={'150px'}
+                  maxHeight={'150px'}
+                  height={'9vw'}
+                  position={'absolute'}
+                  top={'11vh'}
+                  name={user}
+                  border={'10px solid #242424'}
+                  src={immagineProfilo}
+                />
+              )}
+            </div>
+
+            <div className="right">
+
+            </div>
           </div>
-        </div>
-        <div className="infos" >{/*usecolormode*/}
+          <div className="infos" >{/*usecolormode*/}
             <div className="infos-top">
-            {nomeUtente && (
-              <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
-              <Text
-              className='nome'
-              fontSize="lg">
-                {nomeUtente} {cognomeUtente}&nbsp;
-              </Text>
-              <Popover
-              isOpen={isOpen}
-              initialFocusRef={firstFieldRef}
-              onOpen={onOpen}
-              onClose={onClose}
-              placement='right'
-              closeOnBlur={false}
-            >
-              <PopoverTrigger>
-                <IconButton size='sm' icon={<FaEdit />} />
-              </PopoverTrigger>
-              <PopoverContent p={5}>
-                <FocusLock returnFocus persistentFocus={false}>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <Form firstFieldRef={firstFieldRef} onCancel={onClose} />
-                </FocusLock>
-              </PopoverContent>
-            </Popover>
-              </Box>
-            )}
+              {nomeUtente && (
+                <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                  <Text
+                    className='nome'
+                    fontSize="lg">
+                    {nomeUtente} {cognomeUtente}&nbsp;
+                  </Text>
+                  <Popover
+                    isOpen={isOpen}
+                    initialFocusRef={firstFieldRef}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                    placement='right'
+                    closeOnBlur={false}
+                  >
+                    <PopoverTrigger>
+                      <IconButton size='sm' icon={<FaEdit />} />
+                    </PopoverTrigger>
+                    <PopoverContent p={5}>
+                      <FocusLock returnFocus persistentFocus={false}>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <Form firstFieldRef={firstFieldRef} onCancel={onClose} />
+                      </FocusLock>
+                    </PopoverContent>
+                  </Popover>
+                </Box>
+              )}
             </div>
             {classeUtente && (
               <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
@@ -180,20 +171,20 @@ const Profilo = ({ datiUtente }) => {
               </Box>
             )}
             {sessoUtente && (
-                dataNascitaUtente && (
-              <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                <FaMale />
-                <Text fontSize="lg">&nbsp;{dataNascitaUtente}</Text>
-              </Box>
-                )
+              dataNascitaUtente && (
+                <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                  <FaMale />
+                  <Text fontSize="lg">&nbsp;{dataNascitaUtente}</Text>
+                </Box>
+              )
             )}
+          </div>
+          {iscrizioni && (
+            <ProfileSections iscrizioni={iscrizioni} />
+          )}
         </div>
-        {iscrizioni && (
-        <ProfileSections iscrizioni={iscrizioni} />
-        )}
-      </div>
-      ):
-      <h1 >Non sei loggato!</h1>
+      ) :
+        <h1 >Non sei loggato!</h1>
       }
     </div>
   );

@@ -6,6 +6,7 @@ import {
   useColorModeValue,
   SimpleGrid,
   GridItem,
+  Link,
   Heading,
   Text,
   Stack,
@@ -33,7 +34,7 @@ import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 
 export default function FormRegistrazionePadiglione() {
-  function getBase64(file) {}
+  function getBase64(file) { }
 
   function checkDati() {
     /*
@@ -114,197 +115,309 @@ export default function FormRegistrazionePadiglione() {
 
   const isError = input === '';
 
-  const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
-  const [codiciScuole, setcodiciScuole] = useState();
-  let items = [];
-  let itemsScuole = [];
-  useEffect(() => {
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniDisponibili.php'
-      )
-      .then(res => {
-        console.log(res.data);
-        res.data.map(padiglione =>
-          items.push({
-            workShop: padiglione,
-          })
-        );
-        setIdPadiglioniDisponibili({ items: items });
-        setScuole();
-      });
-  }, []);
 
-  function setScuole() {
-    axios
-      .get('https://87.250.73.22/html/Zanchin/vcoopendays/getScuole.php')
-      .then(res => {
-        console.log(res.data);
-        res.data.map(scuola =>
-          itemsScuole.push({
-            scuola: scuola,
-          })
-        );
-        setcodiciScuole({ itemsScuole: itemsScuole });
+  function sendFile() {
+    let formData = new FormData();
+    formData.append('file',);
+    console.log('>> formData >> ', formData);
+
+    // You should have a server side REST API 
+    axios.post('https://87.250.73.22/html/Zanchin/vcoopendays/',
+      formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    ).then(function () {
+      console.log('SUCCESS!!');
+    })
+      .catch(function () {
+        console.log('FAILURE!!');
       });
   }
 
-  function setPadiglione() {
-    var codiceMeccano = document.getElementById('selCodice').value;
-    var idPadiglione = document.getElementById('selPadiglione').value;
-    axios
-      .post(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/setPadiglioneMeccano.php?codice=' +
-          codiceMeccano +
-          '&id=' +
-          idPadiglione 
-      )
-      .then(res => {
-        console.log(res);
-      });
-  }
 
-  return (
-    <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
-      <Box>
-        <SimpleGrid
-          display={{ base: 'initial', md: 'grid' }}
-          columns={{ md: 3 }}
-          spacing={{ md: 6 }}
+const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
+const [codiciScuole, setcodiciScuole] = useState();
+let items = [];
+let itemsScuole = [];
+useEffect(() => {
+  axios
+    .get(
+      'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniDisponibili.php'
+    )
+    .then(res => {
+      console.log(res.data);
+      res.data.map(padiglione =>
+        items.push({
+          workShop: padiglione,
+        })
+      );
+      setIdPadiglioniDisponibili({ items: items });
+      setScuole();
+    });
+}, []);
+
+function setScuole() {
+  axios
+    .get('https://87.250.73.22/html/Zanchin/vcoopendays/getScuole.php')
+    .then(res => {
+      console.log(res.data);
+      res.data.map(scuola =>
+        itemsScuole.push({
+          scuola: scuola,
+        })
+      );
+      setcodiciScuole({ itemsScuole: itemsScuole });
+    });
+}
+
+function setPadiglione() {
+  var codiceMeccano = document.getElementById('selCodice').value;
+  var idPadiglione = document.getElementById('selPadiglione').value;
+  axios
+    .post(
+      'https://87.250.73.22/html/Zanchin/vcoopendays/setPadiglioneMeccano.php?codice=' +
+      codiceMeccano +
+      '&id=' +
+      idPadiglione
+    )
+    .then(res => {
+      console.log(res);
+    });
+}
+  
+
+// Prendi csv file da caricare sul server
+return (
+  <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
+    <Box>
+      <SimpleGrid
+        display={{ base: 'initial', md: 'grid' }}
+        columns={{ md: 3 }}
+        spacing={{ md: 6 }}
+      >
+        <motion.div
+          animate={{ opacity: [0, 1] }}
+          transition={{ duration: 0.7 }}
         >
-          <motion.div
-            animate={{ opacity: [0, 1] }}
-            transition={{ duration: 0.7 }}
-          >
-            <GridItem colSpan={{ md: 1 }}>
-              <Box px={[4, 0]}>
-                <Heading fontSize="lg" fontWeight="md" lineHeight="6">
-                  Prenotazione padiglioni
-                </Heading>
-                <Text
-                  mt={1}
-                  fontSize="sm"
-                  color={useColorModeValue('gray.600', 'gray.400')}
-                >
-                  Prenotazione dei padiglioni da parte delle scuole. Verrai
-                  notificato con l'accettazione della proposta o il rifiuto
-                  entro 5 ore dall'invio.
-                </Text>
-              </Box>
-            </GridItem>
-          </motion.div>
-          <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
-            <chakra.form
-              shadow="base"
-              rounded={[null, 'md']}
-              overflow={{ sm: 'hidden' }}
-            >
-              <motion.div
-                animate={{ opacity: [0, 1] }}
-                transition={{ duration: 1 }}
+          <GridItem colSpan={{ md: 1 }}>
+            <Box px={[4, 0]}>
+              <Heading fontSize="lg" fontWeight="md" lineHeight="6">
+                Prenotazione padiglioni
+              </Heading>
+              <Text
+                mt={1}
+                fontSize="sm"
+                color={useColorModeValue('gray.600', 'gray.400')}
               >
-                <Stack
-                  px={4}
-                  py={5}
-                  bg={useColorModeValue('white', 'gray.700')}
-                  spacing={6}
-                  p={{ sm: 6 }}
-                >
-                  <SimpleGrid columns={6} spacing={6}>
-                    <FormControl isRequired as={GridItem} colSpan={[6, 3]}>
-                      <FormLabel
-                        htmlFor="number"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                        marginTop="1vw"
-                      >
-                        Seleziona il codice meccanografico
-                      </FormLabel>
-                      <Select id="selCodice">
-                        {codiciScuole &&
-                          codiciScuole.itemsScuole.map(scuola => (
-                            <option
-                              value={scuola.scuola.Codice_Meccanografico}
-                            >
-                              {scuola.scuola.Codice_Meccanografico} -{' '}
-                              {scuola.scuola.Nome_Scuola}
-                            </option>
-                          ))}
-                      </Select>
+                Prenotazione dei padiglioni da parte delle scuole. Verrai
+                notificato con l'accettazione della proposta o il rifiuto
+                entro 5 ore dall'invio.
+              </Text>
 
-                      <FormControl as={GridItem} colSpan={[4, 4]} isRequired>
-                        <FormLabel
-                          htmlFor="number"
-                          fontSize="sm"
-                          fontWeight="md"
-                          color={useColorModeValue('gray.700', 'gray.50')}
-                          marginTop="1vw"
-                        >
-                          Password
-                        </FormLabel>
-                        <Input type="password" id="passwordInserita" />
-                      </FormControl>
-                    </FormControl>
-
-                    <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
-                      <FormLabel
-                        htmlFor="number"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                        marginTop="1vw"
-                      >
-                        Seleziona il padiglione
-                      </FormLabel>
-                      <Select id="selPadiglione">
-                        {IdPadiglioniDisponibili &&
-                          IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option
-                              value={padiglione.workShop.ID_Padiglione}
-                            >
-                              {padiglione.workShop.ID_Padiglione}
-                            </option>
-                          ))}
-                      </Select>
-                    </FormControl>
-                    <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
-                      <FormLabel
-                        htmlFor="number"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                        marginTop="1vw"
-                      >
-                        Email
-                      </FormLabel>
-                      <Input type="email" id="emailInserita" />
-                    </FormControl>
-                  </SimpleGrid>
-                </Stack>
-              </motion.div>
-              <Box
-                px={{ base: 4, sm: 6 }}
-                py={3}
-                bg={useColorModeValue('gray.50', 'gray.900')}
-                textAlign="right"
+              <Text
+                mt={1}
+                fontSize="sm"
+                color={useColorModeValue('gray.600', 'gray.400')}
+                paddingTop={"2vw"}
               >
-                <Button onClick={setPadiglione} size="lg">
-                  Continua
-                </Button>
-              </Box>
-            </chakra.form>
+                Download del file da compilare con tutti gli studenti che
+                participeranno.
+
+                Seguire il formato del file:
+
+              </Text>
+              <Link href="https://87.250.73.22/html/Zanchin/vcoopendays/template_InserimentoUtente.csv" target="_blank" download><Button> template_InserimentoUtente </Button></Link>
+            </Box>
           </GridItem>
-        </SimpleGrid>
-      </Box>
-      <Box visibility={{ base: 'hidden', sm: 'visible' }} aria-hidden="true">
-        <Box py={5}>
-          <Box
-            borderTop="solid 1px"
-            borderTopColor={useColorModeValue('gray.200', 'whiteAlpha.200')}
-          ></Box>
-        </Box>
+        </motion.div>
+        <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
+          <chakra.form
+            shadow="base"
+            rounded={[null, 'md']}
+            overflow={{ sm: 'hidden' }}
+          >
+            <motion.div
+              animate={{ opacity: [0, 1] }}
+              transition={{ duration: 1 }}
+            >
+              <Stack
+                px={4}
+                py={5}
+                bg={useColorModeValue('white', 'gray.700')}
+                spacing={6}
+                p={{ sm: 6 }}
+              >
+                <SimpleGrid columns={6} spacing={6}>
+                  <FormControl isRequired as={GridItem} colSpan={[6, 3]}>
+                    <FormLabel
+                      htmlFor="number"
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
+                      marginTop="1vw"
+                    >
+                      Seleziona il codice meccanografico
+                    </FormLabel>
+                    <Select id="selCodice">
+                      {codiciScuole &&
+                        codiciScuole.itemsScuole.map(scuola => (
+                          <option
+                            value={scuola.scuola.Codice_Meccanografico}
+                          >
+                            {scuola.scuola.Codice_Meccanografico} -{' '}
+                            {scuola.scuola.Nome_Scuola}
+                          </option>
+                        ))}
+                    </Select>
+
+                    <FormControl as={GridItem} colSpan={[4, 4]} isRequired>
+                      <FormLabel
+                        htmlFor="number"
+                        fontSize="sm"
+                        fontWeight="md"
+                        color={useColorModeValue('gray.700', 'gray.50')}
+                        marginTop="1vw"
+                      >
+                        Password
+                      </FormLabel>
+                      <Input type="password" id="passwordInserita" />
+                    </FormControl>
+                  </FormControl>
+
+                  <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
+                    <FormLabel
+                      htmlFor="number"
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
+                      marginTop="1vw"
+                    >
+                      Seleziona il padiglione
+                    </FormLabel>
+                    <Select id="selPadiglione">
+                      {IdPadiglioniDisponibili &&
+                        IdPadiglioniDisponibili.items.map(padiglione => (
+                          <option
+                            value={padiglione.workShop.ID_Padiglione}
+                          >
+                            {padiglione.workShop.ID_Padiglione}
+                          </option>
+                        ))}
+                    </Select>
+                    <FormControl>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
+                    >
+                      Studenti scuola
+                    </FormLabel>
+                    <Flex
+                      mt={1}
+                      justify="center"
+                      px={6}
+                      pt={5}
+                      pb={6}
+                      borderWidth={2}
+                      borderColor={useColorModeValue('gray.300', 'gray.500')}
+                      borderStyle="dashed"
+                      rounded="md"
+                    >
+                      <Stack spacing={1} textAlign="center">
+                        <Icon
+                          mx="auto"
+                          boxSize={12}
+                          color={useColorModeValue('gray.400', 'gray.500')}
+                          stroke="currentColor"
+                          fill="none"
+                          viewBox="0 0 48 48"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </Icon>
+                        <Flex
+                          fontSize="sm"
+                          color={useColorModeValue('gray.600', 'gray.400')}
+                          alignItems="baseline"
+                        >
+                          <chakra.label
+                            htmlFor="file-upload"
+                            cursor="pointer"
+                            rounded="md"
+                            fontSize="md"
+                            color={useColorModeValue('brand.600', 'brand.200')}
+                            pos="relative"
+                            _hover={{
+                              color: useColorModeValue(
+                                'brand.400',
+                                'brand.300'
+                              ),
+                            }}
+                          >
+                            <span>Carica un file excel</span>
+                            <VisuallyHidden>
+                              <input
+                                id="file-upload"
+                                name="file-upload"
+                                type="file"
+                              />
+                            </VisuallyHidden>
+                          </chakra.label>
+                        </Flex>
+                        <Text
+                          fontSize="xs"
+                          color={useColorModeValue('gray.500', 'gray.50')}
+                        >
+                          CSV, XLSZ...
+                        </Text>
+                      </Stack>
+                    </Flex>
+                  </FormControl>
+                  </FormControl>
+                  <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
+                    <FormLabel
+                      htmlFor="number"
+                      fontSize="sm"
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
+                      marginTop="1vw"
+                    >
+                      Email
+                    </FormLabel>
+                    <Input type="email" id="emailInserita" />
+                  </FormControl>
+                </SimpleGrid>
+              </Stack>
+            </motion.div>
+            <Box
+              px={{ base: 4, sm: 6 }}
+              py={3}
+              bg={useColorModeValue('gray.50', 'gray.900')}
+              textAlign="right"
+            >
+              <Button onClick={setPadiglione} size="lg">
+                Continua
+              </Button>
+            </Box>
+          </chakra.form>
+        </GridItem>
+      </SimpleGrid>
+    </Box>
+    <Box visibility={{ base: 'hidden', sm: 'visible' }} aria-hidden="true">
+      <Box py={5}>
+        <Box
+          borderTop="solid 1px"
+          borderTopColor={useColorModeValue('gray.200', 'whiteAlpha.200')}
+        ></Box>
       </Box>
     </Box>
-  );
+  </Box>
+);
 }

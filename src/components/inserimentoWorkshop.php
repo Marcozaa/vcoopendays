@@ -17,11 +17,19 @@ $nome = $_GET['nome'];
 $descrizione = $_GET['descrizione'];
 $posti = $_GET['posti'];
 $padiglione = $_GET['id'];
-$linkImmagine = $_GET['linkImmagine'];
+$immagine = $_GET['linkImmagine'];
 // Check connection
 
 echo ($codice_meccano . "-" . $nome . "-" .$descrizione . "-" .$posti . "-");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$trp = mysqli_query($conn, "INSERT INTO `Workshop` (`Nome`, `Descrizione`, `Codice_Meccanografico`, `Posti`, `padiglioneUtilizzato`, `Tempo_Inizio`, `Tempo_termine`, `immagine_cover`) VALUES ('". $nome ."', '". $descrizione ."', '". $codice_meccano ."', '". $posti ."', '". $padiglione . "', '" . $linkImmagine . "', '')");
+$sql = "INSERT INTO `Workshop` (`Nome`, `Descrizione`, `Codice_Meccanografico`, `Posti`, `padiglioneUtilizzato`, `Tempo_Inizio`, `Tempo_termine`, `immagine_cover`) 
+VALUES ('". $nome . "', '" . $descrizione . "', '" . $codice_meccano . "', '". $posti ."', '". $padiglione ."', '', '','" . $immagine . "')";
+
+
+if ($conn->query($sql) === TRUE) {
+    echo "New created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}

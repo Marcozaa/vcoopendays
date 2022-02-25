@@ -132,7 +132,7 @@ export default function FormInserimentoEventi() {
         console.log(IdPadiglioniDisponibili.items);
       });
   }, []);
-
+const [tagsWrk, setTagsWrk] = useState([])
   function inserimentoWorkshop() {
     var idPadiglione = document.getElementById("selPadiglione").value;
     var nomeWorkshop = document.getElementById("nome").value;
@@ -158,6 +158,9 @@ export default function FormInserimentoEventi() {
         '&linkImmagine='+
         linkImmagine
         +
+        '&tag='+
+        tagsWrk
+        +
         ''
       )
       .then(res => {
@@ -165,7 +168,7 @@ export default function FormInserimentoEventi() {
       });
   }
 
-  const [tagsWrk, setTagsWrk] = useState([])
+  
   return (
     <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
       <Box>

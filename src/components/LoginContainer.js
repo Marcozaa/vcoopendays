@@ -32,29 +32,22 @@ const LoginContainer = ({ setDatiUtente }) => {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/loginTest.php?emailInserita=' +
-        emailInserita +
-        '&passwordInserita=' +
-        passwordInserita
+          emailInserita +
+          '&passwordInserita=' +
+          passwordInserita
       )
       .then(res => {
-        console.log(res.data);
-        if (res.data == true) {
+        console.log("ResData: " + res.data);
+        if (res.data == '1' || res.data == '2' || res.data == '3') {  
           setLoginErrato(false);
+          console.log(loginErrato);
           setDatiUtente(emailInserita);
-          document.cookie = "username=" + emailInserita;
+          document.cookie = 'username=' + emailInserita;
+          document.cookie = 'permessi=' + res.data;
           window.location.href = 'profilo';
         } else {
-          if (res.data == "admin") {
-            setLoginErrato(false);
-            setDatiUtente(emailInserita);
-            document.cookie = "username=" + emailInserita;
-            document.cookie = "admin=admin";
-            window.location.href = 'profilo';
-
-          } else {
-            setLoginErrato(true);
-            document.getElementById('password').value = '';
-          }
+          setLoginErrato(true);
+          document.getElementById('password').value = '';
         }
       });
   }

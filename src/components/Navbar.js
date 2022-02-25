@@ -33,35 +33,69 @@ import {
   BsPlus,
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { MdAddCircle, MdEditLocation, MdExitToApp, MdRepeat, MdSchool, MdWork } from 'react-icons/md';
-import { FaExternalLinkAlt, FaImages, FaSchool, FaTwitter } from 'react-icons/fa';
+import {
+  MdAddCircle,
+  MdEditLocation,
+  MdExitToApp,
+  MdRepeat,
+  MdSchool,
+  MdWork,
+} from 'react-icons/md';
+import {
+  FaExternalLinkAlt,
+  FaImages,
+  FaSchool,
+  FaTwitter,
+} from 'react-icons/fa';
 import './navbar.css';
 export default function Navbar() {
   const bg = useColorModeValue('white.900', 'gray.800');
   const mobileNav = useDisclosure();
 
   const [loggato, setLoggato] = useState(false);
-  const [admin, setAdmin] = useState(false);
+  const [permessi, setPermessi] = useState(false);
+
+  function getCookie(cname) {
+    let name = cname + '=';
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
 
   useEffect(() => {
-
     if (document.cookie.indexOf('username=') == 0) {
       setLoggato(true);
-      if (document.cookie.indexOf('admin=') == 25) {
-        console.log("setto");
-        setAdmin(true);
-      } else {
-        console.log("non setto");
-        setAdmin(false);
+      switch (getCookie('permessi')) {
+        case '1':
+          setPermessi(1);
+          break;
+        case '2':
+          setPermessi(2);
+          break;
+        case '3':
+          setPermessi(3);
+          break;
+        default:
+          console.log('default');
+          break;
       }
     } else {
       setLoggato(false);
     }
   }, []);
 
-  function logout() { // rimuovo il cookie profilo e ricarico la homepage
-    document.cookie = "username" + '=; Max-Age=-99999999;';
-    document.cookie = "admin" + '=; Max-Age=-99999999;';
+  function logout() {
+    // rimuovo il cookie profilo e ricarico la homepage
+    document.cookie = 'username' + '=; Max-Age=-99999999;';
+    document.cookie = 'admin' + '=; Max-Age=-99999999;';
     window.location.href = '/';
   }
 
@@ -116,8 +150,6 @@ export default function Navbar() {
                     Scuole
                   </Button>
                 </Link>
-
-
               </VStack>
             </Box>
             <chakra.a
@@ -143,11 +175,13 @@ export default function Navbar() {
                   Workshops
                 </Button>
               </Link>
-              <Link to="/scuole/inserimentoEventi">
-                <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
-                  Inserimento Workshop
-                </Button>
-              </Link>
+              {permessi == 2 ? (
+                <Link to="/scuole/inserimentoEventi">
+                  <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
+                    Inserimento Workshop
+                  </Button>
+                </Link>
+              ) : null}
               <Link to="/scuole/registrazioneStand">
                 <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
                   Registrazione Padiglioni
@@ -167,33 +201,34 @@ export default function Navbar() {
               color={useColorModeValue('gray.800', 'inherit')}
               rounded="sm"
               _hover={{ color: useColorModeValue('black.800', 'gray.600') }}
-            >
-            </chakra.a>
+            ></chakra.a>
 
             {loggato ? (
-
               <Menu>
                 <MenuButton>
-                  <Avatar name='Sasuke Uchiha' src='https://bit.ly/broken-link' />
+                  <Avatar
+                    name="Sasuke Uchiha"
+                    src="https://bit.ly/broken-link"
+                  />
                 </MenuButton>
                 <MenuList>
                   <Link to="profilo">
-                    <MenuItem
-                      icon={<BsPerson />} command='⌘T'>
+                    <MenuItem icon={<BsPerson />} command="⌘T">
                       Profilo
                     </MenuItem>
                   </Link>
-                  {admin ? (
+                  {permessi == 3 ? (
                     <Link to="adminPanel">
-                      <MenuItem
-                        icon={<BsPerson />} command='⌘T'>
+                      <MenuItem icon={<BsPerson />} command="⌘T">
                         Pannello Admin
                       </MenuItem>
                     </Link>
-                  ) : (null)}
+                  ) : null}
                   <MenuItem
                     onClick={logout}
-                    icon={<MdExitToApp />} command='⌘N'>
+                    icon={<MdExitToApp />}
+                    command="⌘N"
+                  >
                     Logout
                   </MenuItem>
                 </MenuList>

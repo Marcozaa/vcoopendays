@@ -63,7 +63,6 @@ const Profilo = ({ datiUtente }) => {
         setClasseUtente(res.data[0].Classe);
         setSessoUtente(res.data[0].Sesso);
         setDataNascitaUtente(res.data[0].Data_Nascita);
-        console.log("Confermato: " + res.data[0].Confermato);
         if (getCookie('permessi') == '1') {
           setConfermato(res.data[0].Confermato);
         }else{

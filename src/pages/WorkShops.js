@@ -38,10 +38,12 @@ const WorkShops = () => {
                     Ora_inizio={workshop.workshop.Tempo_Inizio.substring(0, workshop.workshop.Tempo_Inizio.length - 3)} 
                     Ora_Fine={workshop.workshop.Tempo_termine.substring(0, workshop.workshop.Tempo_termine.length - 3)} 
                     nomeScuola={workshop.workshop.Nome} 
-                    tags={tags} descrizione = {workshop.workshop.Descrizione} 
+                    tags={tags}
+                    descrizione = {workshop.workshop.Descrizione} 
                     PostiDisponibili={workshop.workshop.Posti}
                     codiceMeccanoGraficoScuola={workshop.workshop.Codice_Meccanografico}
                     immagine_cover={workshop.workshop.immagine_cover}
+                    tag={workshop.workshop.tag}
                     />
           ))}
         </div>

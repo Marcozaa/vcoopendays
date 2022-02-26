@@ -54,12 +54,14 @@ const WorkshopScuolaCard = ({
   Ora_Fine,
   codiceMeccanoGraficoScuola,
   immagine_cover,
+  tag
 }) => {
   const [idUtente, setIdUtente] = useState();
   const [idUtenti, setidUtenti] = useState(null);
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null);
   var items = [];
   var items2 = [];
+  const tags_workshop = tag.split(",") // array di tag ottenuto dalla stringa 
   useEffect(() => {
     // Grab user id from email
     axios
@@ -108,6 +110,8 @@ const WorkshopScuolaCard = ({
     }
   }
 
+  console.log(tags_workshop)
+
   function effettuaRegistrazione() {
     // nomeWorkshop'];    codiceScuola = $_GET['codiceScuola'];   $idUtente = $_GET['idUtente'`
 
@@ -152,9 +156,7 @@ const WorkshopScuolaCard = ({
       position={'relative'}
       maxW="2xl"
     >
-      <p position={'absolute'} top={0} right={0}>
-        Condividi{' '}
-      </p>
+    
 
       <Image
         position={'relative'}
@@ -174,7 +176,7 @@ const WorkshopScuolaCard = ({
             color={useColorModeValue('brand.600', 'brand.400')}
           >
             <HStack spacing={4}>
-              {tags.map(tag => (
+              {tags_workshop.map(tag => (
                 <Tag
                   size={'sm'}
                   key={'size'}

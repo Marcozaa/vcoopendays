@@ -23,6 +23,8 @@ import { PopoverContent } from '@chakra-ui/react';
 import FocusLock from 'react-focus-lock';
 import { PopoverArrow } from '@chakra-ui/react';
 import { PopoverCloseButton } from '@chakra-ui/react';
+import VerticalTimeline from '../components/VerticalTimeline';
+import Timeline from '../components/VerticalTimeline';
 
 const Profilo = ({ datiUtente }) => {
   console.log('rientro');
@@ -218,6 +220,7 @@ const Profilo = ({ datiUtente }) => {
             )}
           </div>
           {iscrizioni && <ProfileSections iscrizioni={iscrizioni} />}
+          <Timeline />
         </div>
       ) : (
         <h1>Non sei loggato!</h1>

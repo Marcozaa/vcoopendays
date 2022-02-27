@@ -8,11 +8,11 @@ import {
   Image,
   Text,
   Icon,
-  Link,
+  
 } from "@chakra-ui/react";
 import CarouselScuole from "./CarouselScuole";
 import { motion } from "framer-motion";
-
+import { Link } from 'react-router-dom';
 const HeroList = () => {
   return (
     <motion.div
@@ -60,6 +60,7 @@ const HeroList = () => {
           spacing={2}
           justifyContent={{ sm: "left", md: "center" }}
         >
+          
           <Button
             as="a"
             variant="solid"
@@ -81,7 +82,7 @@ const HeroList = () => {
               />
             </Icon>
           </Button>
-          <Link to="scuole/workshops">
+          <Link to="/scuole/workshops">
           <Button
             as="a"
             colorScheme="gray"

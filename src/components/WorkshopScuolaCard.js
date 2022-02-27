@@ -44,6 +44,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react'
 import { BsDownload } from 'react-icons/bs';
 const WorkshopScuolaCard = ({
   nomeScuola,
@@ -56,6 +57,7 @@ const WorkshopScuolaCard = ({
   immagine_cover,
   tag
 }) => {
+  const toast = useToast()
   const [idUtente, setIdUtente] = useState();
   const [idUtenti, setidUtenti] = useState(null);
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null);
@@ -239,7 +241,15 @@ const WorkshopScuolaCard = ({
 
             <Button
               
-              onClick={effettuaRegistrazione}
+              onClick={()=>{effettuaRegistrazione(); 
+              toast({
+          title: 'Successo.',
+          description: "Ti sei registrato al workshop.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+              }}
             >
               Registrati
             </Button>

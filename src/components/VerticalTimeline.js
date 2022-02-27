@@ -2,18 +2,18 @@ import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timel
 import 'react-vertical-timeline-component/style.min.css';
 import React from 'react'
 import { FaIndustry, FaMonero, FaSchool } from 'react-icons/fa';
-import { Avatar, AvatarGroup } from '@chakra-ui/react';
+import { Avatar, AvatarGroup, useColorModeValue } from '@chakra-ui/react';
 
 export default function Timeline() {
   return (
-    <div><VerticalTimeline>
+    <div><VerticalTimeline lineColor={ useColorModeValue('black', 'white') } >
   <VerticalTimelineElement
     className="vertical-timeline-element--work"
     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
     date="13:40 -15:00"
    
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff'  }}
     icon={<FaSchool />}
     >
   

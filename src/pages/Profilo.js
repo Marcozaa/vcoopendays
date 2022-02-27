@@ -37,7 +37,7 @@ const Profilo = ({ datiUtente }) => {
   const [confermato, setConfermato] = useState();
   const [idUtente, setIdUtente] = useState();
   const [loggato, setLoggato] = useState(null);
-  const [iscrizioni, setIscrizioni] = useState(null);
+  const [iscrizioni, setIscrizioni] = useState();
 
   useEffect(() => {
     if (document.cookie.indexOf('username=') == 0) {
@@ -60,6 +60,7 @@ const Profilo = ({ datiUtente }) => {
       .then(res => {
         console.log('terzo');
         setImmagineProfilo(res.data[0].immagine_profilo);
+        document.cookie = "immagineProfilo="+res.data[0].immagine_profilo
         setNomeUtente(res.data[0].Nome);
         setCognomeUtente(res.data[0].Cognome);
         setClasseUtente(res.data[0].Classe);
@@ -117,7 +118,9 @@ const Profilo = ({ datiUtente }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   return (
+    
     <div>
+      
       {confermato == 1 ? (
         <></>
       ) : (
@@ -219,7 +222,7 @@ const Profilo = ({ datiUtente }) => {
               </Box>
             )}
           </div>
-          {iscrizioni && <ProfileSections iscrizioni={iscrizioni} />}
+          {iscrizioni && ( <ProfileSections iscrizioni={iscrizioni} /> ) }
           <Timeline />
         </div>
       ) : (

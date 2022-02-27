@@ -54,6 +54,7 @@ export default function Navbar() {
 
   const [loggato, setLoggato] = useState(false);
   const [permessi, setPermessi] = useState(false);
+  const [immagineProfilo, setimmagineProfilo] = useState()
 
   function getCookie(cname) {
     let name = cname + '=';
@@ -91,6 +92,13 @@ export default function Navbar() {
       setLoggato(false);
     }
   }, []);
+
+  if (document.cookie.indexOf('immagineProfilo=') == 0) {
+
+      setimmagineProfilo(getCookie('immagineProfilo'));
+    } else {
+      
+    }
 
   function logout() {
     // rimuovo il cookie profilo e ricarico la homepage
@@ -208,7 +216,7 @@ export default function Navbar() {
                 <MenuButton>
                   <Avatar
                     name="Sasuke Uchiha"
-                    src="https://bit.ly/broken-link"
+                    src={immagineProfilo}
                   />
                 </MenuButton>
                 <MenuList>

@@ -271,26 +271,6 @@ const [tagsWrk, setTagsWrk] = useState([])
                         color={useColorModeValue('gray.700', 'gray.50')}
                         marginTop="1vw"
                       >
-                        Seleziona il padiglione
-                      </FormLabel>
-                      <Select id="selPadiglione">
-                        {IdPadiglioniDisponibili &&
-                          IdPadiglioniDisponibili.items.map(padiglione => (
-
-                            <option value={padiglione.workShop.ID_Padiglione.concat("." + padiglione.workShop.Codice_Meccanografico)}>
-                              {padiglione.workShop.ID_Padiglione} - {padiglione.workShop.Codice_Meccanografico}
-                            </option>
-                          ))}
-                      </Select>
-
-
-                      <FormLabel
-                        htmlFor="number"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                        marginTop="1vw"
-                      >
                         Seleziona tags
                       </FormLabel>
                       <AutoCompletaTagWorkshop tagsWrk={tagsWrk} setTagsWrk={setTagsWrk}   />

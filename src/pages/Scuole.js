@@ -1,9 +1,9 @@
 import { useState } from "react";
 import ContainerCarousel from "../components/ContainerCarousel";
 import FiltroScuole from "../components/FiltroScuole";
-import Folla from "../components/Folla";
-import HeroList from "../components/Hero-list";
 
+import HeroList from "../components/Hero-list";
+import gsap from "gsap";
 const Scuole = () => {
     const [listaScuole, setListaScuole] = useState()
     return ( <div>

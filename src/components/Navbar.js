@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import {
   chakra,
   Box,
@@ -54,7 +54,7 @@ export default function Navbar() {
 
   const [loggato, setLoggato] = useState(false);
   const [permessi, setPermessi] = useState(false);
-  const [immagineProfilo, setimmagineProfilo] = useState()
+  const [immagineProfilo, setimmagineProfilo] = useState();
 
   function getCookie(cname) {
     let name = cname + '=';
@@ -72,7 +72,7 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    if (document.cookie.indexOf('username=') == 0) {
+    if (getCookie('username') != '') {
       setLoggato(true);
       switch (getCookie('permessi')) {
         case '1':
@@ -91,19 +91,22 @@ export default function Navbar() {
     } else {
       setLoggato(false);
     }
+
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
+          getCookie('username')
+      )
+      .then(res => {
+          setimmagineProfilo(res.data[0].immagine_profilo);
+      });
   }, []);
-
-  if (document.cookie.indexOf('immagineProfilo=') == 0) {
-
-      setimmagineProfilo(getCookie('immagineProfilo'));
-    } else {
-      
-    }
 
   function logout() {
     // rimuovo il cookie profilo e ricarico la homepage
     document.cookie = 'username' + '=; Max-Age=-99999999;';
-    document.cookie = 'admin' + '=; Max-Age=-99999999;';
+    document.cookie = 'permessi' + '=; Max-Age=-99999999;';
+    document.cookie = 'immagineProfilo' + '=; Max-Age=-99999999;';
     window.location.href = '/';
   }
 
@@ -214,10 +217,9 @@ export default function Navbar() {
             {loggato ? (
               <Menu>
                 <MenuButton>
-                  <Avatar
-                    name="Sasuke Uchiha"
-                    src={immagineProfilo}
-                  />
+                  {immagineProfilo != undefined ? (
+                    <Avatar name="Sasuke Uchiha" src={immagineProfilo} />
+                  ) : <Avatar name="Sasuke Uchiha" src={'https://bit.ly/broken-link'} />}
                 </MenuButton>
                 <MenuList>
                   <Link to="profilo">

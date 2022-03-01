@@ -52,25 +52,49 @@ export default function ContainerCarousel({listaScuole,setListaScuole}) {
         
       });
   }, []);
-
+    const immaginiScuolePlaceholder = [
+      "https://images.unsplash.com/photo-1516308354296-1c9c5b561e0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHNjaG9vbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      "https://archello.s3.eu-central-1.amazonaws.com/images/2020/12/02/noahh---network-oriented-architecture-nature-inclusive-school-campus-csg-reggesteyn-primary-schools-archello.1606887333.6487.jpg",
+      "https://theplan.it/images/223foto_1_OPT.jpg",
+      "https://www.floornature.com/media/photos/1/16053/13_Menzione_De-Gioia_full.jpg",
+      "https://images.adsttc.com/media/images/56d2/440f/e58e/ce50/4c00/0019/newsletter/06%E5%BB%BA%E7%AD%91%E5%A4%96%E8%A7%82facade.jpg?1456620544",
+      "https://archello.s3.eu-central-1.amazonaws.com/images/2019/06/20/The-learning-loop-Render-by-EDiT-architectural-visualization-studio.1561022321.4658.jpg",
+      "https://images.unsplash.com/photo-1516308354296-1c9c5b561e0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHNjaG9vbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      "https://miro.medium.com/max/800/1*VT7ocS00FLAtIbsWySi7gw.jpeg",
+      "https://theplan.it/images/223foto_1_OPT.jpg",
+      "https://www.floornature.com/media/photos/1/16053/13_Menzione_De-Gioia_full.jpg",
+      "https://images.adsttc.com/media/images/56d2/440f/e58e/ce50/4c00/0019/newsletter/06%E5%BB%BA%E7%AD%91%E5%A4%96%E8%A7%82facade.jpg?1456620544",
+      "https://archello.s3.eu-central-1.amazonaws.com/images/2019/06/20/The-learning-loop-Render-by-EDiT-architectural-visualization-studio.1561022321.4658.jpg",
+      "https://interiordesign.net/wp-content/uploads/2021/08/LARGEIDPHOTOInterior-Design-Laboratory-for-Visionary-Architecture-Vietnam-school-idx210201_lava01_2-02.21.jpg",
+      "https://images.unsplash.com/photo-1516308354296-1c9c5b561e0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHNjaG9vbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      "https://archello.s3.eu-central-1.amazonaws.com/images/2020/12/02/noahh---network-oriented-architecture-nature-inclusive-school-campus-csg-reggesteyn-primary-schools-archello.1606887333.6487.jpg",
+      "https://theplan.it/images/223foto_1_OPT.jpg",
+      "https://www.floornature.com/media/photos/1/16053/13_Menzione_De-Gioia_full.jpg",
+      "https://images.adsttc.com/media/images/56d2/440f/e58e/ce50/4c00/0019/newsletter/06%E5%BB%BA%E7%AD%91%E5%A4%96%E8%A7%82facade.jpg?1456620544",
+      "https://archello.s3.eu-central-1.amazonaws.com/images/2019/06/20/The-learning-loop-Render-by-EDiT-architectural-visualization-studio.1561022321.4658.jpg",
+      "https://images.unsplash.com/photo-1516308354296-1c9c5b561e0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHNjaG9vbCUyMGFyY2hpdGVjdHVyZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+      "https://miro.medium.com/max/800/1*VT7ocS00FLAtIbsWySi7gw.jpeg",
+      "https://theplan.it/images/223foto_1_OPT.jpg",
+      "https://www.floornature.com/media/photos/1/16053/13_Menzione_De-Gioia_full.jpg",
+      "https://images.adsttc.com/media/images/56d2/440f/e58e/ce50/4c00/0019/newsletter/06%E5%BB%BA%E7%AD%91%E5%A4%96%E8%A7%82facade.jpg?1456620544",
+      "https://archello.s3.eu-central-1.amazonaws.com/images/2019/06/20/The-learning-loop-Render-by-EDiT-architectural-visualization-studio.1561022321.4658.jpg",
+      "https://interiordesign.net/wp-content/uploads/2021/08/LARGEIDPHOTOInterior-Design-Laboratory-for-Visionary-Architecture-Vietnam-school-idx210201_lava01_2-02.21.jpg",
+    ]
   return (
-    <div className="carousel">
-      <div className="scuole">
+    
+    <div className="carouselScuole">
+      <main class="page-content">
         {listaScuole &&
-          listaScuole.items.map(scuola => (
+          listaScuole.items.map((scuola, i) => (
             <ScuolaCard
-              immagine={scuola.scuola.Logo}
+              immagine={immaginiScuolePlaceholder[i]}
               nome={scuola.scuola.Nome_Scuola}
               codice={scuola.scuola.Codice_Meccanografico}
             >
-              <Select id="select_sesso" size={'sm'}>
-                <option value="uomo">Uomo</option>
-                <option value="donna">Donna</option>
-                <option value="altro">Altro</option>
-              </Select>
+            
             </ScuolaCard>
           ))}
-      </div>
+      </main>
     </div>
   );
 }

@@ -11,13 +11,13 @@ export default function Timeline() {
     className="vertical-timeline-element--work"
     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="13:40 -15:00"
+    date="Oggi"
    
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff'  }}
     icon={<FaSchool />}
     >
   
-    <h3 className="vertical-timeline-element-title">Oggi</h3>
+    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
     <AvatarGroup size='sm' max={2}>
   <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
   <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
@@ -33,12 +33,12 @@ export default function Timeline() {
     className="vertical-timeline-element--work"
     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="11:00 -15:00"
+    date="Domani"
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     icon={<FaMonero />}
     >
   
-    <h3 className="vertical-timeline-element-title">Domani</h3>
+    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
     <AvatarGroup size='sm' max={2}>
   <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
   <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
@@ -53,12 +53,12 @@ export default function Timeline() {
     className="vertical-timeline-element--work"
     contentStyle={{ background: ' rgb(233, 30, 99)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid   rgb(233, 30, 99)' }}
-    date="13:00 -18:00"
+    date="Mercoledì 3 marzo"
     iconStyle={{ background: ' rgb(233, 30, 99)', color: '#fff' }}
     icon={<FaIndustry />}
     >
   
-    <h3 className="vertical-timeline-element-title">Mercoledì 3 Marzo</h3>
+    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
     <AvatarGroup size='sm' max={2}>
   <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
   <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
@@ -73,13 +73,13 @@ export default function Timeline() {
     className="vertical-timeline-element--work"
     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="13:40 -15:00"
+    date="Giovedì 4 marzo"
    
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     icon={<FaSchool />}
     >
   
-    <h3 className="vertical-timeline-element-title">Oggi</h3>
+    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
     <AvatarGroup size='sm' max={2}>
   <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
   <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
@@ -95,12 +95,12 @@ export default function Timeline() {
     className="vertical-timeline-element--work"
     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="11:00 -15:00"
+    date="Venerdì 5 marzo"
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     icon={<FaMonero />}
     >
   
-    <h3 className="vertical-timeline-element-title">Domani</h3>
+    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
     <AvatarGroup size='sm' max={2}>
   <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
   <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
@@ -115,12 +115,12 @@ export default function Timeline() {
     className="vertical-timeline-element--work"
     contentStyle={{ background: ' rgb(233, 30, 99)', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid   rgb(233, 30, 99)' }}
-    date="13:00 -18:00"
+    date="Sabato 6 marzo"
     iconStyle={{ background: ' rgb(233, 30, 99)', color: '#fff' }}
     icon={<FaIndustry />}
     >
   
-    <h3 className="vertical-timeline-element-title">Mercoledì 3 Marzo</h3>
+    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
     <AvatarGroup size='sm' max={2}>
   <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
   <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />

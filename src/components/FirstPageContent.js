@@ -9,7 +9,7 @@ import { BsPersonFill } from 'react-icons/bs';
 
 
 export default function FirstPageContent() {
-  return <div className='content'>
+  return <div className='contentHero'>
        <motion.div className='left'
     animate={{ x: [-400,0] }}
     transition={{ duration: 0.7 }}

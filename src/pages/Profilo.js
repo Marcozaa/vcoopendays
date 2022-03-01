@@ -40,13 +40,13 @@ const Profilo = ({ datiUtente }) => {
   const [iscrizioni, setIscrizioni] = useState();
 
   useEffect(() => {
-    if (document.cookie.indexOf('username=') == 0) {
-      console.log('Username' + getCookie('username'));
+    if (getCookie('username') != '') {
       setLoggato(true);
     } else {
       setLoggato(false);
     }
     setDati();
+    
   }, []);
 
   var items = [];
@@ -223,7 +223,11 @@ const Profilo = ({ datiUtente }) => {
             )}
           </div>
           {iscrizioni && ( <ProfileSections iscrizioni={iscrizioni} /> ) }
+          <div style={{
+            width: '80%'
+          }}>
           <Timeline />
+          </div>
         </div>
       ) : (
         <h1>Non sei loggato!</h1>

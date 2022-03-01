@@ -26,6 +26,8 @@ const LoginContainer = ({ setDatiUtente }) => {
   const [loginErrato, setLoginErrato] = useState(false);
 
   function login() {
+
+
     var passwordInserita = document.getElementById('password').value;
     var emailInserita = document.getElementById('email').value;
 
@@ -37,8 +39,7 @@ const LoginContainer = ({ setDatiUtente }) => {
           passwordInserita
       )
       .then(res => {
-        console.log("ResData: " + res.data);
-        if (res.data == '1' || res.data == '2' || res.data == '3') {  
+        if (res.data == '1' || res.data == '2' || res.data == '3') {
           setLoginErrato(false);
           console.log(loginErrato);
           setDatiUtente(emailInserita);

@@ -95,10 +95,10 @@ export default function Navbar() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
-          getCookie('username')
+        getCookie('username')
       )
       .then(res => {
-          setimmagineProfilo(res.data[0].immagine_profilo);
+        setimmagineProfilo(res.data[0].immagine_profilo);
       });
   }, []);
 
@@ -193,11 +193,14 @@ export default function Navbar() {
                   </Button>
                 </Link>
               ) : null}
-              <Link to="/scuole/registrazioneStand">
-                <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
-                  Registrazione Padiglioni
-                </Button>
-              </Link>
+
+              {permessi != 1 ? (
+                <Link to="/scuole/registrazioneStand">
+                  <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
+                    Registrazione Padiglioni
+                  </Button>
+                </Link>
+              ) : null}
             </HStack>
           </HStack>
           <HStack

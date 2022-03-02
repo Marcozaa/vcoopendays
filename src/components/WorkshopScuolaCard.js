@@ -4,7 +4,6 @@ import {
   Box,
   Image,
   Flex,
-  useColorModeValue,
   Link,
   Tag,
   HStack,
@@ -57,16 +56,16 @@ const WorkshopScuolaCard = ({
   codiceMeccanoGraficoScuola,
   immagine_cover,
   tag,
-  idUtente
+  idUtente,
 }) => {
+  console.log("IDUtenet2:: " + idUtente);
   const toast = useToast()
   const [idUtenti, setidUtenti] = useState(null);
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null);
   const [workshops, setWorkshops] = useState(null);
-  const [iscritto, setIscritto] = useState(null);
+  const [iscritto, setIscritto] = useState(getPermessi());
   var items = [];
   var items2 = [];
-  var items3 = [];
   const tags_workshop = tag.split(",") // array di tag ottenuto dalla stringa 
 
   // Prende cookie da browser
@@ -89,6 +88,7 @@ const WorkshopScuolaCard = ({
 
 
   useEffect(() => {
+    console.log("IDUtenet:: " + idUtente);
     getData();
   }, []);
 
@@ -108,7 +108,9 @@ const WorkshopScuolaCard = ({
         );
         setidUtenti({ items: items });
       });
-    console.log("IDUtente: " + idUtente + " nomeScuola: " + nomeScuola);
+
+  }
+  function getPermessi() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/getIdWorkshopsIscritto.php?id=' +
@@ -120,10 +122,7 @@ const WorkshopScuolaCard = ({
           setIscritto(1);
         }
       });
-
   }
-
-
 
   function getUtenti() {
     // console.log(idUtenti)
@@ -168,167 +167,171 @@ const WorkshopScuolaCard = ({
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   return (
+
     <Box
       mx="auto"
       rounded="lg"
       shadow="md"
-      bg={useColorModeValue('white', 'gray.800')}
       position={'relative'}
       maxW="2xl"
     >
 
+          <Image
+            position={'relative'}
+            roundedTop="lg"
+            w="full"
+            h={64}
+            fit="cover"
+            src={immagine_cover}
+            alt="Article"
+          />
 
-      <Image
-        position={'relative'}
-        roundedTop="lg"
-        w="full"
-        h={64}
-        fit="cover"
-        src={immagine_cover}
-        alt="Article"
-      />
-
-      <Box p={6}>
-        <Box>
-          <chakra.span
-            fontSize="xs"
-            textTransform="uppercase"
-            color={useColorModeValue('brand.600', 'brand.400')}
-          >
-            <HStack spacing={4}>
-              {tags_workshop.map(tag => (
-                <Tag
-                  size={'sm'}
-                  key={'size'}
-                  variant={'solid'}
-                  colorScheme="teal"
-                >
-                  {tag}
-                </Tag>
-              ))}
-            </HStack>
-          </chakra.span>
-          <Link
-            display="block"
-            color={useColorModeValue('gray.800', 'white')}
-            fontWeight="bold"
-            fontSize="2xl"
-            mt={2}
-            _hover={{ color: 'gray.600', textDecor: 'underline' }}
-          >
-            {nomeScuola}
-          </Link>
-          <chakra.p
-            mt={2}
-            fontSize="sm"
-            color={useColorModeValue('gray.600', 'gray.400')}
-          >
-            {descrizione}
-          </chakra.p>
-          <chakra.p>Posti disponibili: {PostiDisponibili}</chakra.p>
-        </Box>
-
-        <Box mt={4} position={'relative'}>
-          <Flex alignItems="center">
-            <Flex alignItems="center">
-              <AvatarGroup size="md" max={2}>
-                {idUtenti &&
-                  idUtenti.items.map(utente => (
-                    <Avatar
-                      name="Ryan Florence"
-                      src={utente.id.immagine_profilo}
-                    />
+          <Box p={6}>
+            <Box>
+              <chakra.span
+                fontSize="xs"
+                textTransform="uppercase"
+              >
+                <HStack spacing={4}>
+                  {tags_workshop.map(tag => (
+                    <Tag
+                      size={'sm'}
+                      key={'size'}
+                      variant={'solid'}
+                      colorScheme="teal"
+                    >
+                      {tag}
+                    </Tag>
                   ))}
-              </AvatarGroup>
+                </HStack>
+              </chakra.span>
               <Link
-                mx={2}
+                display="block"
                 fontWeight="bold"
-                color={useColorModeValue('gray.700', 'gray.200')}
-              ></Link>
-            </Flex>
-            <chakra.span
-              mx={1}
-              fontSize="sm"
-              color={useColorModeValue('gray.600', 'gray.300')}
-            >
-              21 SEP 2015 - {Ora_inizio} - {Ora_Fine}
-            </chakra.span>
-            <Stack direction='row' spacing={4} position={'absolute'}
-              bottom={0}
-              right={0}>
-              {username != '' && iscritto != 1 ? (
+                fontSize="2xl"
+                mt={2}
+                _hover={{ color: 'gray.600', textDecor: 'underline' }}
+              >
+                {nomeScuola}
+              </Link>
+              <chakra.p
+                mt={2}
+                fontSize="sm"
+              >
+                {descrizione}
+              </chakra.p>
+              <chakra.p>Posti disponibili: {PostiDisponibili}</chakra.p>
+            </Box>
 
-                <Button
+            <Box mt={4} position={'relative'}>
+              <Flex alignItems="center">
+                <Flex alignItems="center">
+                  <AvatarGroup size="md" max={2}>
+                    {idUtenti &&
+                      idUtenti.items.map(utente => (
+                        <Avatar
+                          name="Ryan Florence"
+                          src={utente.id.immagine_profilo}
+                        />
+                      ))}
+                  </AvatarGroup>
+                  <Link
+                    mx={2}
+                    fontWeight="bold"
 
+                  ></Link>
+                </Flex>
+                <chakra.span
+                  mx={1}
+                  fontSize="sm"
+
+                >
+                  21 SEP 2015 - {Ora_inizio} - {Ora_Fine}
+                </chakra.span>
+                <Stack direction='row' spacing={4} position={'absolute'}
+                  bottom={0}
+                  right={0}>
+                  {username != '' && iscritto != 1 ? (
+
+                    <Button
+
+                      onClick={() => {
+                        effettuaRegistrazione();
+                        toast({
+                          title: 'Successo.',
+                          description: "Ti sei registrato al workshop.",
+                          status: 'success',
+                          duration: 9000,
+                          isClosable: true,
+                        })
+                      }}
+                    >
+                      Registrati
+                </Button>) : <Button
+                  background={'red'}
                   onClick={() => {
                     effettuaRegistrazione();
                     toast({
                       title: 'Successo.',
-                      description: "Ti sei registrato al workshop.",
+                      description: "Ti sei disiscritto dal workshop.",
                       status: 'success',
                       duration: 9000,
                       isClosable: true,
                     })
                   }}
                 >
-                  Registrati
-                </Button>) : (null)}
-              <Button onClick={onOpen}>Informazioni</Button>
-            </Stack>
+                Disiscrizione
+              </Button>}
+                  <Button onClick={onOpen}>Informazioni</Button>
+                </Stack>
 
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Incontro di Area di Giurisprudenza</ModalHeader>
-                <ModalCloseButton />
-                <Image src={immagine_cover}></Image>
-                <ModalBody>
-                  <Text m={3}>
-                    Introduzione generale dei Corsi di laurea dell'Area di
-                    Giurisprudenza e presentazione del Corso di laurea
-                    magistrale a ciclo unico in Giurisprudenza e del Corso di
-                    laurea triennale in Scienze dei Servizi Giuridici da parte
-                    dei docenti. Iscriviti all'evento per partecipare in diretta
-                    e porre le tue domande. Nella locandina puoi scoprire il
-                    programma generale dell'incontro.
-                  </Text>
-                  <Text fontSize="xs" color={'gray.400'}>
-                    Relatori: Prof. Vito VELLUZZI - Presidente Comitato
-                    Direzione Facoltà di Giurisprudenza; Prof. Andrea TINA -
-                    Presidente Collegio Didattico CdL in Giurisprudenza;
-                    Prof.ssa Daniela MILANI - Presidente Collegio Didattico CdL
-                    in Scienze dei Servizi Giuridici
-                  </Text>
-                </ModalBody>
-                <FormControl display={'flex'} justifyContent={'center'}>
-                  <Flex
-                    marginLeft={2}
-                    marginRight={2}
-                    w={'60%'}
-                    mt={1}
-                    justify="center"
-                    px={6}
-                    pt={5}
-                    pb={6}
-                    borderWidth={2}
-                    borderColor={useColorModeValue('gray.300', 'gray.500')}
-                    borderStyle="dashed"
-                    rounded="md"
-                  >
-                    <Button leftIcon={<BsDownload />}>Scarica locandina</Button>
-                  </Flex>
-                </FormControl>
-                <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
-                    Chiudi
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </Flex>
-        </Box>
-      </Box>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>{nomeScuola}</ModalHeader>
+                    <ModalCloseButton />
+                    <Image src={immagine_cover}></Image>
+                    <ModalBody>
+                      <Text m={3}>
+                        {descrizione}
+                      </Text>
+                      <Text fontSize="xs" color={'gray.400'}>
+                        Relatori: Prof. Vito VELLUZZI - Presidente Comitato
+                        Direzione Facoltà di Giurisprudenza; Prof. Andrea TINA -
+                        Presidente Collegio Didattico CdL in Giurisprudenza;
+                        Prof.ssa Daniela MILANI - Presidente Collegio Didattico CdL
+                        in Scienze dei Servizi Giuridici
+                      </Text>
+                    </ModalBody>
+                    <FormControl display={'flex'} justifyContent={'center'}>
+                      <Flex
+                        marginLeft={2}
+                        marginRight={2}
+                        w={'60%'}
+                        mt={1}
+                        justify="center"
+                        px={6}
+                        pt={5}
+                        pb={6}
+                        borderWidth={2}
+
+                        borderStyle="dashed"
+                        rounded="md"
+                      >
+                        <Button leftIcon={<BsDownload />}>Scarica locandina</Button>
+                      </Flex>
+                    </FormControl>
+                    <ModalFooter>
+                      <Button colorScheme="blue" mr={3} onClick={onClose}>
+                        Chiudi
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
+              </Flex>
+            </Box>
+          </Box>
     </Box>
   );
 };

@@ -4,31 +4,37 @@ import React from 'react'
 import { FaIndustry, FaMonero, FaSchool } from 'react-icons/fa';
 import { Avatar, AvatarGroup, useColorModeValue } from '@chakra-ui/react';
 
-export default function Timeline() {
+export default function Timeline({iscrizioni}) {
   return (
     <div><VerticalTimeline lineColor={ useColorModeValue('black', 'white') } >
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-    date="Oggi"
-   
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff'  }}
-    icon={<FaSchool />}
+
+      {iscrizioni && (
+        iscrizioni.items.map(iscrizione => (
+    <VerticalTimelineElement
+      className="vertical-timeline-element--work"
+      contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+      contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+      date="Oggi"
+
+      iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+      icon={<FaSchool />}
     >
-  
-    <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
-    <AvatarGroup size='sm' max={2}>
-  <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
-  <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
-  <Avatar name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />
-  <Avatar name='Prosper Otemuyiwa' src='https://bit.ly/prosper-baba' />
-  </AvatarGroup>
-    <p>
-        Open day politecnico area ingegneria
-    </p>
-    
-  </VerticalTimelineElement>
+
+      <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
+      <AvatarGroup size='sm' max={2}>
+        <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
+        <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
+        <Avatar name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />
+        <Avatar name='Prosper Otemuyiwa' src='https://bit.ly/prosper-baba' />
+      </AvatarGroup>
+      <p>
+              {iscrizione.iscrizione.Nome_Workshop}
+      </p>
+
+    </VerticalTimelineElement>
+  )
+      ))}
+  {/*
   <VerticalTimelineElement
     className="vertical-timeline-element--work"
     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -131,10 +137,12 @@ export default function Timeline() {
       Incontro con aziende settore informatico del territorio.
     </p>
   </VerticalTimelineElement>
-  <VerticalTimelineElement
-    iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
-    
-  />
+  
+  */}
+      <VerticalTimelineElement
+        iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
+
+      />
 </VerticalTimeline></div>
   )
 }

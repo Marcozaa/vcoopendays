@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import {
   chakra,
@@ -31,13 +31,13 @@ import {
 } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 
-export default function ProfileSections({iscrizioni}) {
+export default function ProfileSections({ iscrizioni }) {
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
 
   return (
     <Box >
-      
+
       <Flex
         alignItems="center"
         justifyContent="center"
@@ -56,17 +56,17 @@ export default function ProfileSections({iscrizioni}) {
             <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
               Collegamenti
             </Tab>
-          
+
           </TabList>
         </Tabs>
         <Spacer />
-      
+
       </Flex>
 
-      { iscrizioni && (
-      iscrizioni.items.map(iscrizione=>(
-        <h1>{iscrizione.iscrizione.Nome_Workshop}</h1>
-      ))
+      {iscrizioni && (
+        iscrizioni.items.map(iscrizione => (
+          <h1>{iscrizione.iscrizione.Nome_Workshop}</h1>
+        ))
       )}
     </Box>
   );

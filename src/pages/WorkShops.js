@@ -7,6 +7,7 @@ import './workshops.css'
 const WorkShops = () => {
   const [workshops, setWorkshops] = useState(null);
   const [idUtente, setIdUtente] = useState();
+  const [iscritto, setIscritto] = useState(null);
   var c = 0;
   let items = [];
 
@@ -55,9 +56,9 @@ const WorkShops = () => {
       });
 
       
-  console.log("ID Utente: " + idUtente);  
+
+      
   }, []);
-  console.log(workshops)
   
   var tags = ['Informatica', 'Matematica']
   const [tagsWrk, setTagsWrk] = useState([])

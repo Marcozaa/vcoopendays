@@ -37,7 +37,8 @@ const Profilo = ({ datiUtente }) => {
   const [confermato, setConfermato] = useState();
   const [idUtente, setIdUtente] = useState();
   const [loggato, setLoggato] = useState(null);
-  const [iscrizioni, setIscrizioni] = useState();
+  const [iscrizioni, setIscrizioni] = useState(getIscrizioni());
+  const [flag, setFlag] = useState(false)
 
   useEffect(() => {
     if (getCookie('username') != '') {
@@ -45,8 +46,7 @@ const Profilo = ({ datiUtente }) => {
     } else {
       setLoggato(false);
     }
-    setDati();
-    
+    setDati()
   }, []);
 
   var items = [];
@@ -55,12 +55,12 @@ const Profilo = ({ datiUtente }) => {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
-          getCookie('username')
+        getCookie('username')
       )
       .then(res => {
         console.log('terzo');
         setImmagineProfilo(res.data[0].immagine_profilo);
-        document.cookie = "immagineProfilo="+res.data[0].immagine_profilo
+        document.cookie = "immagineProfilo=" + res.data[0].immagine_profilo
         setNomeUtente(res.data[0].Nome);
         setCognomeUtente(res.data[0].Cognome);
         setClasseUtente(res.data[0].Classe);
@@ -68,16 +68,17 @@ const Profilo = ({ datiUtente }) => {
         setDataNascitaUtente(res.data[0].Data_Nascita);
         if (getCookie('permessi') == '1') {
           setConfermato(res.data[0].Confermato);
-        }else{
-          if(getCookie('permessi') == '2' || getCookie('permessi') == '1'){
+        } else {
+          if (getCookie('permessi') == '2' || getCookie('permessi') == '1') {
             setConfermato(true);
-          }else{
-            setConfermato(false);}
+          } else {
+            setConfermato(false);
+          }
         }
         setIdUtente(res.data[0].ID_Visitatore);
       });
 
-    getIscrizioni();
+
   }
 
   function getIscrizioni() {
@@ -85,15 +86,19 @@ const Profilo = ({ datiUtente }) => {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/GetIscrizioniWorkshop.php?idUtente=' +
-          idUtente
+        idUtente
       )
       .then(res => {
-        res.data.map(iscrizione =>
-          items.push({
-            iscrizione: iscrizione,
-          })
-        );
-        setIscrizioni({ items: items });
+
+        if (flag != true && res.data != '') {
+          res.data.map(iscrizione =>
+            items.push({
+              iscrizione: iscrizione,
+            })
+          );
+          setIscrizioni({ items: items });
+          setFlag(true)
+        }
       });
   }
 
@@ -118,9 +123,9 @@ const Profilo = ({ datiUtente }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   return (
-    
+
     <div>
-      
+
       {confermato == 1 ? (
         <></>
       ) : (
@@ -222,11 +227,11 @@ const Profilo = ({ datiUtente }) => {
               </Box>
             )}
           </div>
-          {iscrizioni && ( <ProfileSections iscrizioni={iscrizioni} /> ) }
+          {iscrizioni && (<ProfileSections iscrizioni={iscrizioni}/>)}
           <div style={{
             width: '80%'
           }}>
-          <Timeline />
+            <Timeline iscrizioni={iscrizioni}/>
           </div>
         </div>
       ) : (

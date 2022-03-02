@@ -132,14 +132,14 @@ export default function FormInserimentoEventi() {
         console.log(IdPadiglioniDisponibili.items);
       });
   }, []);
-const [tagsWrk, setTagsWrk] = useState([])
+  const [tagsWrk, setTagsWrk] = useState([])
   function inserimentoWorkshop() {
     var idPadiglione = document.getElementById("selPadiglione").value;
     var nomeWorkshop = document.getElementById("nome").value;
     var descrizione = document.getElementById("descrizione").value;
     var linkImmagine = document.getElementById("linkImmagine").value
     var posti = document.getElementById("postiDisponibili").value;
-    console.log("idPadiglione = " + idPadiglione + "\n" +"nomeWorkshop = " + nomeWorkshop + "\n" +"descrizione = " + descrizione + "\n" +"posti = " + posti );
+    console.log("idPadiglione = " + idPadiglione + "\n" + "nomeWorkshop = " + nomeWorkshop + "\n" + "descrizione = " + descrizione + "\n" + "posti = " + posti);
 
     const datiPadiglione = idPadiglione.split(".");
 
@@ -155,10 +155,10 @@ const [tagsWrk, setTagsWrk] = useState([])
         datiPadiglione[1] +
         '&posti=' +
         posti +
-        '&linkImmagine='+
+        '&linkImmagine=' +
         linkImmagine
         +
-        '&tag='+
+        '&tag=' +
         tagsWrk
         +
         ''
@@ -168,7 +168,7 @@ const [tagsWrk, setTagsWrk] = useState([])
       });
   }
 
-  
+
   return (
     <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
       <Box>
@@ -273,7 +273,7 @@ const [tagsWrk, setTagsWrk] = useState([])
                       >
                         Seleziona tags
                       </FormLabel>
-                      <AutoCompletaTagWorkshop tagsWrk={tagsWrk} setTagsWrk={setTagsWrk}   />
+                      <AutoCompletaTagWorkshop tagsWrk={tagsWrk} setTagsWrk={setTagsWrk} />
                     </FormControl>
                   </SimpleGrid>
                   <Tags tagsWrk={tagsWrk} setTagsWrk={setTagsWrk} />
@@ -417,31 +417,31 @@ const [tagsWrk, setTagsWrk] = useState([])
                     </Flex>
                   </FormControl>
                   <FormControl
-                      id="email"
-                      mt={1}
-                      value={input}
-                      onChange={handleInputChange}
+                    id="email"
+                    mt={1}
+                    value={input}
+                    onChange={handleInputChange}
+                  >
+                    <FormLabel
+                      fontSize="sm"
+
+                      fontWeight="md"
+                      color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      <FormLabel
-                        fontSize="sm"
-                        
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                      >
-                        Oppure inserisci un link per l'immagine
-                      </FormLabel>
-                      <Textarea
-                        mt={1}
-                        rows={3}
-                        shadow="sm"
-                        focusBorderColor="brand.400"
-                        fontSize={{ sm: 'sm' }}
-                        id="descrizione"
-                        id="linkImmagine"
-                      />
-                      
-                    </FormControl>
-                      
+                      Oppure inserisci un link per l'immagine
+                    </FormLabel>
+                    <Textarea
+                      mt={1}
+                      rows={3}
+                      shadow="sm"
+                      focusBorderColor="brand.400"
+                      fontSize={{ sm: 'sm' }}
+                      id="descrizione"
+                      id="linkImmagine"
+                    />
+
+                  </FormControl>
+
                 </Stack>
               </motion.div>
               <Box

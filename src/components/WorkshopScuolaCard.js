@@ -46,6 +46,7 @@ import {
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
 import { BsDownload } from 'react-icons/bs';
+import { wait } from '@testing-library/react';
 const WorkshopScuolaCard = ({
   nomeScuola,
   tags,
@@ -55,82 +56,18 @@ const WorkshopScuolaCard = ({
   Ora_Fine,
   codiceMeccanoGraficoScuola,
   immagine_cover,
-  tag
+  tag,
+  idUtente
 }) => {
   const toast = useToast()
-  const [idUtente, setIdUtente] = useState();
   const [idUtenti, setidUtenti] = useState(null);
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null);
+  const [workshops, setWorkshops] = useState(null);
+  const [iscritto, setIscritto] = useState(null);
   var items = [];
   var items2 = [];
+  var items3 = [];
   const tags_workshop = tag.split(",") // array di tag ottenuto dalla stringa 
-  useEffect(() => {
-    // Grab user id from email
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatoreIDfromMail.php?email=' +
-          getCookie('username')
-      )
-      .then(res => {
-        setIdUtente(res.data[0].ID_Visitatore);
-      });
-
-    // Get id per ogni partecipante al workshop
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getIdPartecipantiWorkshop.php?nomeWorkshop=' +
-          nomeScuola
-      )
-      .then(res => {
-        res.data.map(id =>
-          items.push({
-            id: id,
-          })
-        );
-        setidUtenti({ items: items });
-      });
-  }, []);
-
-  function getUtenti() {
-    // console.log(idUtenti)
-    // Richiesta GET annidata - profili partecipanti workshop
-    for (var i = 0; i < idUtenti.items.length; i++) {
-      axios
-        .get(
-          'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtenteFromId.php?id=' +
-            idUtenti.items[i].id.ID_Visitatore
-        )
-        .then(res => {
-          console.log(res.data);
-          res.data.map(utente =>
-            items2.push({
-              utente: utente,
-            })
-          );
-          setUtentiPartecipanti({ items2: items2 });
-        });
-    }
-  }
-
-  console.log(tags_workshop)
-
-  function effettuaRegistrazione() {
-    // nomeWorkshop'];    codiceScuola = $_GET['codiceScuola'];   $idUtente = $_GET['idUtente'`
-
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=%27' +
-          nomeScuola +
-          '%27&codiceScuola=%27' +
-          codiceMeccanoGraficoScuola +
-          '%27&idUtente=%27' +
-          idUtente +
-          '%27'
-      )
-      .then(res => {
-        console.log(res.data);
-      });
-  }
 
   // Prende cookie da browser
   function getCookie(cname) {
@@ -147,6 +84,87 @@ const WorkshopScuolaCard = ({
     }
     return '';
   }
+
+  let username = getCookie('username');
+
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
+  function getData() {
+    // Get id per ogni partecipante al workshop
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getIdPartecipantiWorkshop.php?nomeWorkshop=' +
+        nomeScuola
+      )
+      .then(res => {
+        res.data.map(id =>
+          items.push({
+            id: id,
+          })
+        );
+        setidUtenti({ items: items });
+      });
+    console.log("IDUtente: " + idUtente + " nomeScuola: " + nomeScuola);
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getIdWorkshopsIscritto.php?id=' +
+        idUtente + '&nome=' + nomeScuola
+      )
+      .then(res => {
+        console.log("ResData: " + res.data);
+        if (res.data == 1) {
+          setIscritto(1);
+        }
+      });
+
+  }
+
+
+
+  function getUtenti() {
+    // console.log(idUtenti)
+    // Richiesta GET annidata - profili partecipanti workshop
+    for (var i = 0; i < idUtenti.items.length; i++) {
+      axios
+        .get(
+          'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtenteFromId.php?id=' +
+          idUtenti.items[i].id.ID_Visitatore
+        )
+        .then(res => {
+          console.log(res.data);
+          res.data.map(utente =>
+            items2.push({
+              utente: utente,
+            })
+          );
+          setUtentiPartecipanti({ items2: items2 });
+        });
+    }
+  }
+
+  function effettuaRegistrazione() {
+    // nomeWorkshop'];    codiceScuola = $_GET['codiceScuola'];   $idUtente = $_GET['idUtente'`
+
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=%27' +
+        nomeScuola +
+        '%27&codiceScuola=%27' +
+        codiceMeccanoGraficoScuola +
+        '%27&idUtente=%27' +
+        idUtente +
+        '%27'
+      )
+      .then(res => {
+        console.log(res.data);
+      });
+  }
+
+
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   return (
@@ -158,7 +176,7 @@ const WorkshopScuolaCard = ({
       position={'relative'}
       maxW="2xl"
     >
-    
+
 
       <Image
         position={'relative'}
@@ -238,24 +256,26 @@ const WorkshopScuolaCard = ({
             <Stack direction='row' spacing={4} position={'absolute'}
               bottom={0}
               right={0}>
+              {username != '' && iscritto != 1 ? (
 
-            <Button
-              
-              onClick={()=>{effettuaRegistrazione(); 
-              toast({
-          title: 'Successo.',
-          description: "Ti sei registrato al workshop.",
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-              }}
-            >
-              Registrati
-            </Button>
-            <Button onClick={onOpen}>Informazioni</Button>
+                <Button
+
+                  onClick={() => {
+                    effettuaRegistrazione();
+                    toast({
+                      title: 'Successo.',
+                      description: "Ti sei registrato al workshop.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    })
+                  }}
+                >
+                  Registrati
+                </Button>) : (null)}
+              <Button onClick={onOpen}>Informazioni</Button>
             </Stack>
-            
+
 
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />

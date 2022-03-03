@@ -3,14 +3,29 @@ import Login from '../pages/Login';
 import { useState, useEffect, useRef } from 'react';
 
 const AdminPage = () => {
+    function getCookie(cname) {
+        let name = cname + '=';
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return '';
+      }
+    
 
     const [loggato, setLoggato] = useState(false);
     const [admin, setAdmin] = useState(false);
     useEffect(() => {
 
-        if (document.cookie.indexOf('username=') == 0) {
+        if (getCookie('username') != '') {
             setLoggato(true);
-            if (document.cookie.indexOf('admin=') == 25) {
+            if (getCookie('permessi') == '3') {
                 setAdmin(true);
             } else {
                 setAdmin(false);

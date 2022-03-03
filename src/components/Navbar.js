@@ -26,6 +26,7 @@ import {
   AiFillBell,
   AiOutlineProfile,
 } from 'react-icons/ai';
+import { BsImage } from 'react-icons/bs';
 import {
   BsFillCameraVideoFill,
   BsPerson,
@@ -184,6 +185,11 @@ export default function Navbar() {
               <Link to="/scuole/workshops">
                 <Button w="full" variant={'ghost'} leftIcon={<MdWork />}>
                   Workshops
+                </Button>
+              </Link>
+              <Link to="/galleria">
+                <Button w="full" variant={'ghost'} leftIcon={<BsImage />}>
+                  Galleria
                 </Button>
               </Link>
               {permessi == 2 ? (

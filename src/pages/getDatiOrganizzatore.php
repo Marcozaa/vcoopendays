@@ -12,20 +12,19 @@ $password     = "CBC349bb";
 $port = 3306;
 // Create connection
 $conn = new mysqli($host, $username, $password, $database, $port);
-$idUtente = $_GET['idUtente'];
+$email = $_GET["emailInserita"];
+
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$trp = mysqli_query($conn, "SELECT * FROM `Workshop` WHERE `Nome_Workshop` IN (SELECT `Nome_Workshop` FROM `Partecipazione` WHERE `ID_Visitatore` = " . $idUtente . ")");
+$trp = mysqli_query($conn, "SELECT * FROM `Organizzatore` WHERE `Email` = '". $email ."'");
 $rows = array();
-$rows2 = array();
-
 while ($r = mysqli_fetch_assoc($trp)) {
     $rows[] = $r;
 }
 
+print json_encode($rows); //convert php data to json data
 
-
-print json_encode($rows);
+//print json_encode($rows);

@@ -72,7 +72,7 @@ const WorkShops = () => {
           <WorkshopScuolaCard
             Ora_inizio={workshop.workshop.Tempo_Inizio.substring(0, workshop.workshop.Tempo_Inizio.length - 3)}
             Ora_Fine={workshop.workshop.Tempo_termine.substring(0, workshop.workshop.Tempo_termine.length - 3)}
-            nomeScuola={workshop.workshop.Nome}
+            nomeScuola={workshop.workshop.Nome_Workshop}
             tags={tags}
             descrizione={workshop.workshop.Descrizione}
             PostiDisponibili={workshop.workshop.Posti}

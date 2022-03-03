@@ -28,6 +28,8 @@ import {
   Image,
 } from '@chakra-ui/react';
 import './scuola.css'
+import { Link } from 'react-router-dom';
+
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 const IMAGE =
@@ -68,7 +70,7 @@ export default function ScuolaCard({ nome, codice, immagine }) {
             {nomeWorkshops && (
             <p class="copy">
               {nomeWorkshops.items.map(workshop=>(
-                <h1>{workshop.workShop.Nome}</h1>
+                <Link to="/scuole/workshops"><h1>{workshop.workShop.Nome}</h1></Link>
               ))}
               </p>
               )}

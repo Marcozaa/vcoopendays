@@ -52,54 +52,86 @@ const Profilo = ({ datiUtente }) => {
   var items = [];
 
   function setDati() {
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
-        getCookie('username')
-      )
-      .then(res => {
-        console.log('terzo');
-        setImmagineProfilo(res.data[0].immagine_profilo);
-        document.cookie = "immagineProfilo=" + res.data[0].immagine_profilo
-        setNomeUtente(res.data[0].Nome);
-        setCognomeUtente(res.data[0].Cognome);
-        setClasseUtente(res.data[0].Classe);
-        setSessoUtente(res.data[0].Sesso);
-        setDataNascitaUtente(res.data[0].Data_Nascita);
-        if (getCookie('permessi') == '1') {
+    if (getCookie('permessi') == '1') {
+      axios
+        .get(
+          'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
+          getCookie('username')
+        )
+        .then(res => {
           setConfermato(res.data[0].Confermato);
-        } else {
-          if (getCookie('permessi') == '2' || getCookie('permessi') == '1') {
-            setConfermato(true);
+          setImmagineProfilo(res.data[0].immagine_profilo);
+          document.cookie = "immagineProfilo=" + res.data[0].immagine_profilo
+          setNomeUtente(res.data[0].Nome);
+          setCognomeUtente(res.data[0].Cognome);
+          setClasseUtente(res.data[0].Classe);
+          setSessoUtente(res.data[0].Sesso);
+          setDataNascitaUtente(res.data[0].Data_Nascita);
+          setIdUtente(res.data[0].ID_Visitatore);
+        });
+    } else {
+      axios
+        .get(
+          'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiOrganizzatore.php?emailInserita=' +
+          getCookie('username')
+        )
+        .then(res => {
+          if (getCookie('permessi') == '2' || getCookie('permessi') == '3') {
+            setConfermato(1);
+            setImmagineProfilo(res.data[0].immagine_profilo);
+            document.cookie = "immagineProfilo=" + res.data[0].immagine_profilo
+            setNomeUtente(res.data[0].Nome);
+            setCognomeUtente(res.data[0].Cognome);
+            setIdUtente(res.data[0].ID_Organizzatore);
           } else {
-            setConfermato(false);
+            setConfermato(0);
           }
-        }
-        setIdUtente(res.data[0].ID_Visitatore);
-      });
 
+        });
+    }
 
   }
 
   function getIscrizioni() {
-    console.log('IdUtente = ' + idUtente);
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/GetIscrizioniWorkshop.php?idUtente=' +
-        idUtente
-      )
-      .then(res => {
+    console.log("idUtenet: " + idUtente);
+    if (getCookie('permessi') == '1') {
+      axios
+        .get(
+          'https://87.250.73.22/html/Zanchin/vcoopendays/GetIscrizioniWorkshop.php?idUtente=' +
+          idUtente
+        )
+        .then(res => {
 
-        if (flag != true && res.data != '') {
-          res.data.map(iscrizione =>
-            items.push({
-              iscrizione: iscrizione,
-            })
-          );
-          setIscrizioni({ items: items });
-          setFlag(true)
-        }
-      });
+          if (flag != true && res.data != '') {
+            res.data.map(iscrizione =>
+              items.push({
+                iscrizione: iscrizione,
+              })
+            );
+            setIscrizioni({ items: items });
+            setFlag(true)
+          }
+        });
+    } else {
+      axios
+        .get(
+          'https://87.250.73.22/html/Zanchin/vcoopendays/getWorkshopOrg.php?idUtente=' +
+          idUtente
+        )
+        .then(res => {
+          
+          if (flag != true && res.data != '') {
+            console.log("RES: " + res.data);
+            res.data.map(iscrizione =>
+              items.push({
+                iscrizione: iscrizione,
+              })
+            );
+            setIscrizioni({ items: items });
+            setFlag(true)
+          }
+        });
+    }
   }
 
   // Prende cookie da browser
@@ -125,6 +157,7 @@ const Profilo = ({ datiUtente }) => {
   return (
 
     <div>
+
 
       {confermato == 1 ? (
         <></>
@@ -227,11 +260,10 @@ const Profilo = ({ datiUtente }) => {
               </Box>
             )}
           </div>
-          {iscrizioni && (<ProfileSections iscrizioni={iscrizioni}/>)}
           <div style={{
             width: '80%'
           }}>
-            <Timeline iscrizioni={iscrizioni}/>
+            <Timeline iscrizioni={iscrizioni} />
           </div>
         </div>
       ) : (

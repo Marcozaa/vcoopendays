@@ -20,7 +20,7 @@ export default function Timeline({iscrizioni}) {
       icon={<FaSchool />}
     >
 
-      <h3 className="vertical-timeline-element-title">11:30 - 12:45</h3>
+            <h3 className="vertical-timeline-element-title">{iscrizione.iscrizione.Tempo_Inizio.substring(0, iscrizione.iscrizione.Tempo_Inizio.length - 3)} - {iscrizione.iscrizione.Tempo_termine.substring(0, iscrizione.iscrizione.Tempo_termine.length - 3)}</h3>
       <AvatarGroup size='sm' max={2}>
         <Avatar name='Ryan Florence' src='https://bit.ly/ryan-florence' />
         <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />

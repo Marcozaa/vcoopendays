@@ -31,11 +31,12 @@ import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
 import axios from 'axios';
 import { FaLock, FaLockOpen, FaUnlock, FaUserLock } from 'react-icons/fa';
 export default function Users() {
- // const { isOpen, onOpen, onClose } = useDiscl();
+  // const { isOpen, onOpen, onClose } = useDiscl();
   const cancelRef = React.useRef();
 
   // http req api utenti database
   const [utenti, setUtenti] = useState(null);
+  const [flag, setFlag] = useState(null);
   var c = 0;
   let items = [];
   const header = ['nome', 'ultimo accesso', 'azioni'];
@@ -60,7 +61,7 @@ export default function Users() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/updateStatoUtente.php?idutente=' +
-          id
+        id
       )
       .then(res => {
         window.location.reload(false);
@@ -72,19 +73,17 @@ export default function Users() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/rimuoviUtente.php?idutente=' +
-          id
+        id
       )
       .then(res => {
-        res.data.map(utente =>
-          items.push({
-            utente: utente,
-          })
-        );
-        setUtenti({ items: items });
+        if (flag == true) {
+          setVisitatori()
+        } else { setVisitatoriVerifica() }
       });
   }
 
   function setVisitatoriVerifica() {
+    setFlag(false);
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatoriNonConfermati.php'
@@ -100,6 +99,7 @@ export default function Users() {
   }
 
   function setVisitatori() {
+    setFlag(true);
     axios
       .get('https://87.250.73.22/html/Zanchin/vcoopendays/getVisitatori.php')
       .then(res => {
@@ -208,10 +208,10 @@ export default function Users() {
                       if (
                         window.confirm(
                           'Sei sicuro di voler cancellare utente: ' +
-                            utente.utente.Nome +
-                            ' con id: ' +
-                            utente.utente.ID_Visitatore +
-                            '?'
+                          utente.utente.Nome +
+                          ' con id: ' +
+                          utente.utente.ID_Visitatore +
+                          '?'
                         )
                       )
                         bannaUtente(utente.utente.ID_Visitatore);
@@ -231,10 +231,10 @@ export default function Users() {
                           if (
                             window.confirm(
                               'Sei sicuro di voler confermare utente: ' +
-                                utente.utente.Nome +
-                                ' con id: ' +
-                                utente.utente.ID_Visitatore +
-                                '?'
+                              utente.utente.Nome +
+                              ' con id: ' +
+                              utente.utente.ID_Visitatore +
+                              '?'
                             )
                           )
                             verificaUtente(utente.utente.ID_Visitatore);

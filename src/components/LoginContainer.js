@@ -34,9 +34,9 @@ const LoginContainer = ({ setDatiUtente }) => {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/loginTest.php?emailInserita=' +
-          emailInserita +
-          '&passwordInserita=' +
-          passwordInserita
+        emailInserita +
+        '&passwordInserita=' +
+        passwordInserita
       )
       .then(res => {
         if (res.data == '1' || res.data == '2' || res.data == '3') {
@@ -134,7 +134,7 @@ const LoginContainer = ({ setDatiUtente }) => {
               </SimpleGrid>
 
               <Flex px={6} py={4}>
-                <Button py={2} w="full" colorScheme="blue" onClick={login}>
+                <Button id="bLogin" py={2} w="full" colorScheme="blue" onClick={login}>
                   Log in
                 </Button>
               </Flex>

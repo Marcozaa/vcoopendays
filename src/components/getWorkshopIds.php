@@ -18,13 +18,14 @@ $conn = new mysqli($host, $username, $password, $database, $port);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$trp = mysqli_query($conn, "SELECT `ID_Visitatore`, `Nome_Workshop` FROM `Partecipazione` WHERE");
+$trp = mysqli_query($conn, "SELECT * FROM `Domanda_Forum`");
 $rows = array();
 $rows2 = array();
 
 while ($r = mysqli_fetch_assoc($trp)) {
     $rows[] = $r;
 }
+
 
 
 

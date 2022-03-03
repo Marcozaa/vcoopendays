@@ -14,35 +14,13 @@ $port = 3306;
 $conn = new mysqli($host, $username, $password, $database, $port);
 
 $nomeWorkshop = $_GET['nomeWorkshop'];
-$codiceScuola = $_GET['codiceScuola'];
 $idUtente = $_GET['idUtente'];
 
 
-
-$entityBody = file_get_contents('php://input');
-echo $entityBody;
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO `Partecipazione`(`Nome_Workshop`, `Codice_Meccanografico_Workshop`, `ID_Visitatore`) VALUES (" . $nomeWorkshop . "," . $codiceScuola . "," . $idUtente . ")";
+$trp = mysqli_query($conn,"DELETE FROM `Partecipazione` WHERE `ID_Visitatore` = '" . $idUtente . "' && `Nome_Workshop` = '" . $nomeWorkshop . "'");
 
-
-$sql2 = "UPDATE `Workshop` SET `Posti` = `Posti` - 1";
-
-if ($conn->query($sql) === TRUE) {
-    echo "New created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-
-
-
-
-if ($conn->query($sql2) === TRUE) {
-    echo "Updated successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}

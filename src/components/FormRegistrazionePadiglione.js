@@ -29,11 +29,12 @@ import {
 } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
+import FormData from 'form-data';
 import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 
 export default function FormRegistrazionePadiglione() {
+  const [immagine, setImmagine]= useState(null)
   function getBase64(file) { }
 
   function checkDati() {
@@ -187,10 +188,22 @@ export default function FormRegistrazionePadiglione() {
       });
   }
 
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+
   function fileInput() {
     console.log("hi")
     const selectedFile = document.getElementById('file-selector').files[0];
-    console.log(selectedFile)
+      getBase64(selectedFile).then(
+        data => setImmagine(data)
+      );
   }
 
 

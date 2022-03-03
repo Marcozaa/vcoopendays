@@ -63,6 +63,7 @@ const WorkshopScuolaCard = ({
   const [utentiPartecipanti, setUtentiPartecipanti] = useState(null);
   const [workshops, setWorkshops] = useState(null);
   const [iscritto, setIscritto] = useState(getPermessi());
+  const [flagP, setFlagP] = useState(null);
   var items = [];
   var items2 = [];
   const tags_workshop = tag.split(",") // array di tag ottenuto dalla stringa 
@@ -110,6 +111,17 @@ const WorkshopScuolaCard = ({
 
   }
 
+  function effettuaDisiscrizione() {
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/eliminazionePartecipazioneWorkshop.php?nomeWorkshop=' +
+        nomeScuola + '&idUtente=' + idUtente
+      )
+      .then(res => {  
+        getPermessi();
+      });
+  }
+
   function getPermessi() {
 
     console.log("IdUtente:; " + idUtente + " nomeScuola:: " + nomeScuola);
@@ -122,6 +134,8 @@ const WorkshopScuolaCard = ({
         console.log("ResData: " + res.data);
         if (res.data == 1) {
           setIscritto(1);
+        }else{
+          setIscritto(0);
         }
       });
   }
@@ -143,6 +157,7 @@ const WorkshopScuolaCard = ({
             })
           );
           setUtentiPartecipanti({ items2: items2 });
+          setFlagP(flagP + 1);
         });
     }
   }
@@ -152,16 +167,17 @@ const WorkshopScuolaCard = ({
 
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=%27' +
-        nomeScuola +
-        '%27&codiceScuola=%27' +
-        codiceMeccanoGraficoScuola +
-        '%27&idUtente=%27' +
-        idUtente +
-        '%27'
+          'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=%27' +
+          nomeScuola +
+          '%27&codiceScuola=%27' +
+          codiceMeccanoGraficoScuola +
+          '%27&idUtente=%27' +
+          idUtente +
+          '%27'
       )
       .then(res => {
         console.log(res.data);
+        setFlagP(flagP + 1);
       });
   }
 
@@ -276,7 +292,7 @@ const WorkshopScuolaCard = ({
                 <Button
                   background={'red'}
                   onClick={() => {
-                    effettuaRegistrazione();
+                    effettuaDisiscrizione();
                     toast({
                       title: 'Successo.',
                       description: "Ti sei disiscritto dal workshop.",

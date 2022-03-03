@@ -33,6 +33,7 @@ import PrenotaWorkshop from './pages/PrenotaWorkshop';
 import WorkShops from './pages/WorkShops';
 import InserimentoEventi from './pages/InserimentoEventi';
 import RegistrazioneStand from './pages/RegistrazionePadiglione';
+import Forum from './pages/Forum.js'
 function App() {
 
         const [mailUtente, setDatiUtente] = useState(null);
@@ -56,6 +57,7 @@ function App() {
       <Route path='/scuole/workshops' element={<WorkShops />} />
       <Route path='/scuole/inserimentoEventi' element={<InserimentoEventi />} />
       <Route path='/scuole/registrazioneStand' element={<RegistrazioneStand />} />
+      <Route path="/forum" element={<Forum /> }/>
     </Routes>
     </ChakraProvider>
   );

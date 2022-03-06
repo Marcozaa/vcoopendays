@@ -163,17 +163,14 @@ const WorkshopScuolaCard = ({
   }
 
   function effettuaRegistrazione() {
-    // nomeWorkshop'];    codiceScuola = $_GET['codiceScuola'];   $idUtente = $_GET['idUtente'`
-
     axios
       .get(
-          'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=%27' +
+          'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoPartecipazioneWorkshop.php?nomeWorkshop=' +
           nomeScuola +
-          '%27&codiceScuola=%27' +
+          '&codiceScuola=' +
           codiceMeccanoGraficoScuola +
-          '%27&idUtente=%27' +
-          idUtente +
-          '%27'
+          '&idUtente=' +
+          idUtente 
       )
       .then(res => {
         console.log(res.data);

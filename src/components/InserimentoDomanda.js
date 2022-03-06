@@ -32,7 +32,7 @@ import Tags from './Tags';
 import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 import AutoCompletaTagWorkshop from './AutoCompletaTagWorkshop';
-export default function FormInserimentoEventi() {
+export default function InserimentoDomanda({idUtente}) {
   function getBase64(file) {}
 
   function checkDati() {
@@ -114,64 +114,27 @@ export default function FormInserimentoEventi() {
 
   const isError = input === '';
 
-  const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
+  
   let items = [];
-  useEffect(() => {
-    axios
-      .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniPrenotati.php'
-      )
-      .then(res => {
-        console.log(res.data);
-        res.data.map(padiglione =>
-          items.push({
-            workShop: padiglione,
-          })
-        );
-        setIdPadiglioniDisponibili({ items: items });
-        console.log(IdPadiglioniDisponibili.items);
-      });
-  }, []);
+ 
   const [tagsWrk, setTagsWrk] = useState([]);
-  function inserimentoWorkshop() {
-    var idPadiglione = document.getElementById('selPadiglione').value;
-    var nomeWorkshop = document.getElementById('nome').value;
-    var descrizione = document.getElementById('descrizione').value;
-    var linkImmagine = document.getElementById('linkImmagine').value;
-    var posti = document.getElementById('postiDisponibili').value;
-    console.log(
-      'idPadiglione = ' +
-        idPadiglione +
-        '\n' +
-        'nomeWorkshop = ' +
-        nomeWorkshop +
-        '\n' +
-        'descrizione = ' +
-        descrizione +
-        '\n' +
-        'posti = ' +
-        posti
-    );
+  function inserimentoDomanda() {
+    var TitoloDomanda = document.getElementById('TitoloDomanda').value;
 
-    const datiPadiglione = idPadiglione.split('.');
+    var descrizione = document.getElementById('descrizione').value;
+
+    console.log(TitoloDomanda)
+  
 
     axios
       .post(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoWorkshop.php?nome=' +
-          nomeWorkshop +
-          '&descrizione=' +
-          descrizione +
-          '&id=' +
-          datiPadiglione[0] +
-          '&codice=' +
-          datiPadiglione[1] +
-          '&posti=' +
-          posti +
-          '&linkImmagine=' +
-          linkImmagine +
-          '&tag=' +
-          tagsWrk +
-          ''
+        'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoDomanda.php?titoloDomanda=' +
+          TitoloDomanda +
+          '&idutente=' +
+          idUtente+
+           '&descrizione=' +
+          descrizione 
+          
       )
       .then(res => {
         console.log(res);
@@ -179,34 +142,9 @@ export default function FormInserimentoEventi() {
   }
 
   return (
-    <Box bg={useColorModeValue('gray.50', 'inherit')} p={10}>
+    <Box bg={useColorModeValue('gray.50', 'inherit')} >
       <Box>
-        <SimpleGrid
-          display={{ base: 'initial', md: 'grid' }}
-          columns={{ md: 3 }}
-          spacing={{ md: 6 }}
-        >
-          <motion.div
-            animate={{ opacity: [0, 1] }}
-            transition={{ duration: 0.7 }}
-          >
-            <GridItem colSpan={{ md: 1 }}>
-              <Box px={[4, 0]}>
-                <Heading fontSize="lg" fontWeight="md" lineHeight="6">
-                  Workshop
-                </Heading>
-                <Text
-                  mt={1}
-                  fontSize="sm"
-                  color={useColorModeValue('gray.600', 'gray.400')}
-                >
-                  Inserimento workshop per le scuole. Verrai notificato con
-                  l'accettazione della proposta o il rifiuto entro 5 ore
-                  dall'invio.
-                </Text>
-              </Box>
-            </GridItem>
-          </motion.div>
+        
           <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
             <chakra.form
               shadow="base"
@@ -223,6 +161,7 @@ export default function FormInserimentoEventi() {
                   bg={useColorModeValue('white', 'gray.700')}
                   spacing={6}
                   p={{ sm: 6 }}
+                  w={'100%'}
                 >
                   <SimpleGrid columns={6} spacing={6}>
                     <FormControl isRequired as={GridItem} colSpan={[6, 3]}>
@@ -232,47 +171,26 @@ export default function FormInserimentoEventi() {
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
                       >
-                        Nome evento
+                        TitoloDomanda
                       </FormLabel>
 
                       <Input
                         required
                         type="text"
                         name="nome"
-                        id="nome"
+                        id="TitoloDomanda"
                         autoComplete="given-name"
                         mt={1}
                         focusBorderColor="brand.400"
                         shadow="sm"
-                        size="sm"
+                        size="md"
                         w="full"
                         rounded="md"
                       />
-                      <FormLabel
-                        htmlFor="posti"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                      >
-                        Posti evento
-                      </FormLabel>
+                     
+                    
 
-                      <Input
-                        required
-                        type="text"
-                        name="postiDisponibili"
-                        id="postiDisponibili"
-                        autoComplete="given-name"
-                        mt={1}
-                        focusBorderColor="brand.400"
-                        shadow="sm"
-                        size="sm"
-                        w="full"
-                        rounded="md"
-                      />
-                    </FormControl>
-
-                    <FormControl as={GridItem} colSpan={[6, 3]} isRequired>
+                    
                       <FormLabel
                         htmlFor="number"
                         fontSize="sm"
@@ -297,24 +215,8 @@ export default function FormInserimentoEventi() {
                       value={input}
                       onChange={handleInputChange}
                     >
-                      <FormLabel
-                        fontSize="sm"
-                        fontWeight="md"
-                        color={useColorModeValue('gray.700', 'gray.50')}
-                      >
-                        Orario
-                      </FormLabel>
-                      <Select>
-                        {IdPadiglioniDisponibili &&
-                          IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option value="option1">
-                              {padiglione.workShop.ID_Padiglione}
-                            </option>
-                          ))}
-                      </Select>
-                      <FormHelperText>
-                        Breve descrizione del workshop.
-                      </FormHelperText>
+                      
+                     
                     </FormControl>
                   </div>
                   <div>
@@ -329,7 +231,7 @@ export default function FormInserimentoEventi() {
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
                       >
-                        About
+                        Descrizione
                       </FormLabel>
                       <Textarea
                         mt={1}
@@ -349,34 +251,13 @@ export default function FormInserimentoEventi() {
                         </FormErrorMessage>
                       )}
                       <FormHelperText>
-                        Breve descrizione del workshop.
+                        Breve descrizione della domanda.
                       </FormHelperText>
                     </FormControl>
                   </div>
 
-                  <FormControl
-                    id="email"
-                    mt={1}
-                    value={input}
-                    onChange={handleInputChange}
-                  >
-                    <FormLabel
-                      fontSize="sm"
-                      fontWeight="md"
-                      color={useColorModeValue('gray.700', 'gray.50')}
-                    >
-                      Link immagine background Workshop.
-                    </FormLabel>
-                    <Textarea
-                      mt={1}
-                      rows={3}
-                      shadow="sm"
-                      focusBorderColor="brand.400"
-                      fontSize={{ sm: 'sm' }}
-                      
-                      id="linkImmagine"
-                    />
-                  </FormControl>
+                  
+                  
                 </Stack>
               </motion.div>
               <Box
@@ -385,13 +266,13 @@ export default function FormInserimentoEventi() {
                 bg={useColorModeValue('gray.50', 'gray.900')}
                 textAlign="right"
               >
-                <Button onClick={inserimentoWorkshop} size="lg">
+                <Button onClick={inserimentoDomanda} size="lg">
                   Continua
                 </Button>
               </Box>
             </chakra.form>
           </GridItem>
-        </SimpleGrid>
+       
       </Box>
       <Box visibility={{ base: 'hidden', sm: 'visible' }} aria-hidden="true">
         <Box py={5}>

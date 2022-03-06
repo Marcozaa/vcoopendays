@@ -1,18 +1,53 @@
 .questionsContainer{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    
+    flex-direction: column;
 }
-.topCards{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgb(0, 0, 0);
-    font-size: 10rem;
-}
+
 
 .questions{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    flex-wrap: wrap;
+    width: 100%;
     background-color: "red";
+    justify-content: center;
+    align-items: center;
+}
+
+.cardQuestion{
+    background-color: rgb(211, 211, 211);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.contentForum{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+}
+
+.left1{
+    
+    width: 30%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    
+    flex-direction: column;
+}
+.right2{
+   
+    width: 70%;
+    height: auto;
+    
+    flex-direction: column;
 }

@@ -12,20 +12,21 @@ $password     = "CBC349bb";
 $port = 3306;
 // Create connection
 $conn = new mysqli($host, $username, $password, $database, $port);
-$idUtente = $_GET['idUtente'];
-
+$titoloDomanda = $_GET['titoloDomanda'];
+$id = $_GET['idutente'];
+$descrizione = $_GET['descrizione'];
 // Check connection
+
+$data = DateTime::createFromFormat('!Y-m-d', date('Y-m-d'));
+$formatData =  $data->format('d/m/Y'); 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$trp = mysqli_query($conn, "SELECT * FROM `Workshop` WHERE `Nome_Workshop` IN (SELECT `Nome_Workshop` FROM `Partecipazione` WHERE `ID_Visitatore` = " . $idUtente . ")");
-$rows = array();
-$rows2 = array();
+$sql = "INSERT INTO `Domanda_Forum`(`Contenuto`, `Utente`, `descrizione`,  `data`) VALUES  ('" . $titoloDomanda . "', '" . $id . "', '" . $descrizione . "',  '". date("Y-m-d H:i:s") ."')";
 
-while ($r = mysqli_fetch_assoc($trp)) {
-    $rows[] = $r;
+
+if ($conn->query($sql) === TRUE) {
+    echo "New created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
-
-
-
-print json_encode($rows);

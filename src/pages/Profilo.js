@@ -101,8 +101,9 @@ const Profilo = ({ datiUtente }) => {
           idUtente
         )
         .then(res => {
-
           if (flag != true && res.data != '') {
+            console.log("RES: " + res.data);
+            console.log("IDUtente: " + idUtente);
             res.data.map(iscrizione =>
               items.push({
                 iscrizione: iscrizione,
@@ -121,7 +122,6 @@ const Profilo = ({ datiUtente }) => {
         .then(res => {
           
           if (flag != true && res.data != '') {
-            console.log("RES: " + res.data);
             res.data.map(iscrizione =>
               items.push({
                 iscrizione: iscrizione,

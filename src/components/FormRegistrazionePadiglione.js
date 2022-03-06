@@ -34,8 +34,58 @@ import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 
 export default function FormRegistrazionePadiglione() {
-  const [immagine, setImmagine]= useState(null)
-  function getBase64(file) { }
+  const [immagine, setImmagine] = useState(null);
+  function getBase64(file) {}
+
+  function inserimento(data) {
+    data.forEach(function (dato) {
+      axios
+        .post(
+          'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoOrgDaCsv.php?Nome=' +
+            dato.Nome +
+            '&Cognome=' +
+            dato.Cognome +
+            '&Email=' +
+            dato.Email +
+            '&Codice_Meccanografico=' +
+            document.getElementById('selCodice').value,
+            '&Qualifica=' +
+            dato.Qualifica
+        )
+        .then(res => {
+          console.log(res);
+        });
+    });
+  }
+
+  function fileIn() {
+    const csvFile = document.getElementById('file-selector');
+    const input = csvFile.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const text = e.target.result;
+      const data = csvToArray(text);
+      inserimento(data);
+    };
+
+    reader.readAsText(input);
+  }
+  function csvToArray(str, delimiter = ',') {
+    const headers = str.slice(0, str.indexOf('\n')).split(delimiter);
+    const rows = str.slice(str.indexOf('\n') + 1).split('\n');
+    const arr = rows.map(function (row) {
+      const values = row.split(delimiter);
+      const el = headers.reduce(function (object, header, index) {
+        object[header] = values[index];
+        return object;
+      }, {});
+      return el;
+    });
+
+    // return the array
+    return arr;
+  }
 
   function checkDati() {
     /*
@@ -110,33 +160,6 @@ export default function FormRegistrazionePadiglione() {
   /**
    * Gestione vincoli input
    */
-  const [input, setInput] = useState('');
-
-  const handleInputChange = e => setInput(e.target.value);
-
-  const isError = input === '';
-
-
-  function sendFile() {
-    let formData = new FormData();
-    formData.append('file',);
-    console.log('>> formData >> ', formData);
-
-    // You should have a server side REST API 
-    axios.post('https://87.250.73.22/html/Zanchin/vcoopendays/',
-      formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }
-    ).then(function () {
-      console.log('SUCCESS!!');
-    })
-      .catch(function () {
-        console.log('FAILURE!!');
-      });
-  }
-
 
   const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
   const [codiciScuole, setcodiciScuole] = useState();
@@ -161,7 +184,9 @@ export default function FormRegistrazionePadiglione() {
 
   function setScuole() {
     axios
-      .get('https://87.250.73.22/html/Zanchin/vcoopendays/getScuoleNonIscritte.php')
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getScuoleNonIscritte.php'
+      )
       .then(res => {
         console.log(res.data);
         res.data.map(scuola =>
@@ -179,13 +204,15 @@ export default function FormRegistrazionePadiglione() {
     axios
       .post(
         'https://87.250.73.22/html/Zanchin/vcoopendays/setPadiglioneMeccano.php?codice=' +
-        codiceMeccano +
-        '&id=' +
-        idPadiglione
+          codiceMeccano +
+          '&id=' +
+          idPadiglione
       )
       .then(res => {
         console.log(res);
       });
+
+      fileIn();
   }
 
   function getBase64(file) {
@@ -197,15 +224,11 @@ export default function FormRegistrazionePadiglione() {
     });
   }
 
-
   function fileInput() {
-    console.log("hi")
+    console.log('hi');
     const selectedFile = document.getElementById('file-selector').files[0];
-      getBase64(selectedFile).then(
-        data => setImmagine(data)
-      );
+    getBase64(selectedFile).then(data => setImmagine(data));
   }
-
 
   // Prendi csv file da caricare sul server
   return (
@@ -239,15 +262,18 @@ export default function FormRegistrazionePadiglione() {
                   mt={1}
                   fontSize="sm"
                   color={useColorModeValue('gray.600', 'gray.400')}
-                  paddingTop={"2vw"}
+                  paddingTop={'2vw'}
                 >
                   Download del file da compilare con tutti gli studenti che
-                  participeranno.
-
-                  Seguire il formato del file:
-
+                  participeranno. Seguire il formato del file:
                 </Text>
-                <Link href="https://87.250.73.22/html/Zanchin/vcoopendays/template_InserimentoUtente.csv" target="_blank" download><Button> template_InserimentoUtente </Button></Link>
+                <Link
+                  href="https://87.250.73.22/html/Zanchin/vcoopendays/template_InserimentoOrganizzatori.csv"
+                  target="_blank"
+                  download
+                >
+                  <Button> template_InserimentoOrganizzatori </Button>
+                </Link>
               </Box>
             </GridItem>
           </motion.div>
@@ -282,9 +308,7 @@ export default function FormRegistrazionePadiglione() {
                       <Select id="selCodice">
                         {codiciScuole &&
                           codiciScuole.itemsScuole.map(scuola => (
-                            <option
-                              value={scuola.scuola.Codice_Meccanografico}
-                            >
+                            <option value={scuola.scuola.Codice_Meccanografico}>
                               {scuola.scuola.Codice_Meccanografico} -{' '}
                               {scuola.scuola.Nome_Scuola}
                             </option>
@@ -318,10 +342,10 @@ export default function FormRegistrazionePadiglione() {
                       <Select id="selPadiglione">
                         {IdPadiglioniDisponibili &&
                           IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option
-                              value={padiglione.workShop.ID_Padiglione}
-                            >
-                              {padiglione.workShop.ID_Padiglione + " - " + padiglione.workShop.Posti_Totali}
+                            <option value={padiglione.workShop.ID_Padiglione}>
+                              {padiglione.workShop.ID_Padiglione +
+                                ' - ' +
+                                padiglione.workShop.Posti_Totali}
                             </option>
                           ))}
                       </Select>
@@ -340,11 +364,18 @@ export default function FormRegistrazionePadiglione() {
                           pt={5}
                           pb={6}
                           borderWidth={2}
-                          borderColor={useColorModeValue('gray.300', 'gray.500')}
+                          borderColor={useColorModeValue(
+                            'gray.300',
+                            'gray.500'
+                          )}
                           borderStyle="dashed"
                           rounded="md"
                         >
-                          <input type={'file'} id="file-selector" onChange={fileInput} />
+                          <input
+                            type={'file'}
+                            id="file-selector"
+                            onChange={fileInput}
+                          />
                         </Flex>
                       </FormControl>
                     </FormControl>
@@ -360,7 +391,6 @@ export default function FormRegistrazionePadiglione() {
                       <Input type="email" id="emailInserita" />
                     </FormControl>
                   </SimpleGrid>
-
                 </Stack>
               </motion.div>
               <Box

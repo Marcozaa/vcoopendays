@@ -29,7 +29,7 @@ import { FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 export default function FormRegistrazione() {
-  function getBase64(file) { }
+  function getBase64(file) {}
 
   function checkDati() {
     var nomeInserito = document.getElementById('first_name').value;
@@ -38,17 +38,16 @@ export default function FormRegistrazione() {
     var emailInserita = document.getElementById('email').value;
     var dataNascitaInserita = document.getElementById('data_nascita').value;
     var sessoInserito = document.getElementById('select_sesso').value;
-    var file = document.getElementById('file-upload').files[0];
+    var linkImmagine_ = document.getElementById('linkImmagine').value;
 
+    console.log("Link: " + linkImmagine_)
 
     if (
       nomeInserito.length > 25 ||
       cognomeInserito.length > 25 ||
       emailInserita.length > 50 ||
       passwordInserita.length > 18
-    ) {
-    } else {
-      if (file == undefined) {
+    ) {} else {
         inserimentoDati(
           nomeInserito,
           cognomeInserito,
@@ -56,51 +55,42 @@ export default function FormRegistrazione() {
           emailInserita,
           dataNascitaInserita,
           sessoInserito,
-          null
+          linkImmagine_
         );
-      } else {
-        var reader = new FileReader();
-        var base64;
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-          base64 = reader.result;
-          base64.replace(/\+/g, '%2B')
-          inserimentoDati(nomeInserito,
-            cognomeInserito,
-            passwordInserita,
-            emailInserita,
-            dataNascitaInserita,
-            sessoInserito,
-            base64);
-        }
       }
-    }
 
 
-    function inserimentoDati(nome, cognome, password, email, data, sesso, file) {
+    function inserimentoDati(
+      nome,
+      cognome,
+      password,
+      email,
+      data,
+      sesso,
+      file
+    ) {
       axios
         .post(
           'https://87.250.73.22/html/Zanchin/vcoopendays/insertUtente.php?nome=%27+' +
-          nome +
-          '%27&cognome=%27' +
-          cognome +
-          '%27&email=%27' +
-          email +
-          '%27&codiceMecc=%27AB123%27&password=%27' +
-          password +
-          '%27&classe=%27terza%27&sesso=%27' +
-          sesso +
-          '%27&dataNascita=%27' +
-          data +
-          '%27&profilepic=%27' +
-          base64 +
-          '%27'
+            nome +
+            '%27&cognome=%27' +
+            cognome +
+            '%27&email=%27' +
+            email +
+            '%27&codiceMecc=%27AB123%27&password=%27' +
+            password +
+            '%27&classe=%27terza%27&sesso=%27' +
+            sesso +
+            '%27&dataNascita=%27' +
+            data +
+            '%27&profilepic=%27' +
+            file+
+            '%27'
         )
         .then(res => {
           console.log(res);
         });
-    };
-
+    }
   }
 
   return (
@@ -325,73 +315,16 @@ export default function FormRegistrazione() {
                       fontWeight="md"
                       color={useColorModeValue('gray.700', 'gray.50')}
                     >
-                      Foto cover
+                      Link immagine profilo.
                     </FormLabel>
-                    <Flex
+                    <Textarea
                       mt={1}
-                      justify="center"
-                      px={6}
-                      pt={5}
-                      pb={6}
-                      borderWidth={2}
-                      borderColor={useColorModeValue('gray.300', 'gray.500')}
-                      borderStyle="dashed"
-                      rounded="md"
-                    >
-                      <Stack spacing={1} textAlign="center">
-                        <Icon
-                          mx="auto"
-                          boxSize={12}
-                          color={useColorModeValue('gray.400', 'gray.500')}
-                          stroke="currentColor"
-                          fill="none"
-                          viewBox="0 0 48 48"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </Icon>
-                        <Flex
-                          fontSize="sm"
-                          color={useColorModeValue('gray.600', 'gray.400')}
-                          alignItems="baseline"
-                        >
-                          <chakra.label
-                            htmlFor="file-upload"
-                            cursor="pointer"
-                            rounded="md"
-                            fontSize="md"
-                            color={useColorModeValue('brand.600', 'brand.200')}
-                            pos="relative"
-                            _hover={{
-                              color: useColorModeValue(
-                                'brand.400',
-                                'brand.300'
-                              ),
-                            }}
-                          >
-                            <span>Carica un file</span>
-                            <VisuallyHidden>
-                              <input
-                                id="file-upload"
-                                name="file-upload"
-                                type="file"
-                              />
-                            </VisuallyHidden>
-                          </chakra.label>
-                        </Flex>
-                        <Text
-                          fontSize="xs"
-                          color={useColorModeValue('gray.500', 'gray.50')}
-                        >
-                          PNG, JPG, GIF up to 10MB
-                        </Text>
-                      </Stack>
-                    </Flex>
+                      rows={3}
+                      shadow="sm"
+                      focusBorderColor="brand.400"
+                      fontSize={{ sm: 'sm' }}
+                      id="linkImmagine"
+                    />
                   </FormControl>
                 </Stack>
               </motion.div>

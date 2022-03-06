@@ -53,7 +53,7 @@ export default function ScuolaCard({ nome, codice, immagine }) {
         );
         
         setNomeWorkshops({ items: items });
-        console.log(nomeWorkshops.items[0].workShop.Nome)
+        console.log(nomeWorkshops.items)
       });
   }, []);
 
@@ -70,7 +70,7 @@ export default function ScuolaCard({ nome, codice, immagine }) {
             {nomeWorkshops && (
             <p class="copy">
               {nomeWorkshops.items.map(workshop=>(
-                <Link to="/scuole/workshops"><h1>{workshop.workShop.Nome}</h1></Link>
+                <Link to="/scuole/workshops"><h1>{workshop.workShop.Nome_Workshop}</h1></Link>
               ))}
               </p>
               )}

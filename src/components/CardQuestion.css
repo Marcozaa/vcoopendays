@@ -1,3 +1,15 @@
+
+.upvotes{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.arrowsCount{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .cardQuestion{
     background-color: rgb(211, 211, 211);
     display: flex;
@@ -7,33 +19,37 @@
     margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
+    
 }
 .container {
-  max-width: 400px;
-  min-height: 200px;
+  
   width: auto;
   background: rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
 .question-card {
-  background: white;
+  
+ 
   padding: 16px;
   border-radius: 10px;
   display: block;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.05);
   color: rgba(0, 0, 0, 0.54);
   font-family: "Roboto", sans-serif;
+  width: 80%;
   margin-bottom: 24px;
   height: auto;
 }
 .question-card.job {
+  margin: 0;
+  width: 70%;
   background: #FAF4E8;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.05);
   border: 2px solid rgba(255, 87, 34, 0.4);
 }
 .question-card.job header span::before {
-  content: "Job /";
+  content: "MIGLIORE RISPOSTA /";
   margin-left: 4px;
   margin-right: 4px;
   color: #FF5722;

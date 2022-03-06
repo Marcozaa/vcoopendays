@@ -157,6 +157,11 @@ export default function Navbar() {
                     Scuole
                   </Button>
                 </Link>
+                <Link to="/forum">
+                  <Button w="full" variant={'solid'} leftIcon={<MdWork />}>
+                    Forum
+                  </Button>
+                </Link>
                 <Link to="/scuole/registrazioneStand">
                   <Button w="full" variant={'solid'} leftIcon={<FaSchool />}>
                     Scuole
@@ -180,6 +185,11 @@ export default function Navbar() {
               <Link to="/scuole">
                 <Button variant="ghost" leftIcon={<FaSchool />} size="sm">
                   Scuole
+                </Button>
+              </Link>
+              <Link to="/forum">
+                <Button w="full" variant={'ghost'} leftIcon={<BsPersonFill />}>
+                  Forum
                 </Button>
               </Link>
               <Link to="/scuole/workshops">

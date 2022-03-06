@@ -85,16 +85,16 @@ export default function ForumFeatures({title}) {
               gridRowGap={{ md: 10 }}
             >
               <Feature
-                title="Spelling, grammar and punctuation are important!"
+                title="L'ortografia, la grammatica e la punteggiatura sono importanti!"
                 icon={
                   <FaTextHeight/>
                 }
               >
-                Remember, this is the first part of your question others will see - you want to make a good impression. If you're not comfortable writing in English, ask a friend to proof-read it for you.
+                Ricorda, questa è la prima parte della tua domanda che gli altri vedranno: cerca di fare una buona impressione.
               </Feature>
 
               <Feature
-                title="write the title last"
+                title="Scrivi il titolo per ultimo"
                 icon={
                   <path
                     strokeLinecap="round"
@@ -104,7 +104,7 @@ export default function ForumFeatures({title}) {
                   />
                 }
               >
-                If you're having trouble summarizing the problem, write the title last - sometimes writing the rest of the question first can make it easier to describe the problem.
+                Se hai difficoltà a riassumere il problema, scrivi il titolo per ultimo: a volte scrivere prima il resto della domanda può semplificare la descrizione del problema.
               </Feature>
 
              

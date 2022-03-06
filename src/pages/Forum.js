@@ -1,5 +1,5 @@
 import { Button, chakra, Divider, Flex, Stack, Text, FormControl, MenuDivider, Center } from '@chakra-ui/react';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillMessage, AiFillTags } from 'react-icons/ai';
 import { BsDash, BsSquare, BsSquareFill } from 'react-icons/bs';
 import { FaExpand, FaStaylinked, FaUser } from 'react-icons/fa';
@@ -12,7 +12,7 @@ import shortQuestion, { ShortQuestion } from '../components/shortQuestion';
 import axios from 'axios';
 import './forum.css';
 
-import  { useRef } from "react";
+import { useRef } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -26,6 +26,7 @@ import {
 import InserimentoDomanda from '../components/InserimentoDomanda';
 export default function Forum() {
   const [idUtente, setIdUtente] = useState(null)
+  const [permessi, setPermessi] = useState(null);
   const fooData = {
     answer:
       "Frequenti o gestisci una scuola superiore di primo o secondo grado?Accedi, prenota e gestisci le attività che partecipano all'evento di orientamento.Vi aspettiamo numerosi.",
@@ -35,31 +36,40 @@ export default function Forum() {
     question: 'Come mi chiamo?',
   };
 
-   const [domande, setDomande] = useState(null);
+  const [domande, setDomande] = useState(null);
   var c = 0;
   let items = [];
   useEffect(() => {
+    setPermessi(getCookie('permessi'));
     axios
       .get('https://87.250.73.22/html/Zanchin/vcoopendays/getDomandeForum.php')
       .then(res => {
         res.data.map(domanda =>
-          
+
           items.push({
             domanda: domanda,
           })
         );
-        setDomande({ items: items });   
+        setDomande({ items: items });
       });
-      axios
-        .get(
-          'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
-          getCookie('username')
-        )
-        .then(res => {
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getDatiUtente2.php?emailInserita=' +
+        getCookie('username')
+      )
+      .then(res => {
+        if (getCookie('permessi') == '1') {
           setIdUtente(res.data[0].ID_Visitatore);
-        });
+        } else {
+          if (getCookie('permessi') == '2') {
+            setIdUtente(res.data[0].ID_Organizzatore);
+          }
+        }
+      });
+
+    console.log("IDUtente: " + idUtente)
   }, []);
-    function getCookie(cname) {
+  function getCookie(cname) {
     let name = cname + '=';
     let ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
@@ -73,45 +83,48 @@ export default function Forum() {
     }
     return '';
   }
-  
+
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   return (
     <div>
-     
-           <ForumFeatures title={'Benvenuto nel forum di VCOopendays'} />
-      
+
+      <ForumFeatures title={'Benvenuto nel forum di VCOopendays'} />
+
       <div className="contentForum">
         <div className="left1">
-          <Button margin={'2rem'} onClick={onOpen}>Inizia una discussione</Button>
+          {permessi == 1 ? (
+            <Button margin={'2rem'} onClick={onOpen}>Inizia una discussione</Button>
+          ) : null}
+
           <Flex direction={'column'} alignItems={'flex-start'} margin={'0.5rem'}>
-          <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <AiFillMessage/>
-            <p>Tutte le discussioni</p>
-          </Stack>
-           <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <AiFillTags/>
-            <p>Tags</p>
-          </Stack>
+            <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <AiFillMessage />
+              <p>Tutte le discussioni</p>
+            </Stack>
+            <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <AiFillTags />
+              <p>Tags</p>
+            </Stack>
           </Flex>
 
           <Flex direction={'column'} alignItems={'flex-start'}>
-          <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <BsSquareFill color='lightblue'/>
-            <p>Scuole</p>
-          </Stack>
-           <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <BsSquareFill color='green'/>
-            <p>Utenti</p>
-          </Stack>
-          <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <BsSquareFill color='teal'/>
-            <p>Workshop</p>
-          </Stack>
-           <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-            <BsSquareFill/>
-            <p>Server-Side</p>
-          </Stack>
+            <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <BsSquareFill color='lightblue' />
+              <p>Scuole</p>
+            </Stack>
+            <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <BsSquareFill color='green' />
+              <p>Utenti</p>
+            </Stack>
+            <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <BsSquareFill color='teal' />
+              <p>Workshop</p>
+            </Stack>
+            <Stack direction={'row'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <BsSquareFill />
+              <p>Server-Side</p>
+            </Stack>
 
           </Flex>
         </div>
@@ -119,16 +132,16 @@ export default function Forum() {
           <Divider orientation='vertical' />
         </Center>
         <div className="right2">
-      
-        {
-        domande && (     
-        domande.items.map(domanda => (
-          <>
-           <ShortQuestion idUtente={idUtente} id={domanda.domanda.id} data={domanda.domanda.data} descrizione={domanda.domanda.descrizione} nome={domanda.domanda.Nome} cognome={domanda.domanda.Cognome} immagineProfilo={domanda.domanda.immagine_profilo} titoloDomanda={domanda.domanda.Contenuto} />
-          <Divider />
-          </>
-        )))   }
-   
+
+          {
+            domande && (
+              domande.items.map(domanda => (
+                <>
+                  <ShortQuestion idUtente={idUtente} id={domanda.domanda.id} data={domanda.domanda.data} descrizione={domanda.domanda.descrizione} nome={domanda.domanda.Nome} cognome={domanda.domanda.Cognome} immagineProfilo={domanda.domanda.immagine_profilo} titoloDomanda={domanda.domanda.Contenuto} />
+                  <Divider />
+                </>
+              )))}
+
 
         </div>
       </div>
@@ -162,17 +175,17 @@ export default function Forum() {
 
             </div>
         */}
-        <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <InserimentoDomanda idUtente={idUtente} />
-                <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
-                    Chiudi
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <InserimentoDomanda idUtente={idUtente} />
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Chiudi
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

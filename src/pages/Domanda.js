@@ -10,6 +10,7 @@ import { BsQuestion, BsSquareFill } from 'react-icons/bs';
 import { MdNewReleases } from 'react-icons/md';
 import RispostaDomandaInputField from '../components/RispostaDomandaInputField';
 import CardAnswer from '../components/CardAnswer';
+import { Center, Divider }  from '@chakra-ui/react';
 export default function Domanda() {
 
     let { id } = useParams();
@@ -102,6 +103,9 @@ export default function Domanda() {
 
          
         </div>
+        <Center>
+          <Divider orientation='vertical' />
+        </Center>
         <div className="right2">
       
         

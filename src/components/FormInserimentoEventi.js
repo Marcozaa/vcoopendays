@@ -33,7 +33,21 @@ import axios from 'axios';
 import AutoCompleta from './AutoCompleta';
 import AutoCompletaTagWorkshop from './AutoCompletaTagWorkshop';
 export default function FormInserimentoEventi() {
-  function getBase64(file) {}
+  function getBase64(file) { }
+  function getCookie(cname) {
+    let name = cname + '=';
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
 
   function checkDati() {
     /*
@@ -115,11 +129,42 @@ export default function FormInserimentoEventi() {
   const isError = input === '';
 
   const [IdPadiglioniDisponibili, setIdPadiglioniDisponibili] = useState(null);
+  const [ore, setOre2] = useState(setOreMax());
+  const [flag, setFlag] = useState(false);
   let items = [];
+  let items2 = [];
+
+function setOreMax(){
+    axios
+      .get(
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getPostiRimanenti.php?codice=' + getCookie('username')
+      )
+      .then(res => {
+        if(flag == false && res.data != ''){
+        console.log(res.data);
+        res.data.map(ore =>
+          items2.push({
+            oreTot: ore,
+          })
+        );
+        setOre2({ items2: items2 });
+        console.log(ore);
+        console.log(ore.items2[0].oreTot.OreTotali);
+        setFlag(true);
+        console.log(ore.items2[0].oreTot.Codice_Meccanografico)
+
+        
+      document.getElementById("oreRimanenti").innerHTML = "Durata ore (" + ore.items2[0].oreTot.OreTotali + " ore rimanenti)"
+      document.getElementById("labelEvento").innerHTML = "Posti (" + ore.items2[0].oreTot.Posti_Totali + " posti rimanenti)"
+
+        }
+      });
+  }
+
   useEffect(() => {
     axios
       .get(
-        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniPrenotati.php'
+        'https://87.250.73.22/html/Zanchin/vcoopendays/getPadiglioniPrenotati.php?id='
       )
       .then(res => {
         console.log(res.data);
@@ -132,46 +177,58 @@ export default function FormInserimentoEventi() {
         console.log(IdPadiglioniDisponibili.items);
       });
   }, []);
+
+
+
   const [tagsWrk, setTagsWrk] = useState([]);
   function inserimentoWorkshop() {
-    var idPadiglione = document.getElementById('selPadiglione').value;
     var nomeWorkshop = document.getElementById('nome').value;
     var descrizione = document.getElementById('descrizione').value;
     var linkImmagine = document.getElementById('linkImmagine').value;
     var posti = document.getElementById('postiDisponibili').value;
+    var oreScelte = document.getElementById('oreScelte').value;
+    console.log(tagsWrk)
+    if(posti > ore.items2[0].oreTot.Posti_Totali){
+      posti = ore.items2[0].oreTot.Posti_Totali;
+    }
+    if(oreScelte > ore.items2[0].oreTot.OreTotali){
+      posti =  ore.items2[0].oreTot.OreTotali;
+    }
     console.log(
-      'idPadiglione = ' +
-        idPadiglione +
-        '\n' +
-        'nomeWorkshop = ' +
-        nomeWorkshop +
-        '\n' +
-        'descrizione = ' +
-        descrizione +
-        '\n' +
-        'posti = ' +
-        posti
+      '\n' +
+      'nomeWorkshop = ' +
+      nomeWorkshop +
+      '\n' +
+      'descrizione = ' +
+      descrizione +
+      '\n' +
+      'posti = ' +
+      posti +
+      '\n' +
+      'posti = ' +
+      ore.items2[0].oreTot.Codice_Meccanografico
     );
 
-    const datiPadiglione = idPadiglione.split('.');
 
     axios
       .post(
         'https://87.250.73.22/html/Zanchin/vcoopendays/inserimentoWorkshop.php?nome=' +
-          nomeWorkshop +
-          '&descrizione=' +
-          descrizione +
-          '&id=' +
-          datiPadiglione[0] +
-          '&codice=' +
-          datiPadiglione[1] +
-          '&posti=' +
-          posti +
-          '&linkImmagine=' +
-          linkImmagine +
-          '&tag=' +
-          tagsWrk +
-          ''
+        nomeWorkshop +
+        '&descrizione=' +
+        descrizione +
+        '&id=' +
+        ore.items2[0].oreTot.ID_Padiglione +
+        '&codice=' +
+        ore.items2[0].oreTot.Codice_Meccanografico +
+        '&posti=' +
+        posti +
+        '&ore=' +
+        oreScelte +
+        '&linkImmagine=' +
+        linkImmagine +
+        '&tag=' +
+        tagsWrk +
+        ''
       )
       .then(res => {
         console.log(res);
@@ -253,6 +310,7 @@ export default function FormInserimentoEventi() {
                         fontSize="sm"
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
+                        id="labelEvento"
                       >
                         Posti evento
                       </FormLabel>
@@ -292,6 +350,7 @@ export default function FormInserimentoEventi() {
 
                   <div>
                     <FormControl
+                      isRequired
                       id="text"
                       mt={1}
                       value={input}
@@ -301,17 +360,11 @@ export default function FormInserimentoEventi() {
                         fontSize="sm"
                         fontWeight="md"
                         color={useColorModeValue('gray.700', 'gray.50')}
+                        id="oreRimanenti"
                       >
                         Orario
                       </FormLabel>
-                      <Select>
-                        {IdPadiglioniDisponibili &&
-                          IdPadiglioniDisponibili.items.map(padiglione => (
-                            <option value="option1">
-                              {padiglione.workShop.ID_Padiglione}
-                            </option>
-                          ))}
-                      </Select>
+                      <Input required type="number" id="oreScelte"></Input>
                       <FormHelperText>
                         Breve descrizione del workshop.
                       </FormHelperText>
@@ -373,7 +426,7 @@ export default function FormInserimentoEventi() {
                       shadow="sm"
                       focusBorderColor="brand.400"
                       fontSize={{ sm: 'sm' }}
-                      
+
                       id="linkImmagine"
                     />
                   </FormControl>

@@ -69,9 +69,7 @@ const ForumHero = () => {
                 mx={{ sm: "auto", lg: 0 }}
                 color="gray.500"
               >
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua.
+                Diviso in sezioni per ogni discussione. Chiarisci i tuoi dubbi e impara.
               </chakra.p>
               <Box
                 mt={{ base: 5, sm: 8 }}

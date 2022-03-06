@@ -178,6 +178,22 @@ const WorkshopScuolaCard = ({
       });
   }
 
+  function download(testo) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(nomeScuola + "\r\n\r\n" +testo));
+    element.setAttribute('download', "locandina.txt");
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+    
+  }
+
+
+
 
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
@@ -340,7 +356,18 @@ const WorkshopScuolaCard = ({
                     borderStyle="dashed"
                     rounded="md"
                   >
-                    <Button leftIcon={<BsDownload />}>Scarica locandina</Button>
+                    <Button 
+                      onClick={() => {
+                        download(descrizione);
+                        toast({
+                          title: 'Successo.',
+                          description: "Locandina scaricata.",
+                          status: 'success',
+                          duration: 9000,
+                          isClosable: true,
+                        })
+                      }}
+                    leftIcon={<BsDownload />}>Scarica locandina</Button>
                   </Flex>
                 </FormControl>
                 <ModalFooter>

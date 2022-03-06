@@ -7,7 +7,9 @@ import {
   TriangleDownIcon,
   TriangleUpIcon,
 } from '@chakra-ui/icons';
+import { Text } from '@chakra-ui/react';
 import { MdAccessTime, MdArrowDownward, MdArrowUpward } from 'react-icons/md';
+import { useColorModeValue } from '@chakra-ui/react';
 export default function CardQuestion({
   id,
   idUtente,
@@ -18,27 +20,23 @@ export default function CardQuestion({
   cognome,
 }) {
   const [vote, setVote] = useState(null);
-  const [punteggio, setPunteggio] = useState(setPunti());
-  const [flag,setFlag] = useState(false);
+  const [punteggio, setPunteggio] = useState();
+  const [flag, setFlag] = useState(false);
+  const [punteggioDomanda, setPunteggioDomanda] = useState(0)
   let items = [];
+  var punti = 0;
 
   function setPunti() {
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/getPunteggioDomanda.php?id=' +
-          id
+        id
       )
       .then(res => {
-        if (flag != true && res.data != '') {
-          res.data.map(punto =>
-            items.push({
-              punto: punto,
-            })
-          );
-          setPunteggio({ items: items });
-          setFlag(true);
-        }
+        console.log(res.data)
+        setPunteggioDomanda(res.data[0].votes)
       });
+      
   }
 
   function aggiungiVoto(valore) {
@@ -46,22 +44,28 @@ export default function CardQuestion({
   }
 
   useEffect(() => {
-    console.log("Punteggio: " + punteggio.punto.punto);
-    document.getElementById('votes').innerHTML = punteggio;
+    setPunti();
+    
+    
 
     axios
       .get(
         'https://87.250.73.22/html/Zanchin/vcoopendays/insertVoto.php?idDomanda=' +
-          id +
-          '&idUtente=' +
-          idUtente +
-          '&valore=' +
-          vote
+        id +
+        '&idUtente=' +
+        idUtente +
+        '&valore=' +
+        vote
       )
       .then(res => {
         //console.log(res.data);
       });
   }, [vote]);
+
+  useEffect(() => {
+    console.log(items[0]);
+    console.log(items.length);
+  }, [items])
   var puntiDomanda = 0;
 
   return (
@@ -72,7 +76,11 @@ export default function CardQuestion({
         ) : (
           <MdArrowUpward color="black" onClick={() => aggiungiVoto('up')} />
         )}
-        <label id="votes">0</label>
+        {punteggioDomanda && (
+        <label id="votes">
+          {punteggioDomanda}
+          </label>
+        )}
         {vote == 'down' ? (
           <MdArrowDownward
             color="orange"
@@ -85,13 +93,17 @@ export default function CardQuestion({
       <section class="question-card">
         <header>
           <img src={imgProfilo} />
-          <span>
+          <span ><Text fontSize={'sm'} color={useColorModeValue("black", "white")}>
             {nome} {cognome}
+            </Text>
           </span>
         </header>
-        <p>{question}</p>
+        <p ><Text fontSize={'lg'} color={useColorModeValue("black", "white")}>{question}</Text></p>
         <footer>
-          <div class="question-info">{descrizioneDomanda}</div>
+          <div 
+          class="question-info"
+            
+          ><Text color={useColorModeValue("black", "white")}> {descrizioneDomanda} </Text></div>
           <div class="question-tags">
             <span class="tag">Python</span>
             <span class="tag">Coding</span>
